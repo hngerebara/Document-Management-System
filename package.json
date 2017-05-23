@@ -1,0 +1,19 @@
+{
+  "name": "dms",
+  "version": "1.0.0",
+  "description": "Document Management system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-hngerebara/Document-Management-System.git"
+  },
+  "author": "Hope Ngerebara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-hngerebara/Document-Management-System/issues"
+  },
+  "homepage": "https://github.com/andela-hngerebara/Document-Management-System#readme"
+}

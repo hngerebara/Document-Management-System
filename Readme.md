@@ -1,0 +1,1 @@
+A document management system (DMS) is a system (based on computer programs in the case of the management of digital documents)used to track, manage and store documents and reduce paper. It provides a restful API for users to create and manage documents giving different privileges based on user roles.

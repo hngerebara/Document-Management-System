@@ -1,36 +1,38 @@
-import { Users, Documents } from '../models/';
+import { Users, Documents } from '../models';
 
 const usersController = {
   create(req, res) {
     return Users.create({
-      userName: req.body.userName,
+      username: req.body.username,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: req.body.password,
-      RoleId: req.params.RoleId
+      password: req.body.password
     })
-      .then(Users => res.status(201).send(Users))
-      .catch(error => res.status(400).send(error));
+      .then(users => res.status(201).send(users))
+      .catch(error => res.status(400).send(error)
+      );
   },
   list(req, res) {
     return Users.findAll({
       include: [
         {
           model: Documents,
-          as: "allDocuments"
+          as: 'allDocuments'
         }
       ]
     })
-      .then(users => res.status(200).send(users))
-      .catch(error => res.status(400).send(error));
+      .then(users => res.status(200).send(users)
+     )
+      .catch(error => res.status(500).send(error)
+     );
   },
   retrieve(req, res) {
     return Users.findById(req.params.id)
-      .then(users => {
+      .then((users) => {
         if (!users) {
           return res.status(404).send({
-            message: "User Not Found"
+            message: 'User Not Found'
           });
         }
         return res.status(200).send(users);
@@ -43,14 +45,14 @@ const usersController = {
       include: [
         {
           model: Documents,
-          as: "allDocuments"
+          as: 'allDocuments'
         }
       ]
     })
-      .then(users => {
+      .then((users) => {
         if (!users) {
           return res.status(404).send({
-            message: "User Not Found"
+            message: 'User Not Found'
           });
         }
         return res.status(200).send(users);
@@ -59,10 +61,10 @@ const usersController = {
   },
   update(req, res) {
     return Users.findById(req.params.id)
-    .then(users => {
+    .then((users) => {
       if (!users) {
         return res.status(404).send({
-          message:'User not found'
+          message: 'User not found'
         });
       }
       return users
@@ -73,25 +75,27 @@ const usersController = {
           email: req.body.email,
           password: req.body.password,
         })
-        .then(() => res.status(200).send(users))  
-        .catch((error) => res.status(400).send(error));
-    })
+        .then(() => res.status(200).send(users))
+        .catch(error => res.status(400).send(error));
+    });
   },
 
   destroy(req, res) {
-      return Users.findById(req.params.id)
-      .then(users => {
-          if(!users) {
-              return res.status(404).send({
-                  message:'The user cannot be found therfore cannot be deleted'
-              });
-          }
-          return users
+    return Users.findById(req.params.id)
+      .then((users) => {
+        if (!users) {
+          return res.status(404).send({
+            message: 'The user cannot be found therfore cannot be deleted'
+          });
+        }
+        return users
           .destroy()
-          .then(() => res.status(200).send({ message: 'User deleted successfully.' }))
-          .catch((error) => res.status(400).send(error));
+          .then(() => res.status(200).send({
+            message: 'User deleted successfully.'
+          }))
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   }
 };
 

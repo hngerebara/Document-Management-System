@@ -3,12 +3,12 @@ import cfg from '../config/config';
 import { Users } from '../models';
 
 const authenticate = {
-    getToken(req, res) {
+  getToken(req, res) {
     if (req.body.email && req.body.password) {
       const email = req.body.email;
       const password = req.body.password;
-      Users.findOne({ where: { email: email } })
-        .then(user => {
+      Users.findOne({ where: { email } })
+        .then((user) => {
           if (Users.IsPassword(user.password, password)) {
             const payload = { id: user.id };
             res.json({
@@ -17,8 +17,7 @@ const authenticate = {
           } else {
             res.sendStatus(401);
           }
-        })
-        .catch(error => res.sendStatus(400));
+        });
     } else {
       res.sendStatus(401);
     }

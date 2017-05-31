@@ -2,16 +2,16 @@ import bcrypt from 'bcrypt';
 
 export default(sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
-    userName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
         len: {
           args: [3, 100],
-          msg: "username must be at least 3 characters in length"
+          msg: 'username must be at least 3 in length'
         }
-      },   
+      }
     },
     firstName: {
       type: DataTypes.STRING,
@@ -19,9 +19,9 @@ export default(sequelize, DataTypes) => {
       validate: {
         len: {
           args: [3, 100],
-          msg: "firstname must be at least 3 characters in length"
+          msg: 'firstname must be at least 3 characters in length'
         }
-      }   
+      }
     },
     lastName: {
       type: DataTypes.STRING,
@@ -29,9 +29,9 @@ export default(sequelize, DataTypes) => {
       validate: {
         len: {
           args: [3, 100],
-          msg: "lastname must be at least 3 characters in length"
+          msg: 'lastname must be at least 3 characters in length'
         }
-      }   
+      }
     },
     email: {
       type: DataTypes.STRING,
@@ -40,12 +40,12 @@ export default(sequelize, DataTypes) => {
       validate: {
         len: {
           args: [6, 128],
-          msg: "Email address must be between 6 and 128 characters in length"
+          msg: 'Email address must be between 6 and 128 characters in length'
         },
         isEmail: {
-          msg: "Email address must be valid"
-        }  
-      }   
+          msg: 'Email address must be valid'
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -56,23 +56,29 @@ export default(sequelize, DataTypes) => {
     },
   }, {
     hooks: {
-      beforeCreate: user => {
+      beforeCreate: (user) => {
         const salt = bcrypt.genSaltSync();
         user.password = bcrypt.hashSync(user.password, salt);
       }
     },
     classMethods: {
       associate: (models) => {
-        Users.belongsTo(models.Roles,{onDelete: 'CASCADE', foreignKey:"RoleId"});
+        Users.belongsTo(models.Roles, {
+          onDelete: 'CASCADE',
+          foreignKey: 'RoleId'
+        });
+        Users.belongsTo(models.Levels, {
+          onDelete: 'CASCADE',
+          foreignKey: 'levelId'
+        });
         Users.hasMany(models.Documents, {
-          onDelete: 'CASCADE', 
-          foreignKey:"creatorId",
+          onDelete: 'CASCADE',
+          foreignKey: 'creatorId',
           as: 'allDocuments'
         });
       },
-      IsPassword: (encodedPassword, password) => {
-        return bcrypt.compareSync(password, encodedPassword);
-      }
+      IsPassword: (encodedPassword, password) =>
+      bcrypt.compareSync(password, encodedPassword)
     }
   });
   return Users;

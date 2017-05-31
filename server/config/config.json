@@ -3,6 +3,7 @@
     "username": "hopeaz",
     "password": null,
     "database": "dms_db",
+    "logging": false,
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
@@ -11,6 +12,7 @@
     "username": "hopeaz",
     "password": null,
     "database": "dms_db",
+    "logging": false,
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
@@ -20,6 +22,7 @@
     "password": null,
     "port": 5432,
     "database": "dms_db",
+    "logging": false,
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

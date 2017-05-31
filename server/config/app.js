@@ -13,11 +13,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(authMiddleware.initialize());
 app.use(router);
-router.get('*', (req, res) => {
-  res.status(200).send({
-    message: "Welcome to hopeaz dms"
-  });
-});
 
 export default app;
 

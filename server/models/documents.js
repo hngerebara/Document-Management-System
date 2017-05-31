@@ -7,7 +7,7 @@ export default(sequelize, DataTypes) => {
       validate: {
         len: {
           args: [3, 100],
-          msg: "Documents name or title must be at least 3 characters in length"
+          msg: 'Documents name or title must be at least 3 characters in length'
         }
       },
     },
@@ -17,9 +17,9 @@ export default(sequelize, DataTypes) => {
       validate: {
         len: {
           args: [3, 100],
-          msg: "Documents description must be at least 3 characters in length"
+          msg: 'Documents description must be at least 3 characters in length'
         }
-      },  
+      },
     },
     content: {
       type: DataTypes.TEXT,
@@ -27,9 +27,9 @@ export default(sequelize, DataTypes) => {
       validate: {
         len: {
           args: [3, 100],
-          msg: "Doument content must be at least 3 characters in length"
+          msg: 'Doument content must be at least 3 characters in length'
         },
-      } 
+      }
     },
     access: {
       defaultValue: 'private',
@@ -44,11 +44,14 @@ export default(sequelize, DataTypes) => {
     },
     authorized: {
       type: DataTypes.STRING
-    },  
+    },
   }, {
     classMethods: {
       associate: (models) => {
-        Documents.belongsTo(models.Users, {onDelete: 'CASCADE', foreignKey:"creatorId"});
+        Documents.belongsTo(models.Users, {
+          onDelete: 'CASCADE',
+          foreignKey: 'creatorId'
+        });
       }
     }
   });

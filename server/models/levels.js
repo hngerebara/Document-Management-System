@@ -1,4 +1,4 @@
-export default(sequelize, DataTypes) => {  
+export default(sequelize, DataTypes) => {
   const Levels = sequelize.define('Levels', {
     levelName: {
       type: DataTypes.STRING,

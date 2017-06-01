@@ -1,9 +1,10 @@
-export default(sequelize, DataTypes) => {  
+export default(sequelize, DataTypes) => {
   const Roles = sequelize.define('Roles', {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      defaultValue: 'Staff',
       validate: {
         isIn: {
           args: [['Admin', 'Staff']],
@@ -15,7 +16,7 @@ export default(sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         Roles.hasMany(models.Users, {
-          foreignKey: 'RoleId',
+          foreignKey: 'roleTitle',
           as: 'allUsers',
         });
       }

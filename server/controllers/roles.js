@@ -12,7 +12,7 @@ const rolesController = {
 
   list(req, res) {
     return Roles
-        .findAll()
+        .findAll({})
         .then(roles => res.status(200).send(roles))
         .catch(error => res.status(400).send(error));
   },

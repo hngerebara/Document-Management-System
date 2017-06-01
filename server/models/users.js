@@ -54,6 +54,15 @@ export default(sequelize, DataTypes) => {
         notEmpty: true
       }
     },
+    roleTitle: {
+      type: DataTypes.STRING,
+      defaultValue: 'Staff',
+      allowNull: false
+    },
+    levelId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   }, {
     hooks: {
       beforeCreate: (user) => {
@@ -65,7 +74,7 @@ export default(sequelize, DataTypes) => {
       associate: (models) => {
         Users.belongsTo(models.Roles, {
           onDelete: 'CASCADE',
-          foreignKey: 'RoleId'
+          foreignKey: 'roleTitle'
         });
         Users.belongsTo(models.Levels, {
           onDelete: 'CASCADE',

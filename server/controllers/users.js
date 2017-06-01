@@ -7,12 +7,18 @@ const usersController = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      levelId: req.body.levelId
     })
-      .then(users => res.status(201).send(users))
+      .then((users) => {
+        res.status(201).send({
+          message: 'User created'
+        });
+      })
       .catch(error => res.status(400).send(error)
       );
   },
+
   list(req, res) {
     return Users.findAll({
       include: [

@@ -9,16 +9,16 @@ import auth from '../config/middlewares/authentication';
 const authMiddleware = auth();
 const router = express.Router();
 
-// router.get('*', (req, res) => {
-//   res.status(200).send({
-//     message: 'Welcome to hopeaz dms'
-//   });
-// });
+router.get('/', (req, res) => {
+  res.status(200).send({
+    message: 'Welcome to hopeaz dms'
+  });
+});
 
-router.get('/roles', rolesController.list);
+router.get('/roles', authMiddleware.authenticate(), rolesController.list);
 router.post('/roles', rolesController.create);
 
-router.get('/users', usersController.list);
+router.get('/users',authMiddleware.authenticate(), usersController.list);
 router.post('/users', usersController.create);
 
 router
@@ -34,32 +34,31 @@ authMiddleware.authenticate(),
 documentsController.create)
 
 .get('/users/:creatorId/documents',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 usersController.retrieveAll);
 
 router.get('/documents',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.list);
 
 router
   .route('/documents/:id')
-  // .all(authMiddleware.authenticate())
+  .all(authMiddleware.authenticate())
   .get(documentsController.retrieve)
   .put(documentsController.update)
   .delete(documentsController.destroy);
 
 router.get('/levels', levelsController.allLevels);
-router.get('/levels:id', levelsController.retrieveLevelId);
+router.get('/levels/:id', levelsController.retrieveLevelId);
 
 router
   .route('/levels')
-  // .all(authMiddleware.authenticate())
-  // add check for admin...Should be accessed by admin only
+  .all(authMiddleware.authenticate())
   .post(levelsController.createLevel)
   .put(levelsController.updateLevel)
   .delete(levelsController.destroyLevel);
 
 
-router.post('/token', authenticateController.getToken);
+router.post('/login', authenticateController.getToken);
 
 export default router;

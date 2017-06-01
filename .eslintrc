@@ -4,7 +4,8 @@
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true
+    "jest": true,
+    "browser": true
   },
   "rules": {
     "one-var": 0,
@@ -12,8 +13,12 @@
     "new-cap": 0,
     "consistent-return": 0,
     "no-param-reassign": 0,
+    "no-unused-expressions": 0,
+    "no-undef": 0,
+    "max-len": [2, 80, 2],
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,

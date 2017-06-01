@@ -4,20 +4,21 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      defaultValue: 'Staff',
       validate: {
-        len: {
-          args: [3, 100],
-          msg: "title must be atleast 3 characters in length"
+        isIn: {
+          args: [['Admin', 'Staff']],
+          msg: 'access can only be an Admin or a staff'
         }
-      }   
+      },
     },
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         Roles.hasMany(models.Users, {
-          foreignKey: 'RoleId',
+          foreignKey: 'roleTitle',
           as: 'allUsers',
-        })
+        });
       }
     }
   });

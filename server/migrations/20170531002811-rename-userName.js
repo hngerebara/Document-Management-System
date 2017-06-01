@@ -2,13 +2,13 @@ module.exports = {
   up: (queryInterface) => {
     queryInterface.renameColumn(
     'Users',
-    'roleId',
-    'RoleId'
+    'userName',
+    'username'
     );
   },
 
   down: (queryInterface) => {
-    queryInterface.renameColumn('Users', 'RoleId',
-    'roleId');
+    queryInterface.renameColumn('Users', 'username',
+    'userName');
   }
 };

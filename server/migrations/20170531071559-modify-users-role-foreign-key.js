@@ -2,19 +2,19 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     queryInterface.addColumn(
     'Users',
-    'roleId',
+    'roleTitle',
       {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         onDelete: 'CASCADE',
         references: {
           model: 'Roles',
-          key: 'id',
-          as: 'RoleId',
+          key: 'title',
+          as: 'roleTitle',
         },
       });
   },
 
-  down(queryInterface) {
-    queryInterface.removeColumn('Users', 'RoleId');
+  down: (queryInterface) => {
+    queryInterface.removeColumn('Users', 'roleTitle');
   }
 };

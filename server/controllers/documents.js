@@ -21,10 +21,10 @@ const documentsController = {
 
   retrieve(req, res) {
     return Documents.findById(req.params.id)
-      .then(documents => {
+      .then((documents) => {
         if (!documents) {
           return res.status(404).send({
-            message: "Document Not Found"
+            message: 'Document Not Found'
           });
         }
         return res.status(200).send(documents);
@@ -34,10 +34,10 @@ const documentsController = {
 
   update(req, res) {
     return Documents.findById(req.params.id)
-    .then(documents => {
+    .then((documents) => {
       if (!documents) {
         return res.status(404).send({
-          message:'Document not found'
+          message: 'Document not found'
         });
       }
       return documents
@@ -46,24 +46,26 @@ const documentsController = {
           description: req.body.description,
           content: req.body.content,
         })
-        .then(() => res.status(200).send(documents))  
-        .catch((error) => res.status(400).send(error));
-    })
+        .then(() => res.status(200).send(documents))
+        .catch(error => res.status(400).send(error));
+    });
   },
   destroy(req, res) {
-      return Documents.findById(req.params.id)
-      .then(documents => {
-          if(!documents) {
-              return res.status(404).send({
-                  message:'The document cannot be found therefore cannot be deleted'
-              });
-          }
-          return documents
+    return Documents.findById(req.params.id)
+      .then((documents) => {
+        if (!documents) {
+          return res.status(404).send({
+            message: 'The document cannot be found therefore cannot be deleted'
+          });
+        }
+        return documents
           .destroy()
-          .then(() => res.status(200).send({ message: 'Document deleted successfully.' }))
-          .catch((error) => res.status(400).send(error));
+          .then(() => res.status(200).send({
+            message: 'Document deleted successfully.'
+          }))
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   }
 };
 

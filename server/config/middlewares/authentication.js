@@ -3,12 +3,16 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Users } from '../../models';
 import cfg from '../config';
 
+//JWT authentication options
 const params = {
+   // Telling Passport where to find the secret
   secretOrKey: cfg.jwtSecret,
+  // Telling Passport to check authorization headers for JWT
   jwtFromRequest: ExtractJwt.fromAuthHeader()
 };
 
 export default () => {
+  // Setting up JWT login strategy
   const strategy = new Strategy(params, (payload, done) => {
     Users.findById(payload.id)
         .then((user) => {

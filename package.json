@@ -4,6 +4,8 @@
   "description": "Document Management system",
   "main": "index.js",
   "scripts": {
+    "start": "npm run build",
+    "build": "webpack -d && cp index.html dist/index.html && webpack-dev-server --content-base dist/ --inline --hot",
     "start:dev": "nodemon ./server.js --exec babel-node",
     "migrate_test_db": "sequelize db:migrate",
     "test": " NODE_ENV=test nyc babel-node ./node_modules/mocha/bin/_mocha ./server/test/**/*.js"
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/andela-hngerebara/Document-Management-System#readme",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-cli": "^6.23.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.2.1",
@@ -38,12 +41,15 @@
     "jsonwebtoken": "^7.3.0",
     "jwt-decode": "^2.1.0",
     "jwt-simple": "^0.5.1",
+    "keymirror": "^0.1.1",
+    "materialize-css": "^0.98.2",
     "morgan": "^1.8.2",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "pg": "^6.2.3",
     "pg-hstore": "^2.3.2",
     "react": "15.0.2",
+    "react-cookie": "^2.0.7",
     "react-dom": "15.0.2",
     "react-redux": "4.4.5",
     "react-router": "2.4.0",
@@ -51,6 +57,7 @@
     "react-router-redux": "4.0.4",
     "redux": "^3.6.0",
     "redux-devtools-extension": "^2.13.0",
+    "redux-form": "^6.7.0",
     "redux-router": "^2.1.2",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.3",
@@ -65,11 +72,14 @@
     "chai": "^4.0.0",
     "chai-http": "^3.0.0",
     "json-loader": "^0.5.4",
+    "keymirror": "^0.1.1",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
     "nyc": "^10.3.2",
+    "react-cookie": "^2.0.7",
+    "redux-form": "^6.7.0",
     "sass-loader": "^6.0.3",
     "supertest": "^3.0.0",
-    "webpack": "^1.13.0"
+    "webpack": "^2.6.1"
   }
 }

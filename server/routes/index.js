@@ -9,11 +9,11 @@ import auth from '../config/middlewares/authentication';
 const authMiddleware = auth();
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.status(200).send({
-    message: 'Welcome to hopeaz dms'
-  });
-});
+// router.get('/', (req, res) => {
+//   res.status(200).send({
+//     message: 'Welcome to hopeaz dms'
+//   });
+// });
 
 router.get('/roles', authMiddleware.authenticate(), rolesController.list);
 router.post('/roles', rolesController.create);

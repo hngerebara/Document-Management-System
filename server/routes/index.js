@@ -38,7 +38,6 @@ authMiddleware.authenticate(),
 usersController.retrieveAll);
 
 router.get('/documents',
-authMiddleware.authenticate(),
 documentsController.list);
 
 router

@@ -5,9 +5,7 @@ import cfg from '../config';
 
 //JWT authentication options
 const params = {
-   // Telling Passport where to find the secret
   secretOrKey: cfg.jwtSecret,
-  // Telling Passport to check authorization headers for JWT
   jwtFromRequest: ExtractJwt.fromAuthHeader()
 };
 

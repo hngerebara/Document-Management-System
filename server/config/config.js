@@ -1,5 +1,7 @@
+require("dotenv").config();
+
 const config = {
-  jwtSecret: 'DM$-AP1',
+  jwtSecret: process.env.JWT_SECRET,
   jwtSession: {
     session: false
   }

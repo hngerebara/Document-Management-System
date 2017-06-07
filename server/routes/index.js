@@ -21,6 +21,7 @@ router.post('/roles', rolesController.create);
 router.get('/users',authMiddleware.authenticate(), usersController.list);
 router.post('/users', usersController.create);
 
+
 router
   .route('/users/:id')
   // .all(authMiddleware.authenticate())

@@ -10,9 +10,9 @@ const usersController = {
       password: req.body.password,
       levelId: req.body.levelId
     })
-      .then((users) => {
+      .then((user) => {
         res.status(201).send({
-          message: 'User created'
+          user
         });
       })
       .catch(error => res.status(400).send(error)

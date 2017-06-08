@@ -3,7 +3,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import router from '../routes/';
-import auth from '../config/middlewares/authentication';
+import auth from '../config/middlewares/auth';
 
 const app = express();
 const authMiddleware = auth();
@@ -12,7 +12,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// middleware for token authentication
 app.use(authMiddleware.initialize());
+
 app.use(router);
 
 app.get('/*', (req, res) => {

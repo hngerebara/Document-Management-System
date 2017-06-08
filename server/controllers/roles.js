@@ -3,12 +3,18 @@ import { Roles, Users } from '../models';
 const rolesController = {
   create(req, res) {
     return Roles
-      .create({
-        title: req.body.title
+    .create({
+      title: req.body.title,
+    })
+      .then((roles) => {
+        res.status(201).send({
+          roles
+        });
       })
-      .then(roles => res.status(201).send(roles))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send(error)
+      );
   },
+
 
   list(req, res) {
     return Roles

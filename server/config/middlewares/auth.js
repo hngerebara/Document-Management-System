@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Users } from '../../models';
 import cfg from '../config';
 
-//JWT authentication options
+// JWT authentication options
 const params = {
   secretOrKey: cfg.jwtSecret,
   jwtFromRequest: ExtractJwt.fromAuthHeader()

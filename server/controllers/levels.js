@@ -2,7 +2,8 @@ import { Levels, Users } from '../models';
 
 const levelsController = {
   createLevel(req, res) {
-    return Levels.create({
+    return Levels
+    .create({
       levelName: req.body.levelName,
     })
       .then(level => res.status(201).send(level))

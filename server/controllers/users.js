@@ -1,18 +1,29 @@
+import jwt from 'jsonwebtoken';
 import { Users, Documents } from '../models';
+import cfg from '../config/config';
+
 
 const usersController = {
   create(req, res) {
-    return Users.create({
-      username: req.body.username,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
+    return Users
+    .create({
+      username: req.body.username.trim(),
+      firstName: req.body.firstName.trim(),
+      lastName: req.body.lastName.trim(),
+      email: req.body.email.trim(),
       password: req.body.password,
       levelId: req.body.levelId
     })
-      .then((users) => {
-        res.status(201).send({
-          message: 'User created'
+      .then((user) => {
+        const payload = {
+          username: user.username
+        };
+        const token = jwt.sign(payload, cfg.jwtSecret, {
+          expiresIn: 60 * 60 * 24
+        });
+        res.send({
+          message: 'User signed up succesfully',
+          token
         });
       })
       .catch(error => res.status(400).send(error)
@@ -33,6 +44,7 @@ const usersController = {
       .catch(error => res.status(500).send(error)
      );
   },
+
   retrieve(req, res) {
     return Users.findById(req.params.id)
       .then((users) => {
@@ -65,6 +77,7 @@ const usersController = {
       })
       .catch(error => res.status(400).send(error));
   },
+
   update(req, res) {
     return Users.findById(req.params.id)
     .then((users) => {
@@ -91,7 +104,7 @@ const usersController = {
       .then((users) => {
         if (!users) {
           return res.status(404).send({
-            message: 'The user cannot be found therfore cannot be deleted'
+            message: 'The user cannot be found therefore cannot be deleted'
           });
         }
         return users
@@ -102,6 +115,34 @@ const usersController = {
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
+  },
+
+  login(req, res) {
+    if (req.body.email && req.body.password) {
+      const email = req.body.email;
+      const password = req.body.password;
+      Users.findOne({ where: { email } })
+        .then((user) => {
+          if (Users.IsPassword(user.password, password)) {
+            const payload = {
+              id: user.id
+            };
+            const token = jwt.sign(payload, cfg.jwtSecret, {
+              expiresIn: 60 * 60 * 24
+            });
+            res.send({
+              message: 'Successfully signed in',
+              token
+            });
+          } else {
+            res.status(401).json({ message: 'passwords did not match' });
+          }
+        });
+    } else {
+      res.status(404).json({
+        message: 'Email or Password is Wrong'
+      });
+    }
   }
 };
 

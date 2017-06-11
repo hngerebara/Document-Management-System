@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class AboutPage extends Component {
-  render() {
-    console.log('getting here');
-    return (
-      <div>This is my about Page</div>
-    );
-  }
-}
+const AboutPage = props => (
+  <div>
+  <h1>This is my about Page</h1>
+  <p>Coming soon!</p> 
+  </div>
+);
 
 export default AboutPage;

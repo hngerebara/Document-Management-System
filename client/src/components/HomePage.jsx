@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 import { signOutUser } from '../components/auth/AuthActions'
 
-class HomePage extends React.Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
@@ -18,8 +18,8 @@ class HomePage extends React.Component {
     return (
       <div>
         <span>
-    Hello world! This is the home page route.
-  </span>
+          Hello world! This is the home page route.
+        </span>
       </div>
     );
   }

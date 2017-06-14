@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-const ROOT_URL = 'http://localhost:8000';
+const ROOT_URL = 'http://localhost:8090';
 
 export const CHECKIN_ERROR = 'CHECKIN_ERROR';
 export const CHECK_IN_SUCCESS = 'CHECK_IN_SUCCESS';

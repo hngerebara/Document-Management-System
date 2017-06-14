@@ -5,18 +5,19 @@ import cfg from '../config/config';
 
 const usersController = {
   create(req, res) {
+    console.log(req);
     return Users
     .create({
-      username: req.body.username.trim(),
-      firstName: req.body.firstName.trim(),
-      lastName: req.body.lastName.trim(),
-      email: req.body.email.trim(),
-      password: req.body.password,
-      levelId: req.body.levelId
+      username: req.body.username,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password
     })
       .then((user) => {
         const payload = {
-          username: user.username
+          username: user.username,
+          password: user.password
         };
         const token = jwt.sign(payload, cfg.jwtSecret, {
           expiresIn: 60 * 60 * 24
@@ -123,6 +124,9 @@ const usersController = {
       const password = req.body.password;
       Users.findOne({ where: { email } })
         .then((user) => {
+          if (!user) {
+            return res.status(401).json({ message: 'email or password did not match' });
+          }
           if (Users.IsPassword(user.password, password)) {
             const payload = {
               id: user.id
@@ -137,11 +141,9 @@ const usersController = {
           } else {
             res.status(401).json({ message: 'passwords did not match' });
           }
+        }).catch(error => {
+          res.status(401).json({ message: 'User not found' });
         });
-    } else {
-      res.status(404).json({
-        message: 'Email or Password is Wrong'
-      });
     }
   }
 };

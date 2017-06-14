@@ -36,14 +36,11 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         isIn: {
-          args: [['private', 'public', 'users']],
-          msg: 'access can only be public, private or users'
+          args: [['private', 'public', 'role']],
+          msg: 'access can only be public, private or role'
         }
       },
       allowNull: false,
-    },
-    authorized: {
-      type: DataTypes.STRING
     },
   }, {
     classMethods: {

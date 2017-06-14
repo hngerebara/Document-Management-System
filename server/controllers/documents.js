@@ -7,7 +7,6 @@ const documentsController = {
       description: req.body.description,
       content: req.body.content,
       access: req.body.access,
-      authorized: req.body.authorized,
       creatorId: req.params.creatorId
     })
       .then(documents => res.status(201).send(documents))

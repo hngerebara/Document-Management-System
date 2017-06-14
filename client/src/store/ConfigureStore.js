@@ -1,11 +1,17 @@
-import { createStore, applyMiddleware } from 'redux';  
+import { createStore, applyMiddleware } from 'redux';
 import RootReducer from '../reducers/';
-import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
+const middlewares = [ logger, thunk ];
+
+/**
+ * @return null
+ */
 export default function ConfigureStore(initialState) {
-    return createStore(
+  return createStore(
         RootReducer,
         initialState,
-        applyMiddleware(reduxImmutableStateInvariant())
+        applyMiddleware(...middlewares)
     );
 }

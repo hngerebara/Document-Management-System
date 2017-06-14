@@ -4,10 +4,12 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import router from '../routes/';
 import auth from '../config/middlewares/auth';
+import cors from 'cors';
 
 const app = express();
 const authMiddleware = auth();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

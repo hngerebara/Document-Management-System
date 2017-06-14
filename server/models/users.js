@@ -58,11 +58,7 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: 'Staff',
       allowNull: false
-    },
-    levelId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
+    }
   }, {
     hooks: {
       beforeCreate: (user) => {
@@ -76,10 +72,7 @@ export default(sequelize, DataTypes) => {
           onDelete: 'CASCADE',
           foreignKey: 'roleTitle'
         });
-        Users.belongsTo(models.Levels, {
-          onDelete: 'CASCADE',
-          foreignKey: 'levelId'
-        });
+      
         Users.hasMany(models.Documents, {
           onDelete: 'CASCADE',
           foreignKey: 'creatorId',

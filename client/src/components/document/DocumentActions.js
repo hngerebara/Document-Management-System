@@ -8,7 +8,7 @@ export const CREATE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const FETCH_DOCUMENT_SUCCESS = 'FETCH_DOCUMENT_SUCCESS';
 export const UPDATE_DOCUMENT_SUCCESS = 'UPDATE_DOCUMENT_SUCCESS';
-
+export const DOCUMENT_FETCHED = 'DOCUMENT_FETCHED';
 
 export const fetchDocumentsSuccess = documents => ({
   type: FETCH_DOCUMENTS_SUCCESS,
@@ -21,7 +21,6 @@ export const displayFailureMessage = errorMessage => ({
 });
 
 export const fetchAllDocuments = () => (dispatch) => {
-  console.log('getting here');
   axios.get(`${ROOT_URL}/documents`)
   .then((response) => {
     dispatch(fetchDocumentsSuccess(response.data));
@@ -37,11 +36,9 @@ export const createDocumentSuccess = document => ({
   document,
 });
 
-
 export const createDocument = document => dispatch =>
 axios.post(`${ROOT_URL}/documents`, document)
  .then((response) => {
-     console.log(response)
    dispatch(createDocumentSuccess(response.data));
  })
   .catch((error) => {
@@ -56,7 +53,7 @@ export const deleteDocumentSuccess = document => ({
 });
 
 export const deleteDocument = documentId => (dispatch) => {
-  axios.delete(`${ROOT_URL}/documents/${documentId}`)
+  axios.delete(`${ROOT_URL}/documents/${documentId}`, document)
     .then((response) => {
       dispatch(deleteDocumentSuccess(response.data.message));
       dispatch(fetchAllDocuments());
@@ -66,36 +63,54 @@ export const deleteDocument = documentId => (dispatch) => {
   });
 };
 
-export const fetchDocumentSuccess = document => ({
+// export const fetchDocumentSuccess = document => ({
  
-  type: FETCH_DOCUMENT_SUCCESS,
-  document
-});
+//   type: FETCH_DOCUMENT_SUCCESS,
+//   document
+// });
 
-export const fetchDocument = documentId => (dispatch) => {
-   console.log('gettinghere')
-  axios.get(`${ROOT_URL}/documents/${documentId}`)
-  .then((response) => {
-    dispatch(fetchDocumentSuccess(response.data.document));
-  })
-  .catch((error) => {
-    dispatch(displayFailureMessage(error.response.data.message));
-    throw error;
-  });
-};
+// export const fetchDocument = documentId => (dispatch) => {
+//    console.log('gettinghere')
+//   axios.get(`${ROOT_URL}/documents/${documentId}`)
+//   .then((response) => {
+//     dispatch(fetchDocumentSuccess(response.data.document));
+//   })
+//   .catch((error) => {
+//     dispatch(displayFailureMessage(error.response.data.message));
+//     throw error;
+//   });
+// };
 
 export const editDocumentSuccess = document => ({
-  type: UPDATE_DOCUMENT_SUCCESS,
+  type: EDIT_DOCUMENT_SUCCESS,
   document
 });
 
-export const editDocument = (documentId, document) => (dispatch) => {
-  axios.put(`${ROOT_URL}/documents/${documentId}/`, document)
+export const editDocument = (document) => (dispatch) => {
+  console.log("geting to the edit action", document.id);
+  axios.put(`${ROOT_URL}/documents/${document.id}/`, document)
       .then((response) => {
         resolve(dispatch(editDocumentSuccess(response.data)));
       })
       .catch((error) => {
-        dispatch(displayFailureMessage(error.response.data.message));
+        console.log("error response action", error.response)
+        dispatch(displayFailureMessage(error.response));
+        throw error;
+      });
+};
+
+export const documentFetched = document => ({
+  type: DOCUMENT_FETCHED,
+  document
+});
+
+export const fetchDocument = (document) => (dispatch) => {
+  axios.put(`${ROOT_URL}/documents/${document.id}/`)
+      .then((response) => {
+        resolve(dispatch(documentFetched(response.document)));
+      })
+      .catch((error) => {
+        dispatch(displayFailureMessage(error.response.statusText));
         throw error;
       });
 };

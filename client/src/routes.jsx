@@ -7,20 +7,12 @@ import AboutPage from './components/AboutPage';
 import CheckinPage from './components/auth/CheckinPage';
 import Signup from './components/auth/SignupPage';
 // import DashBoard from './components/DashBoard';
-import CreateDocument from './components/document/CreateDocument';
+import DocumentForm from './components/document/DocumentForm';
 import DocumentsPage from './components/document/DocumentsPage';
 // import ListDocuments from './components/document/ListDocuments';
 // import ViewDocument from './components/document/ViewDocument';
 
 
-function requireAuth(nextState, replace, callback) {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    replace({
-      pathname: '/checkin'
-    });
-  }
-}
 
 export default (  
   <Route path="/" component={App}>
@@ -29,7 +21,8 @@ export default (
     <Route path="checkin" component={CheckinPage} />
     <Route path="signup" component={Signup} />
     <Route path="documents" component={DocumentsPage} />
-     <Route path="documents/new" component={CreateDocument} />
+     <Route path="/documents/new" component={DocumentForm} />
+    <Route path="/documents/:id" component={DocumentForm} />
      
       {/*<Route path="documents" component={ListDocuments} />
       <Route path="dashboard" component={DashBoard} />

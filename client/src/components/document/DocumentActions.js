@@ -53,7 +53,7 @@ export const deleteDocumentSuccess = document => ({
 });
 
 export const deleteDocument = documentId => (dispatch) => {
-  axios.delete(`${ROOT_URL}/documents/${documentId}`, document)
+  axios.delete(`${ROOT_URL}/documents/${documentId}/`)
     .then((response) => {
       dispatch(deleteDocumentSuccess(response.data.message));
       dispatch(fetchAllDocuments());
@@ -87,7 +87,6 @@ export const editDocumentSuccess = document => ({
 });
 
 export const editDocument = (document) => (dispatch) => {
-  console.log("geting to the edit action", document.id);
   axios.put(`${ROOT_URL}/documents/${document.id}/`, document)
       .then((response) => {
         resolve(dispatch(editDocumentSuccess(response.data)));

@@ -12,9 +12,11 @@ class DocumentsPage extends Component {
       this.props.actions.fetchAllDocuments();
     }
 
+
+  
   renderDocuments = (documents) => 
     documents.map((document, index) =>
-    <DocumentList key={index} document={document} />)  
+    <DocumentList key={index} document={document} deleteDocument={this.props.actions.deleteDocument} />)  
 
   render() {
     return (

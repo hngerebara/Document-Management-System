@@ -4,7 +4,13 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 
-const DocumentList = ({ document }) => (
+const DocumentList = ({ document, deleteDocument }) => {
+
+  const ondeleteDocument = () => {
+    console.log("geting here")
+    deleteDocument(document.id)
+  }
+  return (
   <Card key={document.id}>
     <CardHeader
       title={document.documentName}
@@ -14,13 +20,13 @@ const DocumentList = ({ document }) => (
     />
     <CardActions>
       <Link to={`/documents/${document.id}`}><FlatButton label="Edit" /></Link>
-      <FlatButton label="Delete" />
+      <FlatButton label="Delete" onClick={ondeleteDocument} />
     </CardActions>
     <CardText expandable>
       {document.description}
       {document.content}
     </CardText>
   </Card>
-  );
+  )};
 
 export default DocumentList;

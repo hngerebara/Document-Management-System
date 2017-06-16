@@ -42,12 +42,23 @@ router.post('/documents',
 documentsController.create);
 
 //retrieve, update and delete documents by id endpoints
-router
-  .route('/documents/:id')
-  .all(authMiddleware.authenticate())
-  .get(documentsController.retrieve)
-  .put(documentsController.update)
-  .delete(documentsController.destroy)
+router.get('/documents/:id',
+// authMiddleware.authenticate(),
+documentsController.retrieve);
+
+router.put('/documents/:id',
+// authMiddleware.authenticate(),
+documentsController.update);
+
+router.delete('/documents/:id',
+// authMiddleware.authenticate(),
+documentsController.destroy);
+// router
+//   .route('/documents/:id')
+//   .all(authMiddleware.authenticate())
+//   .get(documentsController.retrieve)
+//   .put(documentsController.update)
+//   .delete(documentsController.destroy)
 
 
 //retrieve and create roles endpoint

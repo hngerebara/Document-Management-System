@@ -5,7 +5,6 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes'; 
 import { Provider } from 'react-redux'; 
 import { createStore, applyMiddleware } from 'redux';
-import InitialState from './store/InitialState';
 import ConfigureStore from './store/ConfigureStore';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -20,7 +19,7 @@ const muiTheme = getMuiTheme({
   },
 });
 
-const store = ConfigureStore(InitialState);
+const store = ConfigureStore();
 
 render(  
   <MuiThemeProvider muiTheme={muiTheme}>

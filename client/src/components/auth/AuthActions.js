@@ -9,22 +9,20 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const SIGN_OUT = 'SIGN_OUT';
 
-export const checkinUser = ({ email, password }) => (dispatch) => axios.post(`${ROOT_URL}/users/login`, { email, password })
+export const checkinUser = ({ email, password }) =>
+dispatch => axios.post(`${ROOT_URL}/users/login`, { email, password })
   .then((response) => {
     const token = response.data.token;
-    const user = jwtDecode(token).user;
-    localStorage.setItem('token', token);
+    window.localStorage.setItem('token', token);
     dispatch({
-      type: CHECK_IN_SUCCESS,
-      user,
-      token
+      type: CHECK_IN_SUCCESS
     });
   })
   .catch((error) => {
     dispatch({
-      type: CHECKIN_ERROR
+      type: CHECKIN_ERROR,
+      error
     });
-    throw error;
   });
 
 

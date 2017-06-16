@@ -13,6 +13,9 @@ export default function DocumentsReducer(state = [], action) {
     case DISPLAY_FAILURE_MESSAGE:
       return { ...state, status: action.status };
 
+    case DELETE_DOCUMENT_SUCCESS:
+      return state.filter(document => document.id !== action.document.id);
+
     case EDIT_DOCUMENT_SUCCESS:
       return state.map((document) => {
         if (document.id === action.document.id) return action.document;
@@ -27,6 +30,7 @@ export default function DocumentsReducer(state = [], action) {
           return document;
         });
       }
+
       return [
         ...state,
         action.document

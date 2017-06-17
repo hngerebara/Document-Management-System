@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from './AuthActions';
-import ValidateInput from './ValidateInput';
 import { browserHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -34,9 +33,20 @@ class CheckinForm extends Component {
     return this.setState({ credentials });
   }
 
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+
+    if (!isValid) {
+      this.setState({ errors });
+    }
+
+    return isValid;
+  }
+
+
   handleCheckin(event) {
     event.preventDefault();
-    this.props.actions.checkinUser(this.state.credentials)
+    this.props.actions.checkinUserAction(this.state.credentials)
     .then(() => browserHistory.push('/documents'))
     .catch(() => this.setState({ error: 'User name or password not correct' }));
   }

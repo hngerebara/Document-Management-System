@@ -1,4 +1,5 @@
 import axios from 'axios';
+import setAuthToken from '../../utils/setAuthToken';
 import jwtDecode from 'jwt-decode';
 
 const ROOT_URL = 'http://localhost:8090';
@@ -7,16 +8,21 @@ export const CHECKIN_ERROR = 'CHECKIN_ERROR';
 export const CHECK_IN_SUCCESS = 'CHECK_IN_SUCCESS';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
-export const SIGN_OUT = 'SIGN_OUT';
 
-export const checkinUser = ({ email, password }) =>
+export function checkinUser(user) {
+  return {
+    type: CHECK_IN_SUCCESS,
+    user
+  };
+}
+
+export const checkinUserAction = ({ email, password }) =>
 dispatch => axios.post(`${ROOT_URL}/users/login`, { email, password })
   .then((response) => {
     const token = response.data.token;
-    window.localStorage.setItem('token', token);
-    dispatch({
-      type: CHECK_IN_SUCCESS
-    });
+    localStorage.setItem('token', token);
+    setAuthToken(token);
+    dispatch(checkinUser(jwtDecode(token)));
   })
   .catch((error) => {
     dispatch({
@@ -26,10 +32,9 @@ dispatch => axios.post(`${ROOT_URL}/users/login`, { email, password })
   });
 
 
-export const signupUser = ({ username, firstName, lastName, email, password }) => (dispatch) => 
+export const signupUser = ({ username, firstName, lastName, email, password }) => dispatch =>
 axios.post(`${ROOT_URL}/users`, { username, firstName, lastName, email, password })
   .then((response) => {
-    console.log(response)
     const token = response.data.token;
     localStorage.setItem('token', token);
     dispatch({
@@ -39,7 +44,6 @@ axios.post(`${ROOT_URL}/users`, { username, firstName, lastName, email, password
     });
   })
   .catch((error) => {
-    console.log(error)
     dispatch({
       type: SIGNUP_ERROR
     });
@@ -47,9 +51,8 @@ axios.post(`${ROOT_URL}/users`, { username, firstName, lastName, email, password
   });
 
 
-export const signOutUser = () => {
-  dispatch({
-    type: SIGN_OUT
-  });
-  window.localStorage.removeItem('token');
+export const signOutUser = () => (dispatch) => {
+  localStorage.removeItem('token');
+  setAuthToken(false);
+  dispatch(checkinUser({}));
 };

@@ -25,7 +25,7 @@ class SignupPage extends Component {
       lastName: '',
       email: '',
       password: '' },
-      error: '' };
+      errors: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
@@ -41,10 +41,11 @@ class SignupPage extends Component {
     return this.setState({ credentials });
   }
 
+
   handleSignup(event) {
     event.preventDefault();
     this.props.actions.signupUser(this.state.credentials)
-    .then(() => browserHistory.push('/about'))
+    .then(() => browserHistory.push('/checkin'))
     .catch(() => this.setState({ error: 'Please check signup details.' }));
   }
 
@@ -112,6 +113,9 @@ class SignupPage extends Component {
   }
 }
 
+// SignupPage.PropTypes = {
+//   signupUser : PropTypes.func.isRequired
+// }
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });

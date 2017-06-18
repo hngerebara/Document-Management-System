@@ -6,6 +6,9 @@ import routes from './routes';
 import { Provider } from 'react-redux'; 
 import { createStore, applyMiddleware } from 'redux';
 import ConfigureStore from './store/ConfigureStore';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import { CHECK_IN_SUCCESS } from './components/auth/AuthActions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -20,6 +23,14 @@ const muiTheme = getMuiTheme({
 });
 
 const store = ConfigureStore();
+
+if (localStorage.jwtToken) {
+  setAuthToken(localStorage.token);
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.token)));
+}
+
+
+
 
 render(  
   <MuiThemeProvider muiTheme={muiTheme}>

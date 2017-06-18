@@ -7,9 +7,9 @@ import FlatButton from 'material-ui/FlatButton';
 const DocumentList = ({ document, deleteDocument }) => {
 
   const ondeleteDocument = () => {
-    console.log("geting here")
     deleteDocument(document.id)
   }
+  
   return (
   <Card key={document.id}>
     <CardHeader

@@ -13,7 +13,12 @@ const documentsController = {
       .catch(error => res.status(400).send(error));
   },
   list(req, res) {
-    return Documents.findAll()
+    return Documents.findAll({
+      where: { access: {
+        $not: 'private'
+      }
+      }
+    })
       .then(documents => res.status(200).send(documents))
       .catch(error => res.status(400).send(error));
   },

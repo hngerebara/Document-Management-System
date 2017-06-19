@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 
-import { CHECK_IN_SUCCESS } from './AuthActions';
+import { CHECK_IN_SUCCESS,  } from './AuthActions';
 
 
 const initialState = {

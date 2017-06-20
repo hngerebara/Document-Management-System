@@ -15,19 +15,28 @@ const documentsController = {
   list(req, res) {
     const limit = req.query.limit || 10;
     const offset = req.query.offset || 0;
-    return Documents.findAll({
-      limit,
-      offset,
-      where: {
-        $or: [{
-          access: {
-            $not: 'private'
-          }
-        }, { creatorId: req.user.id }]
-      }
-    })
-      .then(documents => res.status(200).send(documents))
-      .catch(error => res.status(400).send(error));
+    const isAdmin = req.user.roleTitle === 'Admin';
+    let queryDocs;
+    if (isAdmin) {
+      queryDocs = Documents.findAll({
+        limit,
+        offset
+      });
+    } else {
+      queryDocs = Documents.findAll({
+        limit,
+        offset,
+        where: {
+          $or: [{
+            access: {
+              $not: 'private'
+            }
+          }, { creatorId: req.user.id }]
+        }
+      });
+    }
+    queryDocs.then(documents => res.status(200).send(documents))
+    .catch(error => res.status(400).send(error));
   },
 
   retrieve(req, res) {

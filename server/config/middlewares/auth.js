@@ -15,9 +15,7 @@ export default () => {
     Users.findById(payload.id)
         .then((user) => {
           if (user) {
-            return done(null, {
-              id: user.id
-            });
+            return done(null, user);
           }
           return done(null, false);
         })
@@ -25,6 +23,7 @@ export default () => {
   });
 
   passport.use(strategy);
+
   return {
     initialize: () => passport.initialize(),
     authenticate() {

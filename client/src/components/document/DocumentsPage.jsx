@@ -10,20 +10,24 @@ class DocumentsPage extends Component {
   }
   componentDidMount() {
       this.props.actions.fetchAllDocuments();
-    }
-
-
-  
-  renderDocuments = (documents) => 
-    documents.map((document, index) =>
-    <DocumentList key={index} document={document} deleteDocument={this.props.actions.deleteDocument} />)  
+  }
 
   render() {
+    const { documents, user, action } = this.props;
     return (
       <div>
         <h1>All documents </h1>
         <ul>
-          {this.renderDocuments(this.props.documents)}
+          {
+            documents.map((document, index) =>
+              <DocumentList
+                key={index}
+                document={document}
+                deleteDocument={actions.deleteDocument}
+                user={user}
+              />
+            )
+          }
         </ul>
       </div>
     );
@@ -35,7 +39,8 @@ DocumentsPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    documents: state.DocumentReducer
+    documents: state.DocumentReducer,
+    user: state.Auth,
 });
 
 const mapDispatchToProps = dispatch => ({

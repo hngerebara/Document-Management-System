@@ -34,24 +34,24 @@ router
 
 //retrieve all documents endpoint
 router.get('/documents',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.list);
 
 router.post('/documents',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.create);
 
-//retrieve, update and delete documents by id endpoints
+// retrieve, update and delete documents by id endpoints
 router.get('/documents/:id',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.retrieve);
 
 router.put('/documents/:id',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.update);
 
 router.delete('/documents/:id',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.destroy);
 // router
 //   .route('/documents/:id')

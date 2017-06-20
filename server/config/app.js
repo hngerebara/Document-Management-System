@@ -3,7 +3,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import router from '../routes/';
-import auth from '../config/middlewares/auth';
+import auth from './middlewares/auth';
 import cors from 'cors';
 
 const app = express();

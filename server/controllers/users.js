@@ -5,7 +5,6 @@ import cfg from '../config/config';
 
 const usersController = {
   create(req, res) {
-    console.log(req);
     return Users
     .create({
       username: req.body.username,

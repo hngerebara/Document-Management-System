@@ -44,6 +44,9 @@ class Header extends React.Component {
           <Link to="/documents/new">
             <RaisedButton label="Create Document" />
           </Link>
+          <Link to="/users">
+            <RaisedButton label="UsersPage" />
+          </Link>
           <Link to="/">
             <RaisedButton label="Signout" onClick={this.signOut} />
           </Link>

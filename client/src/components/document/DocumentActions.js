@@ -57,7 +57,6 @@ export const editDocument = document => (dispatch) => {
         resolve(dispatch(editDocumentSuccess(response.data)));
       })
       .catch((error) => {
-        console.log('error response action', error.response);
         dispatch(displayFailureMessage(error.response));
         throw error;
       });
@@ -72,7 +71,6 @@ export const deleteDocumentSuccess = document => ({
 export const deleteDocument = documentId => (dispatch) => {
   axios.delete(`${ROOT_URL}/documents/${documentId}/`)
     .then((response) => {
-      console.log(response.data.message);
       dispatch(deleteDocumentSuccess(response.data.message));
       dispatch(fetchAllDocuments());
     })

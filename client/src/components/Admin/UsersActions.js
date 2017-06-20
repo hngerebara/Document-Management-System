@@ -27,20 +27,13 @@ export const fetchAllUsers = () => (dispatch) => {
   });
 };
 
-export const deleteUserSuccess = user => ({
+export const deleteUserSuccess = userId => ({
   type: DELETE_USER_SUCCESS,
-  user,
+  userId,
 });
 
-export const deleteUser = userId => (dispatch) => {
-  console.log("getting to the functionn")
-  axios.delete(`${ROOT_URL}/user/${userId}/`)
-    .then((response) => {
-      dispatch(deleteUserSuccess(response.data.message));
-      dispatch(fetchAllUsers());
-    })
-  .catch((error) => {
-    dispatch(displayFailureMessage(error.response));
-    throw error;
-  });
-};
+export const deleteUser = userId => (dispatch) =>
+  axios.delete(`${ROOT_URL}/users/${userId}/`)
+    .then(() => {
+      dispatch(deleteUserSuccess(userId));
+    });

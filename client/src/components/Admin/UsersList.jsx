@@ -5,9 +5,9 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 const UsersList = ({ user, deleteUser }) => {
-
   const ondeleteUser = () => {
-    deleteUser(user.id);
+    deleteUser(user.id)
+      .catch(error => console.log(error));
   };
 
   return (

@@ -16,7 +16,7 @@ class GetUsers extends React.Component {
 
   render() {
     const { users } = this.props;
-
+    console.log(typeof(users))
     return (
       <div>
         <h1>Users</h1>

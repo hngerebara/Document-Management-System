@@ -39,7 +39,10 @@ class Header extends React.Component {
             <RaisedButton label="About" />
           </Link>
           <Link to="/documents">
-            <RaisedButton label="Document List" />
+            <RaisedButton label="Other Documents" />
+          </Link>
+          <Link to="/documents/:creatorId">
+            <RaisedButton label="My Documents" />
           </Link>
           <ToolbarSeparator />
           <Link to="/documents/new">

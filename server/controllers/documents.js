@@ -14,9 +14,12 @@ const documentsController = {
   },
   list(req, res) {
     return Documents.findAll({
-      where: { access: {
-        $not: 'private'
-      }
+      where: {
+        $or: [{
+          access: {
+            $not: 'private'
+          }
+        }, { creatorId: req.user.id }]
       }
     })
       .then(documents => res.status(200).send(documents))

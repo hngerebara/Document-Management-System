@@ -40,7 +40,7 @@ DocumentsPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     documents: state.DocumentReducer,
-    user: state.Auth,
+    user: state.Auth.user,
 });
 
 const mapDispatchToProps = dispatch => ({

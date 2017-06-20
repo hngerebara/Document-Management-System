@@ -17,7 +17,7 @@ export const displayFailureMessage = errorMessage => ({
 });
 
 export const fetchAllUsers = () => (dispatch) => {
-  axios.get(`${ROOT_URL}/users`)
+  axios.get(`${ROOT_URL}/users/?limit=10?offset=0`)
   .then((response) => {
     dispatch(fetchUsersSuccess(response.data));
   })
@@ -33,7 +33,7 @@ export const deleteUserSuccess = user => ({
 });
 
 export const deleteUser = userId => (dispatch) => {
-  console.log("getting called")
+  console.log("getting to the functionn")
   axios.delete(`${ROOT_URL}/user/${userId}/`)
     .then((response) => {
       dispatch(deleteUserSuccess(response.data.message));

@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import UsersList from './UsersList';
 import * as actions from './UsersActions';
 
-class UsersPage extends React.Component {
+class GetUsers extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props)
   }
 
   componentDidMount() {
@@ -14,7 +15,8 @@ class UsersPage extends React.Component {
   }
 
   render() {
-    const { users, action } = this.props;
+    const { users } = this.props;
+
     return (
       <div>
         <h1>Users</h1>
@@ -24,8 +26,8 @@ class UsersPage extends React.Component {
             users.map((user, index) =>
               <UsersList
                 key={index}
-                deleteUser={actions.deleteUser}
                 user={user}
+                deleteUser={this.props.actions.deleteUser}
               />
             )
           }
@@ -37,16 +39,16 @@ class UsersPage extends React.Component {
 }
 
 
-UsersPage.propTypes = {
+GetUsers.propTypes = {
   users: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({
-  users: state.Users
+  users: state.UsersReducer
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
+export default connect(mapStateToProps, mapDispatchToProps)(GetUsers);

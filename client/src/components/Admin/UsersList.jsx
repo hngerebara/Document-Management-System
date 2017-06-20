@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 const UsersList = ({ user, deleteUser }) => {
-  console.log(user)
 
   const ondeleteUser = () => {
     deleteUser(user.id);
@@ -18,7 +17,7 @@ const UsersList = ({ user, deleteUser }) => {
       />
       <CardActions>
           <div>
-            <Link to={`/users/${user.id}`}>
+            <Link to={`/users/${user.creatorId}`}>
               <FlatButton label="View user Documents" />
             </Link>
             <FlatButton label="Delete User" onClick={ondeleteUser} />

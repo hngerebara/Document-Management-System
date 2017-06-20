@@ -13,6 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 class Header extends React.Component {
   constructor(props) {
     super();
+    console.log(props)
     this.signOut = this.signOut.bind(this);
   }
 
@@ -25,8 +26,8 @@ class Header extends React.Component {
 
   render() {
     const { isAuthenticated } = this.props.Auth;
-
-
+    const isAdmin = this.props.Auth.user.id === 96;
+    
     const userLinks = (
         <ToolbarGroup>
           <ToolbarSeparator />
@@ -44,9 +45,11 @@ class Header extends React.Component {
           <Link to="/documents/new">
             <RaisedButton label="Create Document" />
           </Link>
+          {isAdmin &&
           <Link to="/users">
-            <RaisedButton label="UsersPage" />
+            <RaisedButton label="GetUsers" />
           </Link>
+          }
           <Link to="/">
             <RaisedButton label="Signout" onClick={this.signOut} />
           </Link>
@@ -78,7 +81,7 @@ class Header extends React.Component {
     return (
       <AppBar
         title="Hopeaz DMS">
-        { isAuthenticated ? userLinks : guestLinks }
+        { isAuthenticated ? userLinks : guestLinks}
       </AppBar>
 
     );

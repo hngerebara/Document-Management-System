@@ -46,16 +46,22 @@ const usersController = {
   },
 
   retrieve(req, res) {
-    return Users.findById(req.params.id)
-      .then((users) => {
-        if (!users) {
-          return res.status(404).send({
-            message: 'User Not Found'
-          });
-        }
-        return res.status(200).send(users);
-      })
-      .catch(error => res.status(400).send(error));
+    Users.findOne({
+      where: {
+        $or: [{ email: req.params.id },
+          { username: req.params.id }
+        ]
+      }
+    }).then((user) => {
+      // User not found
+      if (!user) {
+        return res.status(404)
+        .send({ message: `User with ${req.params.id} does not exists` });
+      }
+
+      // Display result
+      res.status(200).send(user);
+    });
   },
 
   retrieveAll(req, res) {

@@ -41,10 +41,26 @@ export function updateDocumentSuccess(document) {
   return { UPDATE_DOCUMENT_SUCCESS, document };
 }
 
+export const fetchDocumentSuccess = document => ({
+  type: FETCH_DOCUMENT_SUCCESS,
+  document
+});
+
+export const fetchDocument = documentId => (dispatch) => {
+  console.log("fetch document getting called")
+  axios.get(`${ROOT_URL}/documents/${documentId}/`, document)
+      .then((response) => {
+        dispatch(fetchDocumentSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(displayFailureMessage(error.response));
+        throw error;
+      });
+};
 
 export const createDocument = document => dispatch =>
     axios.post(`${ROOT_URL}/documents`, document)
-    .then((document) => {
+    .then(() => {
       document.id ? dispatch(updateDocumentSuccess(document)) :
         dispatch(createDocumentSuccess(document));
     }).catch((error) => {
@@ -53,35 +69,6 @@ export const createDocument = document => dispatch =>
     });
 
 
-// export function createCourseSuccess(course) {
-//   return {type: types.CREATE_COURSE_SUCCESS, course};
-// }
-
-// export const createDocument = document => dispatch =>
-// axios.post(`${ROOT_URL}/documents`, document)
-//  .then((response) => {
-//    dispatch(createDocumentSuccess(response.data));
-//  })
-//   .catch((error) => {
-//     dispatch(displayFailureMessage(error.response.statusText));
-//     throw error;
-//   });
-
-export const editDocumentSuccess = document => ({
-  type: EDIT_DOCUMENT_SUCCESS,
-  document
-});
-
-export const editDocument = document => (dispatch) => {
-  axios.put(`${ROOT_URL}/documents/${document.id}/`, document)
-      .then((response) => {
-        resolve(dispatch(editDocumentSuccess(response.data)));
-      })
-      .catch((error) => {
-        dispatch(displayFailureMessage(error.response));
-        throw error;
-      });
-};
 
 
 export const deleteDocumentSuccess = document => ({
@@ -90,6 +77,7 @@ export const deleteDocumentSuccess = document => ({
 });
 
 export const deleteDocument = documentId => (dispatch) => {
+  console.log("getting here")
   axios.delete(`${ROOT_URL}/documents/${documentId}/`)
     .then((response) => {
       dispatch(deleteDocumentSuccess(response.data.message));

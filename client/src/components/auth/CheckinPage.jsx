@@ -1,93 +1,89 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from './AuthActions';
+import { checkinUserAction } from './AuthActions';
 import { browserHistory } from 'react-router';
-import TextField from 'material-ui/TextField';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const styles = {
-  container: {
-    textAlign: 'center',
-    paddingTop: 200,
-  },
-};
+import validateInput from '../../../../server/validations/login';
+import TextInput from '../common/TextInput';
 
 
 class CheckinPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { credentials: {
-      email: '',
-      password: '' },
-      errors: '' };
-
+    this.state = { email: '', password: '', errors: {}, isLoading: false };
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckin = this.handleCheckin.bind(this);
   }
 
   handleChange(event) {
-    const field = event.target.name;
-    const value = event.target.value;
-    const credentials = {
-      ...this.state.credentials,
-      [field]: value
-    };
-    return this.setState({ credentials });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
 
   handleCheckin(event) {
     event.preventDefault();
-    this.props.actions.checkinUserAction(this.state.credentials)
-    .then(() => browserHistory.push('/documents'))
-    .catch(() => this.setState({ error: 'Please check Checkin details.' }));
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.checkinUserAction(this.state)
+      .then(() => browserHistory.push('/documents'))
+      .catch(() => this.setState({ error: 'User name or password not correct' }));
+    }
   }
 
   render() {
-    return (
-      <div>
-        { this.state.error &&
-          <p>{ this.state.error }</p>
-        }
-        <form>
-         <TextField
-            hintText="Email Field"
-            floatingLabelText="Email"
-            name="email"
-            label="email"
-            value={this.state.credentials.email}
-            onChange={this.handleChange}
-          /><br />
+    const { errors, email, password, isLoading } = this.state;
 
-          <TextField
-            hintText="Password Field"
-            floatingLabelText="Password"
-            name="password"
-            label="password"
-            type="password"
-            value={this.state.credentials.password}
-            onChange={this.handleChange}
-          /><br />
-          <RaisedButton
-            label="Submit"
-            primary
-            style={styles}
-            onClick={this.handleCheckin}
-          />
-        </form>
-      </div>
+    return (
+      <form onSubmit={this.handleCheckin}>
+        <h1>Login</h1>
+        { this.state.error &&
+        <p>{ this.state.error }</p>
+        }
+
+        <TextInput
+          name="email"
+          field="email"
+          type="text"
+          label="Email"
+          placeholder="Email"
+          value={email}
+          error={errors.email}
+          onChange={this.handleChange}
+        />
+
+        <TextInput
+          name="password"
+          field="Password"
+          type="password"
+          label="Password"
+          placeholder="********"
+          value={password}
+          error={errors.password}
+          onChange={this.handleChange}
+        />
+        <div>
+          <button
+            disabled={isLoading}
+          >
+              Login
+            </button>
+        </div>
+      </form>
     );
   }
-}
+  }
 
-// SignupPage.PropTypes = {
-//   signupUser : PropTypes.func.isRequired
-// }
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-});
 
-export default connect(null, mapDispatchToProps)(muiThemeable()(CheckinPage));
+CheckinPage.propTypes = {
+  checkinUserAction: PropTypes.func.isRequired
+};
+
+export default connect(null, { checkinUserAction })(CheckinPage);

@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import ConfigureStore from './store/ConfigureStore';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
-import { checkinUser } from './components/auth/AuthActions';
+import { setCurrentUser } from './components/auth/AuthActions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -27,7 +27,7 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
   const decodedToken = jwtDecode(localStorage.token);
   // set user object with the userId
-  store.dispatch(checkinUser({ id: decodedToken.id }));
+  store.dispatch(setCurrentUser({ id: decodedToken.id }));
 }
 
 render(  

@@ -13,9 +13,8 @@ export default function DocumentsReducer(state = [], action) {
       return action.documents;
 
     case CREATE_DOCUMENT_SUCCESS:
-      browserHistory.push('/documents');
       return [
-        ...state.filter(document => document.id !== action.document.id),
+        ...state,
         Object.assign({}, action.document)
       ];
 

@@ -5,42 +5,35 @@ import DocumentList from './DocumentList';
 import * as actions from './DocumentActions';
 
 class DocumentsPage extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
   componentDidMount() {
-      this.props.actions.fetchAllDocuments();
+    this.props.actions.fetchAllDocuments();
+  }
+
+  documentRow(document, index) {
+    return <div key={index}>{document.documenName}</div>;
   }
 
   render() {
-    const { documents, user, action } = this.props;
+    const { documents } = this.props;
     return (
       <div>
         <h1>All documents </h1>
-        <ul>
-          {
-            documents.map((document, index) =>
-              <DocumentList
-                key={index}
-                document={document}
-                deleteDocument={actions.deleteDocument}
-                user={user}
-              />
-            )
-          }
-        </ul>
+        <DocumentList documents={documents} />
       </div>
     );
   }
 }
 
 DocumentsPage.propTypes = {
-  documents: PropTypes.array.isRequired
+  documents: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => ({
-    documents: state.DocumentReducer,
-    user: state.Auth.user,
+const mapStateToProps = state => ({
+  documents: state.DocumentReducer,
 });
 
 const mapDispatchToProps = dispatch => ({

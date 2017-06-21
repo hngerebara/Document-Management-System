@@ -36,15 +36,36 @@ export const createDocumentSuccess = document => ({
   document,
 });
 
+
+export function updateDocumentSuccess(document) {
+  return { UPDATE_DOCUMENT_SUCCESS, document };
+}
+
+
 export const createDocument = document => dispatch =>
-axios.post(`${ROOT_URL}/documents`, document)
- .then((response) => {
-   dispatch(createDocumentSuccess(response.data));
- })
-  .catch((error) => {
-    dispatch(displayFailureMessage(error.response.statusText));
-    throw error;
-  });
+    axios.post(`${ROOT_URL}/documents`, document)
+    .then((document) => {
+      document.id ? dispatch(updateDocumentSuccess(document)) :
+        dispatch(createDocumentSuccess(document));
+    }).catch((error) => {
+      dispatch(displayFailureMessage(error.response.statusText));
+      throw error;
+    });
+
+
+// export function createCourseSuccess(course) {
+//   return {type: types.CREATE_COURSE_SUCCESS, course};
+// }
+
+// export const createDocument = document => dispatch =>
+// axios.post(`${ROOT_URL}/documents`, document)
+//  .then((response) => {
+//    dispatch(createDocumentSuccess(response.data));
+//  })
+//   .catch((error) => {
+//     dispatch(displayFailureMessage(error.response.statusText));
+//     throw error;
+//   });
 
 export const editDocumentSuccess = document => ({
   type: EDIT_DOCUMENT_SUCCESS,
@@ -79,5 +100,4 @@ export const deleteDocument = documentId => (dispatch) => {
     throw error;
   });
 };
-
 

@@ -4,7 +4,7 @@ import TextArea from '../common/TextArea';
 
 const DocumentForm = ({ document, onSave, onChange, saving, errors }) => (
   <form>
-    <h1>Manage Course</h1>
+    <h1>Manage Documents</h1>
     <TextInput
       name="documentName"
       label="DocumentName"
@@ -20,7 +20,6 @@ const DocumentForm = ({ document, onSave, onChange, saving, errors }) => (
       onChange={onChange}
       error={errors.description}
     />
-
 
     <select
       name="access"

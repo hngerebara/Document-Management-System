@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import DocumentListRow from './DocumentListRow';
 
-const DocumentList = ({ documents, user, deleteDocument, fetchDocument }) => {
+const DocumentList = ({ documents, user, deleteDocument, viewDocument }) => {
   return (
     <div>
       <table className="table">
@@ -18,7 +18,7 @@ const DocumentList = ({ documents, user, deleteDocument, fetchDocument }) => {
               document={document}
               user={user}
               deleteDocument={deleteDocument} 
-              fetchDocument={fetchDocument}
+              viewDocument={viewDocument}
             />
         )}
         </tbody>
@@ -31,7 +31,7 @@ DocumentList.propTypes = {
   documents: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   deleteDocument: PropTypes.func.isRequired,
-  fetchDocument: PropTypes.func.isRequired
+  viewDocument: PropTypes.func.isRequired
 };
 
 export default DocumentList;

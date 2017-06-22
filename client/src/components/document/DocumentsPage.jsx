@@ -7,7 +7,7 @@ import {
   deleteDocument,
   fetchUserDocuments,
   fetchAllDocuments,
-  fetchDocument
+  viewDocument
 } from './DocumentActions';
 
 class DocumentsPage extends Component {
@@ -54,7 +54,7 @@ class DocumentsPage extends Component {
               documents={manageDocuments.documents}
               user={user}
               deleteDocument={this.props.deleteDocument}
-              fetchDocument={this.props.fetchDocument}
+              viewDocument={this.props.viewDocument}
             />
           </div>}
 
@@ -65,7 +65,7 @@ class DocumentsPage extends Component {
               userDocuments={manageDocuments.userDocuments}
               user={user}
               deleteDocument={this.props.deleteDocument}
-              fetchDocument={this.props.fetchDocument}
+              viewDocument={this.props.viewDocument}
             />
           </div>}
       </div>
@@ -78,7 +78,7 @@ DocumentsPage.propTypes = {
   deleteDocument: PropTypes.func.isRequired,
   fetchAllDocuments: PropTypes.func.isRequired,
   fetchUserDocuments: PropTypes.func.isRequired,
-  fetchDocument: PropTypes.func.isRequired
+  viewDocument: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -94,5 +94,5 @@ export default connect(mapStateToProps, {
   deleteDocument,
   fetchUserDocuments,
   fetchAllDocuments,
-  fetchDocument
+  viewDocument
 })(DocumentsPage);

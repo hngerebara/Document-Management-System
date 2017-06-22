@@ -1,6 +1,6 @@
 import { FETCH_DOCUMENTS_SUCCESS, DISPLAY_FAILURE_MESSAGE,
 CREATE_DOCUMENT_SUCCESS, DELETE_DOCUMENT_SUCCESS,
-FETCH_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS, 
+VIEW_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS, 
 FETCH_USER_DOCUMENTS_SUCCESS, FETCH_USER_DOCUMENTS_FAILED,
 DOCUMENT_FETCHED } from './DocumentActions';
 
@@ -37,7 +37,7 @@ export default function DocumentsReducer(state = initialState, action) {
         ],
       };
 
-    case FETCH_DOCUMENT_SUCCESS:
+    case VIEW_DOCUMENT_SUCCESS:
       return {
         ...state,
         document: action.document
@@ -60,7 +60,6 @@ export default function DocumentsReducer(state = initialState, action) {
       const indexOfDocumentToDelete = state.findIndex(document =>
       document.id === action.document.id);
       newState.splice(indexOfDocumentToDelete, 1);
-      browserHistory.push('/documents');
       return newState;
     }
 // case DELETE_DOCUMENT_SUCCESS: {

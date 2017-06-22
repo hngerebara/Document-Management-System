@@ -44,17 +44,25 @@ componentDidMount() {
     document[field] = event.target.value;
     return this.setState({ document });
   }
-
-
+  
   saveDocument(event) {
     event.preventDefault();
     this.setState({ saving: true });
-    this.props.actions.createDocument(this.state.document)
+    // if (this.props.document !== null) {
+    //   this.props.actions.updateDocument(this.state.document)
+    //   .then(() => this.redirect())
+    //   .catch((error) => {
+    //     toastr.error(error);
+    //     this.setState({ saving: false });
+    //   });
+    // } else {
+      this.props.actions.createDocument(this.state.document)
       .then(() => this.redirect())
       .catch((error) => {
         toastr.error(error);
         this.setState({ saving: false });
       });
+    // }
   }
 
   redirect() {

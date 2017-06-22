@@ -20,10 +20,9 @@ router.get('/users',authMiddleware.authenticate(), usersController.list);
 //retrieve, delete and update user by id enpoints
 router
   .route('/users/:id')
-  .all(authMiddleware.authenticate())
   .get(usersController.retrieve)
-  .put(usersController.update)
-  .delete(usersController.destroy)
+  .put(authMiddleware.authenticate(), usersController.update)
+  .delete(authMiddleware.authenticate(), usersController.destroy)
 
 //create and retrieve documents by creator's id endpoint
 router
@@ -34,24 +33,24 @@ router
 
 //retrieve all documents endpoint
 router.get('/documents',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.list);
 
 router.post('/documents',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.create);
 
-//retrieve, update and delete documents by id endpoints
+// retrieve, update and delete documents by id endpoints
 router.get('/documents/:id',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.retrieve);
 
 router.put('/documents/:id',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.update);
 
 router.delete('/documents/:id',
-// authMiddleware.authenticate(),
+authMiddleware.authenticate(),
 documentsController.destroy);
 // router
 //   .route('/documents/:id')

@@ -7,15 +7,36 @@ const documentsController = {
       description: req.body.description,
       content: req.body.content,
       access: req.body.access,
-      creatorId: req.params.creatorId
+      creatorId: req.user.id
     })
       .then(documents => res.status(201).send(documents))
       .catch(error => res.status(400).send(error));
   },
   list(req, res) {
-    return Documents.findAll()
-      .then(documents => res.status(200).send(documents))
-      .catch(error => res.status(400).send(error));
+    const limit = req.query.limit || 10;
+    const offset = req.query.offset || 0;
+    const isAdmin = req.user.roleTitle === 'Admin';
+    let queryDocs;
+    if (isAdmin) {
+      queryDocs = Documents.findAll({
+        limit,
+        offset
+      });
+    } else {
+      queryDocs = Documents.findAll({
+        limit,
+        offset,
+        where: {
+          $or: [{
+            access: {
+              $not: 'private'
+            }
+          }, { creatorId: req.user.id }]
+        }
+      });
+    }
+    queryDocs.then(documents => res.status(200).send(documents))
+    .catch(error => res.status(400).send(error));
   },
 
   retrieve(req, res) {
@@ -33,31 +54,41 @@ const documentsController = {
 
   update(req, res) {
     return Documents.findById(req.params.id)
-    .then((documents) => {
-      if (!documents) {
+    .then((document) => {
+      if (!document) {
         return res.status(404).send({
           message: 'Document not found'
         });
       }
-      return documents
+      if (document.creatorId !== req.user.id) {
+        return res.status(401).send({
+          message: 'You don\'t have access to this document',
+        });
+      }
+      return document
         .update({
           documentName: req.body.documentName,
           description: req.body.description,
           content: req.body.content,
         })
-        .then(() => res.status(200).send(documents))
+        .then(() => res.status(200).send(document))
         .catch(error => res.status(400).send(error));
     });
   },
   destroy(req, res) {
     return Documents.findById(req.params.id)
-      .then((documents) => {
-        if (!documents) {
+      .then((document) => {
+        if (!document) {
           return res.status(404).send({
             message: 'The document cannot be found therefore cannot be deleted'
           });
         }
-        return documents
+        if (document.creatorId !== req.user.id) {
+          return res.status(401).send({
+            message: 'You don\'t have access to this document',
+          });
+        }
+        return document
           .destroy()
           .then(() => res.status(200).send({
             message: 'Document deleted successfully.'

@@ -31,6 +31,9 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
+  devServer: {
+    historyApiFallback: true
+  },
 };
 
 

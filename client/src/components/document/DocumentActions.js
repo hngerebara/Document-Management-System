@@ -36,32 +36,39 @@ export const createDocumentSuccess = document => ({
   document,
 });
 
-export const createDocument = document => dispatch =>
-axios.post(`${ROOT_URL}/documents`, document)
- .then((response) => {
-   dispatch(createDocumentSuccess(response.data));
- })
-  .catch((error) => {
-    dispatch(displayFailureMessage(error.response.statusText));
-    throw error;
-  });
 
-export const editDocumentSuccess = document => ({
-  type: EDIT_DOCUMENT_SUCCESS,
+export function updateDocumentSuccess(document) {
+  return { UPDATE_DOCUMENT_SUCCESS, document };
+}
+
+export const fetchDocumentSuccess = document => ({
+  type: FETCH_DOCUMENT_SUCCESS,
   document
 });
 
-export const editDocument = document => (dispatch) => {
-  axios.put(`${ROOT_URL}/documents/${document.id}/`, document)
+export const fetchDocument = documentId => (dispatch) => {
+  console.log("fetch document getting called")
+  axios.get(`${ROOT_URL}/documents/${documentId}/`, document)
       .then((response) => {
-        resolve(dispatch(editDocumentSuccess(response.data)));
+        dispatch(fetchDocumentSuccess(response.data));
       })
       .catch((error) => {
-        console.log('error response action', error.response);
         dispatch(displayFailureMessage(error.response));
         throw error;
       });
 };
+
+export const createDocument = document => dispatch =>
+    axios.post(`${ROOT_URL}/documents`, document)
+    .then(() => {
+      document.id ? dispatch(updateDocumentSuccess(document)) :
+        dispatch(createDocumentSuccess(document));
+    }).catch((error) => {
+      dispatch(displayFailureMessage(error.response.statusText));
+      throw error;
+    });
+
+
 
 
 export const deleteDocumentSuccess = document => ({
@@ -70,9 +77,9 @@ export const deleteDocumentSuccess = document => ({
 });
 
 export const deleteDocument = documentId => (dispatch) => {
+  console.log("getting here")
   axios.delete(`${ROOT_URL}/documents/${documentId}/`)
     .then((response) => {
-      console.log(response.data.message);
       dispatch(deleteDocumentSuccess(response.data.message));
       dispatch(fetchAllDocuments());
     })
@@ -81,5 +88,4 @@ export const deleteDocument = documentId => (dispatch) => {
     throw error;
   });
 };
-
 

@@ -1,32 +1,37 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import DocumentListRow from './DocumentListRow';
 
-
-const DocumentList = ({ document, deleteDocument }) => {
-
-  const ondeleteDocument = () => {
-    deleteDocument(document.id)
-  }
-  
+const DocumentList = ({ documents, user, deleteDocument, fetchDocument }) => {
   return (
-  <Card key={document.id}>
-    <CardHeader
-      title={document.documentName}
-      subtitle={document.access}
-      actAsExpander
-      showExpandableButton
-    />
-    <CardActions>
-      <Link to={`/documents/${document.id}`}><FlatButton label="Edit" /></Link>
-      <FlatButton label="Delete" onClick={ondeleteDocument} />
-    </CardActions>
-    <CardText expandable>
-      {document.description}
-      {document.content}
-    </CardText>
-  </Card>
-  )};
+    <div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Access Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {documents.map(document =>
+            <DocumentListRow
+              key={document.id}
+              document={document}
+              user={user}
+              deleteDocument={deleteDocument} 
+              fetchDocument={fetchDocument}
+            />
+        )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+DocumentList.propTypes = {
+  documents: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+  deleteDocument: PropTypes.func.isRequired,
+  fetchDocument: PropTypes.func.isRequired
+};
 
 export default DocumentList;

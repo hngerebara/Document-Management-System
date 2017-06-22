@@ -9,6 +9,9 @@ export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const FETCH_DOCUMENT_SUCCESS = 'FETCH_DOCUMENT_SUCCESS';
 export const UPDATE_DOCUMENT_SUCCESS = 'UPDATE_DOCUMENT_SUCCESS';
 export const DOCUMENT_FETCHED = 'DOCUMENT_FETCHED';
+export const DISPLAY_USER_FAILURE_MESSAGE = 'DISPLAY_USER_FAILURE_MESSAGE';
+export const FETCH_USER_DOCUMENTS_SUCCESS = 'FETCH_USER_DOCUMENTS_SUCCESS';
+
 
 export const displayFailureMessage = errorMessage => ({
   type: DISPLAY_FAILURE_MESSAGE,
@@ -21,6 +24,7 @@ export const fetchDocumentsSuccess = documents => ({
 });
 
 export const fetchAllDocuments = () => (dispatch) => {
+  console.log('fetch all documents getting called');
   axios.get(`${ROOT_URL}/documents`)
   .then((response) => {
     dispatch(fetchDocumentsSuccess(response.data));
@@ -47,7 +51,7 @@ export const fetchDocumentSuccess = document => ({
 });
 
 export const fetchDocument = documentId => (dispatch) => {
-  console.log("fetch document getting called")
+  console.log('fetch document getting called');
   axios.get(`${ROOT_URL}/documents/${documentId}/`, document)
       .then((response) => {
         dispatch(fetchDocumentSuccess(response.data));
@@ -57,6 +61,29 @@ export const fetchDocument = documentId => (dispatch) => {
         throw error;
       });
 };
+
+export const fetchUserDocumentFailed = userDocumentsError => ({
+  type: DISPLAY_USER_FAILURE_MESSAGE,
+  userDocumentsError
+});
+
+export const fetchUserDocumentSuccess = userDocuments => ({
+  type: FETCH_USER_DOCUMENTS_SUCCESS,
+  userDocuments
+});
+
+export const fetchUserDocuments = creatorId => (dispatch) => {
+  console.log('fetch user documents getting called');
+  axios.get(`${ROOT_URL}/users/${creatorId}/documents`, creatorId)
+  .then((response) => {
+     dispatch(fetchUserDocumentSuccess(response.data.allDocuments));
+  })
+  .catch((error) => {
+    dispatch(displayFailureMessage(error.response));
+    throw error;
+  });
+};
+
 
 export const createDocument = document => dispatch =>
     axios.post(`${ROOT_URL}/documents`, document)
@@ -68,16 +95,13 @@ export const createDocument = document => dispatch =>
       throw error;
     });
 
-
-
-
 export const deleteDocumentSuccess = document => ({
   type: DELETE_DOCUMENT_SUCCESS,
   document,
 });
 
 export const deleteDocument = documentId => (dispatch) => {
-  console.log("getting here")
+  console.log('getting here');
   axios.delete(`${ROOT_URL}/documents/${documentId}/`)
     .then((response) => {
       dispatch(deleteDocumentSuccess(response.data.message));

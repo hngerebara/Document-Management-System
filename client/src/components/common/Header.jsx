@@ -34,6 +34,9 @@ class Header extends React.Component {
         <li>
           <Link to="/documents/new">Create Document</Link>
         </li>
+        <li>
+          <Link to={`/users/${this.props.Auth.user.id}/documents`}>My Documents</Link>
+        </li>
         <li><Link to="/documents/new" />
         </li>
         {isAdmin &&

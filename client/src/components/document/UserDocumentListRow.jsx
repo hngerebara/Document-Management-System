@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
 
-const DocumentListRow = ({ document, user, deleteDocument, viewDocument }) => {
+const UserDocumentListRow = ({ document, user, deleteDocument, viewDocument }) => {
   const isOwner = document.creatorId === user.id;
 
   return (
@@ -21,7 +21,7 @@ const DocumentListRow = ({ document, user, deleteDocument, viewDocument }) => {
   );
 };
 
-DocumentListRow.propTypes = {
+UserDocumentListRow.propTypes = {
   document: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   deleteDocument: PropTypes.func.isRequired,
@@ -29,4 +29,4 @@ DocumentListRow.propTypes = {
 
 };
 
-export default DocumentListRow;
+export default UserDocumentListRow;

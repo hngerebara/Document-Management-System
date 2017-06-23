@@ -49,14 +49,15 @@ const usersController = {
     Users.findOne({
       where: {
         $or: [{ email: req.params.id },
-          { username: req.params.id }
+          { username: req.params.id },
+          { id: req.params.id }
         ]
       }
     }).then((user) => {
       // User not found
       if (!user) {
         return res.status(404)
-        .send({ message: `User with ${req.params.id} does not exists` });
+        .send({ message: `User with ${req.params.id} does not exist` });
       }
 
       // Display result

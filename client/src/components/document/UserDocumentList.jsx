@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import DocumentListRow from './DocumentListRow';
+import UserDocumentListRow from './UserDocumentListRow';
 
-const DocumentList = ({ documents, user, deleteDocument, viewDocument }) => {
+const UserDocumentList = ({ userDocuments, user, deleteDocument, viewDocument }) => {
   return (
     <div>
       <table className="table">
@@ -12,8 +12,8 @@ const DocumentList = ({ documents, user, deleteDocument, viewDocument }) => {
           </tr>
         </thead>
         <tbody>
-          {documents.map(document =>
-            <DocumentListRow
+          {userDocuments.map(document =>
+            <UserDocumentListRow
               key={document.id}
               document={document}
               user={user}
@@ -27,11 +27,11 @@ const DocumentList = ({ documents, user, deleteDocument, viewDocument }) => {
   );
 };
 
-DocumentList.propTypes = {
-  documents: PropTypes.array.isRequired,
+UserDocumentList.propTypes = {
+  userDocuments: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   deleteDocument: PropTypes.func.isRequired,
   viewDocument: PropTypes.func.isRequired
 };
 
-export default DocumentList;
+export default UserDocumentList;

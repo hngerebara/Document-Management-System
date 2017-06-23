@@ -26,7 +26,7 @@ router
 
 //create and retrieve documents by creator's id endpoint
 router
-.route('users/:creatorId/documents')
+.route('/users/:creatorId/documents')
 .all(authMiddleware.authenticate())
 .post(documentsController.create)
 .get(usersController.retrieveAll)

@@ -2,7 +2,7 @@ import { FETCH_DOCUMENTS_SUCCESS, DISPLAY_FAILURE_MESSAGE,
 CREATE_DOCUMENT_SUCCESS, DELETE_DOCUMENT_SUCCESS,
 VIEW_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS, 
 FETCH_USER_DOCUMENTS_SUCCESS, FETCH_USER_DOCUMENTS_FAILED,
-DOCUMENT_FETCHED } from './DocumentActions';
+DOCUMENT_FETCHED, DISPLAY_DOCUMENT_FAILURE_MESSAGE } from './DocumentActions';
 
 import { browserHistory } from 'react-router';
 
@@ -13,7 +13,7 @@ const initialState = {
 };
 export default function DocumentsReducer(state = initialState, action) {
   switch (action.type) {
-    case DISPLAY_FAILURE_MESSAGE:
+    case DISPLAY_DOCUMENT_FAILURE_MESSAGE:
       return {
         ...state,
         message: action.message,
@@ -49,6 +49,8 @@ export default function DocumentsReducer(state = initialState, action) {
         document: action.document
       };
 
+
+
     // case UPDATE_DOCUMENT_SUCCESS:
     //   return {}
     //     ...state.filter(document => document.id !== action.document.id),
@@ -70,6 +72,7 @@ export default function DocumentsReducer(state = initialState, action) {
 //         ...state.slice(indexOfDocumentToDelete + 1)
 //       ];
 // }
+
       
     default:
       return state;

@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import UsersList from './UsersList';
 import * as actions from './UsersActions';
 
-class GetUsers extends React.Component {
+class UsersPage extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
   }
 
   componentDidMount() {
@@ -16,7 +15,6 @@ class GetUsers extends React.Component {
 
   render() {
     const { users } = this.props;
-    console.log(typeof(users))
     return (
       <div>
         <h1>Users</h1>
@@ -39,7 +37,7 @@ class GetUsers extends React.Component {
 }
 
 
-GetUsers.propTypes = {
+UsersPage.propTypes = {
   users: PropTypes.array.isRequired
 };
 
@@ -51,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GetUsers);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);

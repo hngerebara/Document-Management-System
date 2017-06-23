@@ -49,7 +49,7 @@ class DocumentsPage extends Component {
       <div>
         {page === 'document' &&
           <div>
-            <h1>All documents </h1>
+            <h3>All documents </h3>
             <DocumentList
               documents={manageDocuments.documents}
               user={user}

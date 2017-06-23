@@ -2,6 +2,7 @@ import express from 'express';
 import usersController from '../controllers/users';
 // import rolesController from '../controllers/roles';
 import documentsController from '../controllers/documents';
+import searchController from '../controllers/search';
 import auth from '../config/middlewares/auth';
 
 const authMiddleware = auth();
@@ -22,14 +23,14 @@ router
   .route('/users/:id')
   .get(usersController.retrieve)
   .put(authMiddleware.authenticate(), usersController.update)
-  .delete(authMiddleware.authenticate(), usersController.destroy)
+  .delete(authMiddleware.authenticate(), usersController.destroy);
 
 //create and retrieve documents by creator's id endpoint
 router
 .route('/users/:creatorId/documents')
 .all(authMiddleware.authenticate())
 .post(documentsController.create)
-.get(usersController.retrieveAll)
+.get(usersController.retrieveAll);
 
 //retrieve all documents endpoint
 router.get('/documents',
@@ -41,23 +42,18 @@ authMiddleware.authenticate(),
 documentsController.create);
 
 // retrieve, update and delete documents by id endpoints
-router.get('/documents/:id',
-authMiddleware.authenticate(),
-documentsController.retrieve);
+router
+  .route('/documents/:id')
+  .all(authMiddleware.authenticate())
+  .get(documentsController.retrieve)
+  .put(documentsController.update)
+  .delete(documentsController.destroy);
 
-router.put('/documents/:id',
-authMiddleware.authenticate(),
-documentsController.update);
 
-router.delete('/documents/:id',
+//search documents
+router.get('/search/documents',
 authMiddleware.authenticate(),
-documentsController.destroy);
-// router
-//   .route('/documents/:id')
-//   .all(authMiddleware.authenticate())
-//   .get(documentsController.retrieve)
-//   .put(documentsController.update)
-//   .delete(documentsController.destroy)
+searchController.searchDocuments);
 
 
 //retrieve and create roles endpoint

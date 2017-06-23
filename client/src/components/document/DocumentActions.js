@@ -3,7 +3,7 @@ import axios from 'axios';
 const ROOT_URL = 'http://localhost:8090';
 
 export const FETCH_DOCUMENTS_SUCCESS = 'FETCH_DOCUMENTS_SUCCESS';
-export const DISPLAY_FAILURE_MESSAGE = 'DISPLAY_FAILURE_MESSAGE';
+export const DISPLAY_DOCUMENT_FAILURE_MESSAGE = 'DISPLAY_DOCUMENT_FAILURE_MESSAGE';
 export const CREATE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const VIEW_DOCUMENT_SUCCESS = 'VIEW_DOCUMENT_SUCCESS';
@@ -13,8 +13,8 @@ export const DISPLAY_USER_FAILURE_MESSAGE = 'DISPLAY_USER_FAILURE_MESSAGE';
 export const FETCH_USER_DOCUMENTS_SUCCESS = 'FETCH_USER_DOCUMENTS_SUCCESS';
 
 
-export const displayFailureMessage = errorMessage => ({
-  type: DISPLAY_FAILURE_MESSAGE,
+export const displayDocumentFailureMessage = errorMessage => ({
+  type: DISPLAY_DOCUMENT_FAILURE_MESSAGE,
   errorMessage
 });
 
@@ -60,7 +60,7 @@ export const fetchAllDocuments = () => (dispatch) => {
     dispatch(fetchDocumentsSuccess(response.data));
   })
   .catch((error) => {
-    dispatch(displayFailureMessage(error.response));
+    dispatch(displayDocumentFailureMessage(error.response));
     throw error;
   });
 };
@@ -73,7 +73,7 @@ export const viewDocument = documentId => (dispatch) => {
         dispatch(viewDocumentSuccess(response.data));
       })
       .catch((error) => {
-        dispatch(displayFailureMessage(error.response));
+        dispatch(displayDocumentFailureMessage(error.response));
         throw error;
       });
 };
@@ -85,7 +85,7 @@ export const fetchUserDocuments = creatorId => (dispatch) => {
     dispatch(fetchUserDocumentSuccess(response.data.allDocuments));
   })
   .catch((error) => {
-    dispatch(displayFailureMessage(error.response));
+    dispatch(displayDocumentFailureMessage(error.response));
     throw error;
   });
 };
@@ -96,7 +96,7 @@ export const createDocument = document => (dispatch) => {
       document.id ? dispatch(updateDocumentSuccess(document)) :
         dispatch(createDocumentSuccess(document));
     }).catch((error) => {
-      dispatch(displayFailureMessage(error.response.statusText));
+      dispatch(displayDocumentFailureMessage(error.response.statusText));
       throw error;
     });
 };
@@ -109,8 +109,18 @@ export const deleteDocument = documentId => (dispatch) => {
       dispatch(fetchAllDocuments());
     })
   .catch((error) => {
-    dispatch(displayFailureMessage(error.response));
+    dispatch(displayDocumentFailureMessage(error.response));
     throw error;
   });
+};
+
+export const searchAllDocuments = (query, documents) => (dispatch) => {
+  axios.post(`${ROOT_URL}/documents?search=${search}`, documents)
+    .then((response) => {
+        dispatch(fetchDocumentsSuccess(documents));
+    }).catch((error) => {
+      dispatch(displayDocumentFailureMessage(error.response.statusText));
+      throw error;
+    });
 };
 

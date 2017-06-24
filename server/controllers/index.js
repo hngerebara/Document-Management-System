@@ -5,5 +5,6 @@ import Search from './search';
 export default {
   Users,
   Roles,
-  Documents
+  Documents,
+  Search,
 };

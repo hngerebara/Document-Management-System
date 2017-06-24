@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <div className="container">
+        <div>
           {this.props.children}
         </div>
         <Footer />

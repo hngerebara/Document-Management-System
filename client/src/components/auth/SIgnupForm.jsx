@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import validateInput from '../../../../server/validations/signup';
 import TextInput from '../common/TextInput';
 
-class SignupForm extends React.Component {
+class SignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = {

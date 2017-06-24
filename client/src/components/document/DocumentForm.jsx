@@ -52,12 +52,12 @@ const DocumentForm = ({ document, onSave, onChange, saving, errors }) => (
   </form>
   );
 
-// DocumentForm.propTypes = {
-//   document: React.PropTypes.object.isRequired,
-//   onSave: React.PropTypes.func.isRequired,
-//   onChange: React.PropTypes.func.isRequired,
-//   saving: React.PropTypes.bool,
-//   errors: React.PropTypes.object
-// };
+DocumentForm.propTypes = {
+  document: React.PropTypes.object.isRequired,
+  onSave: React.PropTypes.func.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  saving: React.PropTypes.bool,
+  errors: React.PropTypes.object
+};
 
 export default DocumentForm;

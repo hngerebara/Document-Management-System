@@ -31,7 +31,6 @@ class DocumentsPage extends Component {
       isSearching: true
     })
     this.props.searchAllDocuments(searchQuery);
-    console.log(this.props.manageDocuments.searchDocuments);
   };
 
   closeSearch = () => {
@@ -44,7 +43,7 @@ class DocumentsPage extends Component {
 
   render() {
     const { manageDocuments, user } = this.props;
-    console.log(this.state.isSearching)
+    const isSearching = this.state.isSearching;
     return (
       <div>
         <h3>All documents </h3>
@@ -54,9 +53,11 @@ class DocumentsPage extends Component {
           placeholder="Search Documents"
           onChange={this.docsSearch}
         />
-        <button onClick={this.closeSearch}>Close search</button>
+        {isSearching &&
+          <button onClick={this.closeSearch}>Close search</button>
+        }
         <DocumentList
-          documents={this.state.isSearching ? manageDocuments.searchDocuments : manageDocuments.documents}
+          documents={isSearching ? manageDocuments.searchDocuments : manageDocuments.documents}
           user={user}
           deleteDocument={this.props.deleteDocument}
           viewDocument={this.props.viewDocument}

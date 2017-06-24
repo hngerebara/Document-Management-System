@@ -3,7 +3,8 @@ import axios from 'axios';
 const ROOT_URL = 'http://localhost:8090';
 
 export const FETCH_DOCUMENTS_SUCCESS = 'FETCH_DOCUMENTS_SUCCESS';
-export const DISPLAY_DOCUMENT_FAILURE_MESSAGE = 'DISPLAY_DOCUMENT_FAILURE_MESSAGE';
+export const DISPLAY_DOCUMENT_FAILURE_MESSAGE =
+'DISPLAY_DOCUMENT_FAILURE_MESSAGE';
 export const CREATE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const VIEW_DOCUMENT_SUCCESS = 'VIEW_DOCUMENT_SUCCESS';
@@ -14,7 +15,6 @@ export const FETCH_USER_DOCUMENTS_SUCCESS = 'FETCH_USER_DOCUMENTS_SUCCESS';
 export const UPDATE_DOCUMENT_ERROR = 'UPDATE_DOCUMENT_ERROR';
 export const FETCH_SEARCH_SUCCESS = 'FETCH_SEARCH_SUCCESS';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
-
 
 export const displayDocumentFailureMessage = errorMessage => ({
   type: DISPLAY_DOCUMENT_FAILURE_MESSAGE,
@@ -71,7 +71,6 @@ export const clearSearch = () => ({
 });
 
 export const fetchAllDocuments = () => (dispatch) => {
-  console.log('fetch all documents getting called');
   axios.get(`${ROOT_URL}/documents/`)
   .then((response) => {
     dispatch(fetchDocumentsSuccess(response.data));
@@ -83,10 +82,8 @@ export const fetchAllDocuments = () => (dispatch) => {
 };
 
 export const viewDocument = documentId => (dispatch) => {
-  console.log('fetch single document getting called');
   axios.get(`${ROOT_URL}/documents/${documentId}/`, document)
       .then((response) => {
-        console.log(response, 'response from viewing single document');
         dispatch(viewDocumentSuccess(response.data));
       })
       .catch((error) => {
@@ -96,7 +93,6 @@ export const viewDocument = documentId => (dispatch) => {
 };
 
 export const fetchUserDocuments = creatorId => (dispatch) => {
-  console.log('fetch user documents getting called');
   axios.get(`${ROOT_URL}/users/${creatorId}/documents`, creatorId)
   .then((response) => {
     dispatch(fetchUserDocumentSuccess(response.data.allDocuments));
@@ -123,9 +119,7 @@ export const searchAllDocuments = search => (dispatch) => {
     .then((response) => {
       const searchResult = response.data.document;
       dispatch(fetchSearchSuccess(searchResult));
-      console.log(searchResult);
     }).catch((error) => {
-      console.log(error)
       dispatch(searchFailureMessage(error.response));
       throw error;
     });
@@ -133,7 +127,6 @@ export const searchAllDocuments = search => (dispatch) => {
 
 
 export const deleteDocument = documentId => (dispatch) => {
-  console.log('getting to delete document action');
   axios.delete(`${ROOT_URL}/documents/${documentId}/`)
     .then((response) => {
       dispatch(deleteDocumentSuccess(response.data.message));
@@ -145,13 +138,11 @@ export const deleteDocument = documentId => (dispatch) => {
   });
 };
 
-export function updateDocument(documentId, updatedDocument) {
-  return (dispatch) => {
-    return axios.put(`/documents/${documentId}`, updatedDocument)
+export const updateDocument = (documentId, updatedDocument) => (dispatch) => {
+  axios.put(`/documents/${documentId}`, updatedDocument)
     .then(() => {
       dispatch({ UPDATE_DOCUMENT_SUCCESS, updatedDocument });
     }).catch((error) => {
       dispatch({ UPDATE_DOCUMENT_ERROR, error });
     });
-  };
-}
+};

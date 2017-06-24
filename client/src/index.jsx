@@ -9,18 +9,7 @@ import ConfigureStore from './store/ConfigureStore';
 import jwtDecode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser } from './components/auth/AuthActions';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-import { purple900, grey900 } from 'material-ui/styles/colors';
-
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: purple900,
-    textColor: grey900,
-  },
-});
+import '../styles/custom.scss';
 
 const store = ConfigureStore();
 if (localStorage.token) {
@@ -31,9 +20,7 @@ if (localStorage.token) {
 }
 
 render(  
-  <MuiThemeProvider muiTheme={muiTheme}>
   <Provider store={store}>
     <Router history={browserHistory} routes={routes} />
-  </Provider>
-   </MuiThemeProvider>,
+  </Provider>,
   document.querySelector('.container'));

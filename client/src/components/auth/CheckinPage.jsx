@@ -7,7 +7,6 @@ import { browserHistory } from 'react-router';
 import validateInput from '../../../../server/validations/login';
 import TextInput from '../common/TextInput';
 
-
 class CheckinPage extends Component {
   constructor(props) {
     super(props);
@@ -29,12 +28,16 @@ class CheckinPage extends Component {
   }
 
   handleCheckin(event) {
-    event.preventDefault();
+    event.preventDefault()
+    console.log(this.state)
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.checkinUserAction(this.state)
-      .then(() => browserHistory.push('/documents'))
-      .catch(() => this.setState({ error: 'User name or password not correct' }));
+      this.props
+        .checkinUserAction(this.state)
+        .then(() => browserHistory.push('/documents'))
+        .catch(() =>
+          this.setState({ error: 'User name or password not correct' })
+        );
     }
   }
 
@@ -42,45 +45,62 @@ class CheckinPage extends Component {
     const { errors, email, password, isLoading } = this.state;
 
     return (
-      <form onSubmit={this.handleCheckin}>
-        <h1>Login</h1>
-        { this.state.error &&
-        <p>{ this.state.error }</p>
-        }
-
-        <TextInput
-          name="email"
-          field="email"
-          type="text"
-          label="Email"
-          placeholder="Email"
-          value={email}
-          error={errors.email}
-          onChange={this.handleChange}
-        />
-
-        <TextInput
-          name="password"
-          field="Password"
-          type="password"
-          label="Password"
-          placeholder="********"
-          value={password}
-          error={errors.password}
-          onChange={this.handleChange}
-        />
-        <div>
-          <button
-            disabled={isLoading}
-          >
-              Login
-            </button>
-        </div>
-      </form>
+      <div className="login-container">
+        <div className="row">
+                {this.state.error && <p>{this.state.error}</p>}
+              </div>
+              <div className="card-content">
+                <form>
+                  <div className="row">
+                    <div className="input-field">
+                      <i className="material-icons prefix">account_circle</i>
+                      <TextInput
+                        name="email"
+                        error={errors.username}
+                        label="Email"
+                        onChange={this.handleChange}
+                        checkUserExists={this.checkUserExists}
+                        value={this.state.username}
+                        field="email"
+                        className="validate"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="input-field">
+                      <i className="material-icons prefix">lock_outline</i>
+                      <TextInput
+                        name="password"
+                        error={errors.password}
+                        label="password"
+                        onChange={this.handleChange}
+                        checkUserExists={this.checkUserExists}
+                        value={this.state.password}
+                        field="password"
+                        className="validate"
+                        type="password"
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <button
+                      className="pink btn waves-effect waves-light col s12"
+                      type="submit"
+                      onClick={this.handleCheckin}
+                    >
+                      CHECKIN
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div className="card-action">
+                <a href="/">SIGNUP</a>
+              </div>
+            </div>
     );
   }
-  }
-
+}
 
 CheckinPage.propTypes = {
   checkinUserAction: PropTypes.func.isRequired

@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import UserDocumentList from './UserDocumentList';
+import SearchBar from '../../search/SearchBar';
 
 import {
   deleteDocument,
   fetchUserDocuments,
   viewDocument,
   searchUsersDocuments
-} from './DocumentActions';
+} from '../DocumentActions';
 
 class UsersDocumentsPage extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class UsersDocumentsPage extends Component {
     return (
       <div>
         <h1>My Documents </h1>
-        
+        <SearchBar />
         <UserDocumentList
           userDocuments={manageDocuments.userDocuments}
           user={user}
@@ -40,7 +41,6 @@ UsersDocumentsPage.propTypes = {
   manageDocuments: PropTypes.object.isRequired,
   deleteDocument: PropTypes.func.isRequired,
   fetchUserDocuments: PropTypes.func.isRequired,
-  searchUsersDocuments: PropTypes.func.isRequired,
   viewDocument: PropTypes.func.isRequired
 };
 

@@ -8,8 +8,8 @@ import CheckinPage from './components/auth/CheckinPage';
 import Signup from './components/auth/SignupPage';
 // import DashBoard from './components/DashBoard';
 import ManageDocumentpage from './components/document/ManageDocumentpage';
-import DocumentsPage from './components/document/DocumentsPage';
-import UsersDocumentsPage from './components/document/UsersDocumentsPage';
+import DocumentsPage from './components/document/otherDocuments/DocumentsPage';
+import UsersDocumentsPage from './components/document/userDocuments/UsersDocumentsPage';
 import UsersPage from './components/Admin/UsersPage';
 
 

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DocumentList from './DocumentList';
+import SearchBar from '../../search/SearchBar';
 import {
   deleteDocument,
   fetchUserDocuments,
@@ -8,14 +9,11 @@ import {
   viewDocument,
   searchAllDocuments,
   clearSearch
-} from './DocumentActions';
+} from '../DocumentActions';
 
 class DocumentsPage extends Component {
   constructor(props) {
     super(props);
-    this.state= {
-      isSearching: false,
-    }
     if (!props.manageDocuments) {
       return <div>Loading...</div>;
     }
@@ -25,42 +23,18 @@ class DocumentsPage extends Component {
     this.props.fetchAllDocuments();
   }
 
-   docsSearch = (event) => {
-    const searchQuery = event.target.value;
-    this.setState({
-      isSearching: true
-    })
-    this.props.searchAllDocuments(searchQuery);
-  };
-
-  closeSearch = () => {
-    this.setState({
-      isSearching: false,
-    });
-    this.search.value = '';
-    this.props.clearSearch();
-  }
-
   render() {
     const { manageDocuments, user } = this.props;
-    const isSearching = this.state.isSearching;
     return (
       <div>
         <h3>All documents </h3>
-        <input
-          ref={ref => this.search = ref}
-          type="text"
-          placeholder="Search Documents"
-          onChange={this.docsSearch}
-        />
-        {isSearching &&
-          <button onClick={this.closeSearch}>Close search</button>
-        }
+        <SearchBar />
         <DocumentList
-          documents={isSearching ? manageDocuments.searchDocuments : manageDocuments.documents}
+          documents={manageDocuments.isSearching ? manageDocuments.searchDocuments : manageDocuments.documents}
           user={user}
           deleteDocument={this.props.deleteDocument}
           viewDocument={this.props.viewDocument}
+          searchAllDocument={searchAllDocuments}
         />
       </div>
     );
@@ -72,7 +46,6 @@ DocumentsPage.propTypes = {
   deleteDocument: PropTypes.func.isRequired,
   fetchAllDocuments: PropTypes.func.isRequired,
   fetchUserDocuments: PropTypes.func.isRequired,
-  searchAllDocuments: PropTypes.func.isRequired,
   viewDocument: PropTypes.func.isRequired
   
 };

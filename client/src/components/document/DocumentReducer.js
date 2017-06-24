@@ -6,6 +6,7 @@ FETCH_USER_DOCUMENTS_SUCCESS, DISPLAY_DOCUMENT_FAILURE_MESSAGE,
 const initialState = {
   documents: [],
   searchDocuments: [],
+  isSearching: false,
   userDocuments: [],
   document: {},
   count: 0,
@@ -102,13 +103,15 @@ export default function DocumentsReducer(state = initialState, action) {
     case FETCH_SEARCH_SUCCESS:
       return {
         ...state,
-        searchDocuments: action.documents
+        searchDocuments: action.documents,
+        isSearching: true
       };
 
       case CLEAR_SEARCH:
       return {
         ...state,
-        searchDocuments: []
+        searchDocuments: [],
+        isSearching: false
       };
 
     default:

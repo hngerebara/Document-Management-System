@@ -17,7 +17,8 @@ export const displayFailureMessage = errorMessage => ({
 });
 
 export const fetchAllUsers = () => (dispatch) => {
-  axios.get(`${ROOT_URL}/users/?limit=10?offset=0`)
+  axios.get(`${ROOT_URL}/users/`)
+
   .then((response) => {
     dispatch(fetchUsersSuccess(response.data));
   })

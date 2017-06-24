@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import UsersList from './UsersList';
-import * as actions from './UsersActions';
+import { fetchAllUsers, deleteUser } from './UsersActions';
 
 class UsersPage extends React.Component {
   constructor(props) {
     super(props);
   }
+  
 
   componentDidMount() {
-    this.props.actions.fetchAllUsers();
+    this.props.fetchAllUsers();
   }
 
   render() {
@@ -25,7 +25,7 @@ class UsersPage extends React.Component {
               <UsersList
                 key={index}
                 user={user}
-                deleteUser={this.props.actions.deleteUser}
+                deleteUser={this.props.deleteUser}
               />
             )
           }
@@ -45,8 +45,5 @@ const mapStateToProps = state => ({
   users: state.UsersReducer
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
+export default connect(mapStateToProps, { fetchAllUsers, deleteUser })(UsersPage);

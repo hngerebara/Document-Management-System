@@ -12,8 +12,9 @@ const searchController = {
       })
       .then((document) => {
         if (document.length <= 0) {
-          return res.status(404)
+          return res.status(200)
             .send({
+              document: [],
               message: 'Documents Not Found',
             });
         }

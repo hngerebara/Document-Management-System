@@ -1,73 +1,66 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import DocumentList from './DocumentList';
-import UserDocumentList from './UserDocumentList';
 import {
   deleteDocument,
   fetchUserDocuments,
   fetchAllDocuments,
-  viewDocument
+  viewDocument,
+  searchAllDocuments,
+  clearSearch
 } from './DocumentActions';
 
 class DocumentsPage extends Component {
   constructor(props) {
     super(props);
+    this.state= {
+      isSearching: false,
+    }
     if (!props.manageDocuments) {
       return <div>Loading...</div>;
     }
-
-    this.state = { page: 'document' };
   }
 
   componentDidMount() {
-    if (this.props.location.pathname === '/documents') {
-      this.props.fetchAllDocuments();
-      this.setState({ page: 'document' });
-    } else if (this.props.params.creatorId) {
-      this.props.fetchUserDocuments(this.props.params.creatorId);
-          this.setState({ page: 'userdocuments' });
-    }
+    this.props.fetchAllDocuments();
   }
 
-  documentRow(document, index) {
-    return <div key={index}>{document.documenName}</div>;
+   docsSearch = (event) => {
+    const searchQuery = event.target.value;
+    this.setState({
+      isSearching: true
+    })
+    this.props.searchAllDocuments(searchQuery);
+    console.log(this.props.manageDocuments.searchDocuments);
+  };
+
+  closeSearch = () => {
+    this.setState({
+      isSearching: false,
+    });
+    this.search.value = '';
+    this.props.clearSearch();
   }
 
   render() {
     const { manageDocuments, user } = this.props;
-    const { page } = this.state;
-
-    // if (this.props.documents.length === 0) {
-    //   return (
-    //     <div>
-    //         No document available here.... yet.
-    //     </div>
-    //   );
-    // }
+    console.log(this.state.isSearching)
     return (
       <div>
-        {page === 'document' &&
-          <div>
-            <h3>All documents </h3>
-            <DocumentList
-              documents={manageDocuments.documents}
-              user={user}
-              deleteDocument={this.props.deleteDocument}
-              viewDocument={this.props.viewDocument}
-            />
-          </div>}
-
-        {page === 'userdocuments' &&
-          <div>
-            <h1>My Documents </h1>
-            <UserDocumentList
-              userDocuments={manageDocuments.userDocuments}
-              user={user}
-              deleteDocument={this.props.deleteDocument}
-              viewDocument={this.props.viewDocument}
-            />
-          </div>}
+        <h3>All documents </h3>
+        <input
+          ref={ref => this.search = ref}
+          type="text"
+          placeholder="Search Documents"
+          onChange={this.docsSearch}
+        />
+        <button onClick={this.closeSearch}>Close search</button>
+        <DocumentList
+          documents={this.state.isSearching ? manageDocuments.searchDocuments : manageDocuments.documents}
+          user={user}
+          deleteDocument={this.props.deleteDocument}
+          viewDocument={this.props.viewDocument}
+        />
       </div>
     );
   }
@@ -78,7 +71,9 @@ DocumentsPage.propTypes = {
   deleteDocument: PropTypes.func.isRequired,
   fetchAllDocuments: PropTypes.func.isRequired,
   fetchUserDocuments: PropTypes.func.isRequired,
+  searchAllDocuments: PropTypes.func.isRequired,
   viewDocument: PropTypes.func.isRequired
+  
 };
 
 const mapStateToProps = state => ({
@@ -86,13 +81,11 @@ const mapStateToProps = state => ({
   user: state.Auth.user
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(actions, dispatch)
-// });
-
 export default connect(mapStateToProps, {
   deleteDocument,
   fetchUserDocuments,
   fetchAllDocuments,
-  viewDocument
+  viewDocument,
+  searchAllDocuments,
+  clearSearch
 })(DocumentsPage);

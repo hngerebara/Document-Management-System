@@ -11,10 +11,23 @@ export const UPDATE_DOCUMENT_SUCCESS = 'UPDATE_DOCUMENT_SUCCESS';
 export const DOCUMENT_FETCHED = 'DOCUMENT_FETCHED';
 export const DISPLAY_USER_FAILURE_MESSAGE = 'DISPLAY_USER_FAILURE_MESSAGE';
 export const FETCH_USER_DOCUMENTS_SUCCESS = 'FETCH_USER_DOCUMENTS_SUCCESS';
+export const UPDATE_DOCUMENT_ERROR = 'UPDATE_DOCUMENT_ERROR';
+export const FETCH_SEARCH_SUCCESS = 'FETCH_SEARCH_SUCCESS';
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 
 
 export const displayDocumentFailureMessage = errorMessage => ({
   type: DISPLAY_DOCUMENT_FAILURE_MESSAGE,
+  errorMessage
+});
+
+export const fetchSearchSuccess = documents => ({
+  type: FETCH_SEARCH_SUCCESS,
+  documents
+});
+
+export const searchFailureMessage = errorMessage => ({
+  type: SEARCH_FAILURE_MESSAGE,
   errorMessage
 });
 
@@ -28,8 +41,8 @@ export const createDocumentSuccess = document => ({
   document,
 });
 
-export const updateDocumentSuccess = (document) => ({
-  type: UPDATE_DOCUMENT_SUCCESS, 
+export const updateDocumentSuccess = document => ({
+  type: UPDATE_DOCUMENT_SUCCESS,
   document,
 });
 
@@ -53,9 +66,13 @@ export const deleteDocumentSuccess = document => ({
   document,
 });
 
+export const clearSearch = () => ({
+  type: CLEAR_SEARCH,
+});
+
 export const fetchAllDocuments = () => (dispatch) => {
   console.log('fetch all documents getting called');
-  axios.get(`${ROOT_URL}/documents`)
+  axios.get(`${ROOT_URL}/documents/`)
   .then((response) => {
     dispatch(fetchDocumentsSuccess(response.data));
   })
@@ -69,7 +86,7 @@ export const viewDocument = documentId => (dispatch) => {
   console.log('fetch single document getting called');
   axios.get(`${ROOT_URL}/documents/${documentId}/`, document)
       .then((response) => {
-        console.log(response,"response from viewing single document")
+        console.log(response, 'response from viewing single document');
         dispatch(viewDocumentSuccess(response.data));
       })
       .catch((error) => {
@@ -101,6 +118,20 @@ export const createDocument = document => (dispatch) => {
     });
 };
 
+export const searchAllDocuments = search => (dispatch) => {
+  axios.get(`${ROOT_URL}/search/documents?search=${search}`)
+    .then((response) => {
+      const searchResult = response.data.document;
+      dispatch(fetchSearchSuccess(searchResult));
+      console.log(searchResult);
+    }).catch((error) => {
+      console.log(error)
+      dispatch(searchFailureMessage(error.response));
+      throw error;
+    });
+};
+
+
 export const deleteDocument = documentId => (dispatch) => {
   console.log('getting to delete document action');
   axios.delete(`${ROOT_URL}/documents/${documentId}/`)
@@ -114,13 +145,13 @@ export const deleteDocument = documentId => (dispatch) => {
   });
 };
 
-export const searchAllDocuments = (query, documents) => (dispatch) => {
-  axios.post(`${ROOT_URL}/documents?search=${search}`, documents)
-    .then((response) => {
-        dispatch(fetchDocumentsSuccess(documents));
+export function updateDocument(documentId, updatedDocument) {
+  return (dispatch) => {
+    return axios.put(`/documents/${documentId}`, updatedDocument)
+    .then(() => {
+      dispatch({ UPDATE_DOCUMENT_SUCCESS, updatedDocument });
     }).catch((error) => {
-      dispatch(displayDocumentFailureMessage(error.response.statusText));
-      throw error;
+      dispatch({ UPDATE_DOCUMENT_ERROR, error });
     });
-};
-
+  };
+}

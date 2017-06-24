@@ -3,6 +3,7 @@ import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { signOutUser } from '../../components/auth/AuthActions';
+import { searchAllDocuments } from '../../components/document/DocumentActions';
 // import '../../styles/custom.scss';
 
 
@@ -10,6 +11,20 @@ class Header extends React.Component {
   constructor(props) {
     super();
     this.signOut = this.signOut.bind(this);
+    this.searchDocuments = this.searchDocuments.bind(this);
+  }
+
+  searchDocuments(event) {
+    const currentPath = location.pathname;
+    const query = event.target.value;
+    if (currentPath === '/documents') {
+      this.props.searchAllDocuments(query);
+    } else if (currentPath === '/mydocuments') {
+      const userId = this.props.Auth.user.id;
+      this.props.searchUserDocuments(userId, query);
+    } else if (currentPath === '/users') {
+      this.props.searchUsers(query);
+    }
   }
 
   signOut(event) {
@@ -22,7 +37,13 @@ class Header extends React.Component {
     const isAdmin = this.props.Auth.user.id === 96;
 
     const userLinks = (
+
       <ul>
+        <li><input
+          type="text" name="search"
+          placeholder="search here..."
+          onChange={this.searchDocuments}
+        /></li>
         <li>
           <Link to="/">Home</Link>
         </li>
@@ -67,14 +88,10 @@ class Header extends React.Component {
 
     return (
       <nav>
-        <div >
-          <div>
-            <Link to="/">Hopeaz DMS</Link>
-          </div>
-          <div>
-            { isAuthenticated ? userLinks : guestLinks }
-          </div>
+        <div>
+          { isAuthenticated ? userLinks : guestLinks }
         </div>
+
       </nav>
     );
   }
@@ -82,11 +99,12 @@ class Header extends React.Component {
 
 Header.propTypes = {
   Auth: PropTypes.object.isRequired,
-  signOutUser: PropTypes.func.isRequired
+  signOutUser: PropTypes.func.isRequired,
+  searchAllDocuments: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return { Auth: state.Auth };
 }
 
-export default connect(mapStateToProps, { signOutUser })(Header);
+export default connect(mapStateToProps, { signOutUser, searchAllDocuments })(Header);

@@ -1,17 +1,19 @@
-import { FETCH_DOCUMENTS_SUCCESS, DISPLAY_FAILURE_MESSAGE,
-CREATE_DOCUMENT_SUCCESS, DELETE_DOCUMENT_SUCCESS,
-VIEW_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS, 
-FETCH_USER_DOCUMENTS_SUCCESS, FETCH_USER_DOCUMENTS_FAILED,
-DOCUMENT_FETCHED, DISPLAY_DOCUMENT_FAILURE_MESSAGE } from './DocumentActions';
-
-import { browserHistory } from 'react-router';
+import { FETCH_DOCUMENTS_SUCCESS, CREATE_DOCUMENT_SUCCESS,
+DELETE_DOCUMENT_SUCCESS, VIEW_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS,
+FETCH_USER_DOCUMENTS_SUCCESS, DISPLAY_DOCUMENT_FAILURE_MESSAGE,
+ FETCH_SEARCH_SUCCESS, CLEAR_SEARCH } from './DocumentActions';
 
 const initialState = {
   documents: [],
+  searchDocuments: [],
   userDocuments: [],
-  document: {}
+  document: {},
+  count: 0,
+  page: 1,
+
 };
 export default function DocumentsReducer(state = initialState, action) {
+  let indexOfDocument = 0;
   switch (action.type) {
     case DISPLAY_DOCUMENT_FAILURE_MESSAGE:
       return {
@@ -26,6 +28,10 @@ export default function DocumentsReducer(state = initialState, action) {
           ...state.documents,
           ...action.documents
         ],
+        // count: [
+        //   ...state.count,
+        //   ...action.count
+        // ]
       };
 
     case FETCH_USER_DOCUMENTS_SUCCESS:
@@ -46,34 +52,65 @@ export default function DocumentsReducer(state = initialState, action) {
     case CREATE_DOCUMENT_SUCCESS:
       return {
         ...state,
-        document: action.document
+        document: action.document,
+        count: state.count + 1,
+        documents: [
+          ...state.documents,
+          action.document,
+        ]
+      };
+
+    case UPDATE_DOCUMENT_SUCCESS:
+      idx = state.documents.findIndex(document =>
+      document.id === action.document.id);
+      if (indexOfDocument === -1) {
+        return {
+          ...state,
+          document: action.document
+        };
+      }
+      return {
+        ...state,
+        document: action.document,
+        documents: [
+          ...state.documents.slice(0, indexOfDocument),
+          action.document,
+          ...state.documents.slice(indexOfDocument + 1),
+        ]
       };
 
 
-
-    // case UPDATE_DOCUMENT_SUCCESS:
-    //   return {}
-    //     ...state.filter(document => document.id !== action.document.id),
-    //     Object.assign({}, action.course)
-    //   };
-
-    case DELETE_DOCUMENT_SUCCESS: {
-      const newState = Object.assign([], state);
-      const indexOfDocumentToDelete = state.findIndex(document =>
+    case DELETE_DOCUMENT_SUCCESS:
+      indexOfDocument = state.documents.findIndex(document =>
       document.id === action.document.id);
-      newState.splice(indexOfDocumentToDelete, 1);
-      return newState;
-    }
-// case DELETE_DOCUMENT_SUCCESS: {
-//   const indexOfUserToDelete = state.document.findIndex(
-//         document => document.id === action.document.id);
-//       return [
-//         ...state.slice(0, indexOfDocumentToDelete),
-//         ...state.slice(indexOfDocumentToDelete + 1)
-//       ];
-// }
+      if (indexOfDocument === -1) {
+        return {
+          ...state,
+          document: undefined
+        };
+      }
+      return {
+        ...state,
+        document: undefined,
+        count: state.count - 1,
+        documents: [
+          ...state.documents.slice(0, indexOfDocument),
+          ...state.documents.slice(indexOfDocument + 1)
+        ]
+      };
 
-      
+    case FETCH_SEARCH_SUCCESS:
+      return {
+        ...state,
+        searchDocuments: action.documents
+      };
+
+      case CLEAR_SEARCH:
+      return {
+        ...state,
+        searchDocuments: []
+      };
+
     default:
       return state;
   }

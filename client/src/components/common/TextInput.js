@@ -11,7 +11,7 @@ const TextInput = ({ name, label, onChange, type, placeholder, value, error, che
       <label htmlFor={name}>{label}</label>
       <div className="field">
         <input
-          type="text"
+          type={type}
           name={name}
           className="form-control"
           placeholder={placeholder}

@@ -55,6 +55,11 @@ router.get('/search/documents',
 authMiddleware.authenticate(),
 searchController.searchDocuments);
 
+// search users
+router.get('/search/users',
+authMiddleware.authenticate(),
+searchController.searchUsers);
+
 
 // retrieve and create roles endpoint
 // only accessible by admin

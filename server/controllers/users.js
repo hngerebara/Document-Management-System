@@ -147,7 +147,9 @@ const usersController = {
           }
           if (Users.IsPassword(user.password, password)) {
             const payload = {
-              id: user.id
+              id: user.id,
+              username: user.username,
+              title: user.roleTitle
             };
             const token = jwt.sign(payload, cfg.jwtSecret, {
               expiresIn: 60 * 60 * 24

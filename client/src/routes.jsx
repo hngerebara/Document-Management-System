@@ -10,7 +10,7 @@ import Signup from './components/auth/SignupPage';
 import ManageDocumentpage from './components/document/ManageDocumentpage';
 import DocumentsPage from './components/document/otherDocuments/DocumentsPage';
 import UsersDocumentsPage from './components/document/userDocuments/UsersDocumentsPage';
-import UsersPage from './components/Admin/UsersPage';
+import UsersPage from './components/Admin/manageUsers/UsersPage';
 
 
 

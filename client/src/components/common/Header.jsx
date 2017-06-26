@@ -4,27 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { signOutUser } from '../../components/auth/AuthActions';
 import { searchAllDocuments } from '../../components/document/DocumentActions';
-// import '../../styles/custom.scss';
-
 
 class Header extends React.Component {
   constructor(props) {
     super();
     this.signOut = this.signOut.bind(this);
-    this.searchDocuments = this.searchDocuments.bind(this);
-  }
-
-  searchDocuments(event) {
-    const currentPath = location.pathname;
-    const query = event.target.value;
-    if (currentPath === '/documents') {
-      this.props.searchAllDocuments(query);
-    } else if (currentPath === '/mydocuments') {
-      const userId = this.props.Auth.user.id;
-      this.props.searchUserDocuments(userId, query);
-    } else if (currentPath === '/users') {
-      this.props.searchUsers(query);
-    }
   }
 
   signOut(event) {
@@ -33,78 +17,43 @@ class Header extends React.Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props.Auth;
-    const isAdmin = this.props.Auth.user.id === 96;
-
-    const userLinks = (
-
-      <ul>
-        <li><input
-          type="text" name="search"
-          placeholder="search here..."
-          onChange={this.searchDocuments}
-        /></li>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li><Link to="/about">About</Link>
-        </li>
-        <li>
-          <Link to="/documents">Other Documents</Link>
-        </li>
-        <li>
-          <Link to="/documents/new">Create Document</Link>
-        </li>
-        <li>
-          <Link to={`/users/${this.props.Auth.user.id}/documents`}>My Documents</Link>
-        </li>
-        <li><Link to="/documents/new" />
-        </li>
-        {isAdmin &&
-          <li><Link to="/users">GetUsers</Link>
-          </li>
-          }
-        <li><a href="/" onClick={this.signOut}>Signout</a></li>
-      </ul>
-
-    );
-
-    const guestLinks = (
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li><Link to="/about">About</Link>
-        </li>
-        <li>
-          <Link to="/checkin">Checkin</Link>
-        </li>
-        <li>
-          <Link to="/signup">Signup</Link>
-        </li>
-      </ul>
-    );
-
-
+    const { isAuthenticated, user } = this.props.Auth;
+    
     return (
-      <nav>
-        <div>
-          { isAuthenticated ? userLinks : guestLinks }
-        </div>
-
-      </nav>
+    // const isAdmin = this.props.Auth.user.title === 'Admin';
+    <header>
+  <nav id="main-nav" className="blue-grey">
+    <div className="container">
+      <ul className="right">
+       <li>Hello {user.username}</li>
+        <li><a className="dropdown-button" href="#!" data-activates="user-dropdown">
+        <i className="mdi-social-person"></i>
+        <i className="mdi-navigation-arrow-drop-down right"></i></a></li>
+      </ul>
+    </div>
+    <ul id="user-dropdown" className="dropdown-content">
+      <li><Link to="/accountProfile">My Profile</Link></li>
+      <li><Link to="/">Change Password</Link></li>
+      <li className="divider"></li>
+      <li><Link to="/" onClick={this.signOut}>Signout</Link></li>
+    </ul>
+  </nav>
+  </header>
+  
+   
     );
   }
 }
 
 Header.propTypes = {
   Auth: PropTypes.object.isRequired,
-  signOutUser: PropTypes.func.isRequired,
-  searchAllDocuments: PropTypes.func.isRequired
+  signOutUser: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return { Auth: state.Auth };
 }
 
-export default connect(mapStateToProps, { signOutUser, searchAllDocuments })(Header);
+export default connect(mapStateToProps, { signOutUser, searchAllDocuments })(
+  Header
+);

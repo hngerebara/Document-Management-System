@@ -68,6 +68,7 @@
     "redux-router": "^2.1.2",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.3",
+    "style-loader": "^0.17.0",
     "sequelize": "^3.30.4",
     "shortid": "^2.2.8",
     "swagger-jsdoc": "^1.9.4",

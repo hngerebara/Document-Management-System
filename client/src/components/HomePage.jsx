@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import muiThemeable from 'material-ui/styles/muiThemeable';
 import { signOutUser } from '../components/auth/AuthActions'
 
 class HomePage extends Component {
@@ -17,13 +16,13 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <span>
+ <span>
           Hello world! This is the home page route.
         </span>
-      </div>
+        </div>
     );
   }
 
 }
 
-export default muiThemeable()(HomePage);
+export default HomePage;

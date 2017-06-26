@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react';
 import UsersList from './UsersList';
+import SearchBar from '../../common/SearchBar';
+import SideBar from '../../common/SideBar';
 import { fetchAllUsers, deleteUser } from './UsersActions';
 
 class UsersPage extends React.Component {
@@ -9,19 +12,24 @@ class UsersPage extends React.Component {
   }
   
 
+
   componentDidMount() {
     this.props.fetchAllUsers();
   }
 
+
   render() {
-    const { users } = this.props;
+    const { manageUsers } = this.props;
+    console.log(manageUsers,"gjhfdghjk")
     return (
       <div>
         <h1>Users</h1>
+       
+        <SearchBar />
         <div>
           <ul>
             {
-            users.map((user, index) =>
+            manageUsers.users.map((user, index) =>
               <UsersList
                 key={index}
                 user={user}
@@ -31,6 +39,7 @@ class UsersPage extends React.Component {
           }
           </ul>
         </div>
+          
       </div>
     );
   }
@@ -42,7 +51,7 @@ UsersPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  users: state.UsersReducer
+  manageUsers: state.UsersReducer
 });
 
 

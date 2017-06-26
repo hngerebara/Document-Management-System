@@ -39,3 +39,67 @@ header, main, footer {
 	background-color: green;
 	position: relative;
 }
+
+//Homepage
+@import url(https://oss.maxcdn.com/libs/animate.css/2.0/animate.min.css);
+
+.homepage-body {
+    width: 100%;
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #444;
+    -webkit-font-smoothing: antialiased;
+    background: #222222 no-repeat top center fixed;
+  	background-size: cover;
+  	font-family: sans-serif;
+}
+
+h1 {
+    font-size: 60px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 4px #000;
+    margin-top: 20px;
+}
+
+#box {
+    position: fixed;
+    width: 500px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -250px;
+    text-align: center;
+    -webkit-animation-name: bounceInDown;
+    -webkit-animation-fill-mode: both;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: bounceInDown;
+    -moz-animation-fill-mode: both;
+    -moz-animation-duration: 1.5s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: linear;
+    animation-name: bounceInDown;
+    animation-fill-mode: both;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+}
+
+
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+.modal-body {
+    background: #222222  no-repeat top center fixed;
+  	background-size:100% 100%;
+  	background-size: cover;
+}
+

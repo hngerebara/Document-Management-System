@@ -4,9 +4,10 @@
   "description": "Document Management system",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build",
-    "build": "webpack-dev-server --content-base dist/ --inline --hot ",
-    "start:dev": "nodemon ./server.js --exec babel-node",
+    "start": "npm run build:server",
+    "build": "webpack -d && cp index.html dist/index.html",
+    "build:server": "webpack-dev-server --content-base dist/ --inline --hot ",
+    "start:server": "nodemon ./server.js --exec babel-node",
     "migrate_test_db": "sequelize db:migrate",
     "test": " NODE_ENV=test nyc babel-node ./node_modules/mocha/bin/_mocha ./server/test/**/*.js"
   },

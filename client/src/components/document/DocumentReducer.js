@@ -1,17 +1,17 @@
 import { FETCH_DOCUMENTS_SUCCESS, CREATE_DOCUMENT_SUCCESS,
-DELETE_DOCUMENT_SUCCESS, VIEW_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS,
+DELETE_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS,
 FETCH_USER_DOCUMENTS_SUCCESS, DISPLAY_DOCUMENT_FAILURE_MESSAGE,
  FETCH_SEARCH_SUCCESS, CLEAR_SEARCH } from './DocumentActions';
 
 const initialState = {
   documents: [],
+  pagination: {},
+  searchPagination: {},
   searchDocuments: [],
   isSearching: false,
   userDocuments: [],
   document: {},
-  count: 0,
-  page: 1,
-
+  searchQuery: '',
 };
 export default function DocumentsReducer(state = initialState, action) {
   let indexOfDocument = 0;
@@ -23,16 +23,11 @@ export default function DocumentsReducer(state = initialState, action) {
       };
 
     case FETCH_DOCUMENTS_SUCCESS:
+      const { documents, pagination } = action.data;
       return {
         ...state,
-        documents: [
-          ...state.documents,
-          ...action.documents
-        ],
-        // count: [
-        //   ...state.count,
-        //   ...action.count
-        // ]
+        documents,
+        pagination,
       };
 
     case FETCH_USER_DOCUMENTS_SUCCESS:
@@ -44,11 +39,11 @@ export default function DocumentsReducer(state = initialState, action) {
         ],
       };
 
-    case VIEW_DOCUMENT_SUCCESS:
-      return {
-        ...state,
-        document: action.document
-      };
+    // case VIEW_DOCUMENT_SUCCESS:
+    //   return {
+    //     ...state,
+    //     document: action.document
+    //   };
 
     case CREATE_DOCUMENT_SUCCESS:
       return {
@@ -101,16 +96,20 @@ export default function DocumentsReducer(state = initialState, action) {
       };
 
     case FETCH_SEARCH_SUCCESS:
+      const { searchDocuments, searchPagination } = action.data;
       return {
         ...state,
-        searchDocuments: action.documents,
-        isSearching: true
+        searchDocuments,
+        searchPagination,
+        isSearching: true,
+        searchQuery: action.searchQuery,
       };
 
-      case CLEAR_SEARCH:
+    case CLEAR_SEARCH:
       return {
         ...state,
         searchDocuments: [],
+        searchPagination: {},
         isSearching: false
       };
 

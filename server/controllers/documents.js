@@ -20,7 +20,7 @@ const documentsController = {
   },
 
   list(req, res) {
-    const limit = req.query.limit || 10;
+    const limit = req.query.limit || 6;
     const offset = req.query.offset || 0;
     const isAdmin = req.user.roleTitle === 'Admin';
     let queryDocs;
@@ -49,11 +49,13 @@ const documentsController = {
       ? documents.count : limit;
       res.status(200)
       .send({
-        page_count: next,
-        page: currentPage,
-        page_size: Number(pageSize),
-        total_count: documents.count,
-        documents
+        pagination: {
+          page_count: next,
+          page: currentPage,
+          page_size: Number(pageSize),
+          total_count: documents.count
+        },
+        documents: documents.rows
       });
     })
     .catch(error => res.status(400).send(error));

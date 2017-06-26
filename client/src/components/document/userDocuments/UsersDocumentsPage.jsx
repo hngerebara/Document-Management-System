@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import UserDocumentList from './UserDocumentList';
-import SearchBar from '../../search/SearchBar';
+import SearchBar from '../../common/SearchBar';
+import SideBar from '../../common/SideBar';
 
 import {
   deleteDocument,
@@ -24,7 +25,10 @@ class UsersDocumentsPage extends Component {
 
     return (
       <div>
+       <main>
+        <div className="container">
         <h1>My Documents </h1>
+        <SideBar/>
         <SearchBar />
         <UserDocumentList
           userDocuments={manageDocuments.userDocuments}
@@ -32,6 +36,8 @@ class UsersDocumentsPage extends Component {
           deleteDocument={this.props.deleteDocument}
           viewDocument={this.props.viewDocument}
         />
+      </div>
+      </main>
       </div>
     );
   }

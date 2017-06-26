@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';  
-import UsersReducer from '../components/Admin/UsersReducer';
+import UsersReducer from '../components/Admin/manageUsers/UsersReducer';
 import DocumentReducer from '../components/document/DocumentReducer';
 import Auth from '../components/auth/AuthReducer';
 

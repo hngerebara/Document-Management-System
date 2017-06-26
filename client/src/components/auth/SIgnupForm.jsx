@@ -76,7 +76,7 @@ class SignupForm extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form>
         <h1>Join us today!</h1>
 
         <TextInput
@@ -137,9 +137,11 @@ class SignupForm extends Component {
         />
 
         <div className="form-group">
-          <button
-            disabled={this.state.isLoading || this.state.invalid}
-            className="btn btn-primary btn-lg"
+         <button
+                      className="pink btn waves-effect waves-light col s12"
+                      disabled={this.state.isLoading || this.state.invalid}
+                      type="submit"
+                      onClick={this.handleSubmit}
           >
             Sign up
           </button>

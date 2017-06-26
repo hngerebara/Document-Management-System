@@ -1,6 +1,6 @@
 import express from 'express';
 import usersController from '../controllers/users';
-// import rolesController from '../controllers/roles';
+import rolesController from '../controllers/roles';
 import documentsController from '../controllers/documents';
 import searchController from '../controllers/search';
 import auth from '../config/middlewares/auth';
@@ -13,12 +13,13 @@ router
   .route('/users')
   .all(authMiddleware.authenticate())
   .post(usersController.create)
-  .get(usersController.list);
+  .get(usersController.listUsers)
+  .get(usersController.listUsersAndDocs);
 
 // signin
 router.post('/users/login', usersController.login);
 
-// retrieve, delete and update user by id enpoints
+// retrieve, delete and  update user by id enpoints
 router
   .route('/users/:id')
   .all(authMiddleware.authenticate())
@@ -54,13 +55,21 @@ router.get('/search/documents',
 authMiddleware.authenticate(),
 searchController.searchDocuments);
 
+// search users
+router.get('/search/users',
+authMiddleware.authenticate(),
+searchController.searchUsers);
+
 
 // retrieve and create roles endpoint
-// only accesible by admin
+// only accessible by admin
 // router
 // .route('/roles')
 // .all(authMiddleware.authenticate())
-// // .post('/roles', rolesController.create)
+// .post('/roles', rolesController.create)
 // .get('/roles', rolesController.list)
+// .get('/roles', rolesController.retrieve)
+// .put('/roles', rolesController.update)
+// .delete('/roles', rolesController.destroy);
 
 export default router;

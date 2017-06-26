@@ -30,7 +30,7 @@ const usersController = {
       );
   },
 
-  list(req, res) {
+  listUsersAndDocs(req, res) {
     return Users.findAll({
       include: [
         {
@@ -39,8 +39,20 @@ const usersController = {
         }
       ]
     })
-      .then(users => res.status(200).send(users)
+      .then(users => res.status(200).send({
+        message: 'Users and their documents retrieved succesfully',
+        users
+      })
      )
+      .catch(error => res.status(500).send(error)
+     );
+  },
+
+  listUsers(req, res) {
+    return Users.findAll()
+      .then(users => res.status(200)
+      .send(users)
+      )
       .catch(error => res.status(500).send(error)
      );
   },
@@ -54,13 +66,10 @@ const usersController = {
         ]
       }
     }).then((user) => {
-      // User not found
       if (!user) {
         return res.status(404)
         .send({ message: `User with ${req.params.id} does not exist` });
       }
-
-      // Display result
       res.status(200).send(user);
     });
   },
@@ -131,11 +140,16 @@ const usersController = {
       Users.findOne({ where: { email } })
         .then((user) => {
           if (!user) {
-            return res.status(401).json({ message: 'email or password did not match' });
+            return res.status(401)
+            .send({
+              message: 'email or password did not match'
+            });
           }
           if (Users.IsPassword(user.password, password)) {
             const payload = {
-              id: user.id
+              id: user.id,
+              username: user.username,
+              title: user.roleTitle
             };
             const token = jwt.sign(payload, cfg.jwtSecret, {
               expiresIn: 60 * 60 * 24
@@ -145,10 +159,17 @@ const usersController = {
               token
             });
           } else {
-            res.status(401).json({ message: 'passwords did not match' });
+            res.status(401)
+            .send({
+              message: 'passwords did not match'
+            });
           }
-        }).catch(error => {
-          res.status(401).json({ message: 'User not found' });
+        }).catch((error) => {
+          res.status(401)
+          .send({
+            message: 'User not found',
+            error
+          });
         });
     }
   }

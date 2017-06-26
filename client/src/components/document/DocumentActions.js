@@ -14,6 +14,7 @@ export const DISPLAY_USER_FAILURE_MESSAGE = 'DISPLAY_USER_FAILURE_MESSAGE';
 export const FETCH_USER_DOCUMENTS_SUCCESS = 'FETCH_USER_DOCUMENTS_SUCCESS';
 export const UPDATE_DOCUMENT_ERROR = 'UPDATE_DOCUMENT_ERROR';
 export const FETCH_SEARCH_SUCCESS = 'FETCH_SEARCH_SUCCESS';
+export const SEARCH_FAILURE_MESSAGE = 'SEARCH_FAILURE_MESSAGE';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 
 export const displayDocumentFailureMessage = errorMessage => ({
@@ -21,9 +22,10 @@ export const displayDocumentFailureMessage = errorMessage => ({
   errorMessage
 });
 
-export const fetchSearchSuccess = documents => ({
+export const fetchSearchSuccess = (data, searchQuery) => ({
   type: FETCH_SEARCH_SUCCESS,
-  documents
+  data,
+  searchQuery
 });
 
 export const searchFailureMessage = errorMessage => ({
@@ -31,9 +33,9 @@ export const searchFailureMessage = errorMessage => ({
   errorMessage
 });
 
-export const fetchDocumentsSuccess = documents => ({
+export const fetchDocumentsSuccess = data => ({
   type: FETCH_DOCUMENTS_SUCCESS,
-  documents
+  data
 });
 
 export const createDocumentSuccess = document => ({
@@ -70,8 +72,8 @@ export const clearSearch = () => ({
   type: CLEAR_SEARCH,
 });
 
-export const fetchAllDocuments = () => (dispatch) => {
-  axios.get(`${ROOT_URL}/documents/`)
+export const fetchAllDocuments = (offset=0, limit=6) => (dispatch) => {
+  axios.get(`${ROOT_URL}/documents?limit=${limit}&offset=${offset}`)
   .then((response) => {
     dispatch(fetchDocumentsSuccess(response.data));
   })
@@ -114,11 +116,10 @@ export const createDocument = document => (dispatch) => {
     });
 };
 
-export const searchAllDocuments = search => (dispatch) => {
-  axios.get(`${ROOT_URL}/search/documents?search=${search}`)
+export const searchAllDocuments = (search, offset = 0, limit = 6) => (dispatch) => {
+  axios.get(`${ROOT_URL}/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
     .then((response) => {
-      const searchResult = response.data.document;
-      dispatch(fetchSearchSuccess(searchResult));
+      dispatch(fetchSearchSuccess(response.data, search));
     }).catch((error) => {
       dispatch(searchFailureMessage(error.response));
       throw error;

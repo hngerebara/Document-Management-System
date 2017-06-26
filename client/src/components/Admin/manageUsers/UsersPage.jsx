@@ -1,36 +1,45 @@
 import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react';
 import UsersList from './UsersList';
-import * as actions from './UsersActions';
+import SearchBar from '../../common/SearchBar';
+import SideBar from '../../common/SideBar';
+import { fetchAllUsers, deleteUser } from './UsersActions';
 
 class UsersPage extends React.Component {
   constructor(props) {
     super(props);
   }
+  
+
 
   componentDidMount() {
-    this.props.actions.fetchAllUsers();
+    this.props.fetchAllUsers();
   }
 
+
   render() {
-    const { users } = this.props;
+    const { manageUsers } = this.props;
+    console.log(manageUsers,"gjhfdghjk")
     return (
       <div>
         <h1>Users</h1>
+       
+        <SearchBar />
         <div>
           <ul>
             {
-            users.map((user, index) =>
+            manageUsers.users.map((user, index) =>
               <UsersList
                 key={index}
                 user={user}
-                deleteUser={this.props.actions.deleteUser}
+                deleteUser={this.props.deleteUser}
               />
             )
           }
           </ul>
         </div>
+          
       </div>
     );
   }
@@ -42,11 +51,8 @@ UsersPage.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  users: state.UsersReducer
+  manageUsers: state.UsersReducer
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersPage);
+export default connect(mapStateToProps, { fetchAllUsers, deleteUser })(UsersPage);

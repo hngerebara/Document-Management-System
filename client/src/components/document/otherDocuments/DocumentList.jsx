@@ -6,15 +6,7 @@ const DocumentList = ({
   user,
   viewDocument
 }) => (
-  <div>
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Access Type</th>
-        </tr>
-      </thead>
-      <tbody>
+   <div className="row">
         {documents.map(document => (
           <DocumentListRow
             key={document.id}
@@ -23,8 +15,6 @@ const DocumentList = ({
             viewDocument={viewDocument}
           />
           ))}
-      </tbody>
-    </table>
   </div>
   );
 

@@ -4,7 +4,7 @@
   "description": "Document Management system",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build:server",
+    "start": "npm run start:server",
     "build": "webpack -d && cp index.html dist/index.html",
     "build:server": "webpack-dev-server --content-base dist/ --inline --hot ",
     "start:server": "nodemon ./server.js --exec babel-node",

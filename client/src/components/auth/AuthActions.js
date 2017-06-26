@@ -1,6 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import jwtDecode from 'jwt-decode';
+import { browserHistory } from 'react-router';
 
 const ROOT_URL = 'http://localhost:8090';
 
@@ -22,6 +23,8 @@ dispatch => axios.post(`${ROOT_URL}/users/login`, { email, password })
     localStorage.setItem('token', token);
     setAuthToken(token);
     dispatch(setCurrentUser(jwtDecode(token)));
+    console.log(token)
+    console.log(jwtDecode(token), "dedcoded token")
   })
   .catch((error) => {
     dispatch({
@@ -35,4 +38,5 @@ export const signOutUser = () => (dispatch) => {
   localStorage.removeItem('token');
   setAuthToken(false);
   dispatch(setCurrentUser({}));
+  browserHistory.push('/');
 };

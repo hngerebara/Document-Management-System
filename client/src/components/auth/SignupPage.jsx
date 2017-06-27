@@ -13,7 +13,8 @@ class SignupPage extends Component {
           <SignupForm
             isUserExists={isUserExists}
             signupUser={signupUser}
-            addFlashMessage={addFlashMessage} />
+            addFlashMessage={addFlashMessage}
+          />
         </div>
       </div>
     );

@@ -23,12 +23,8 @@ const config = {
     dialect: 'postgres'
   },
   production: {
-    username: process.env.USER,
-    password: process.env.PASSWORRD,
-    port: process.env.PORT,
-    database: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL,
     logging: false,
-    host: process.env.HOST,
     dialect: 'postgres'
   }
 };

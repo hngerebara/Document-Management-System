@@ -24,10 +24,10 @@ describe('Route: Documents', () => {
   describe('/POST Documents', () => {
     it('should not allow cretion of document withou login', (done) => {
       chai.request(app).post('/documents').send(document).end((err, res) => {
-      expect(res).to.have.status(401);
-      expect(res.text).to.equal('Unauthorized');
-      done();
-    });
+        expect(res).to.have.status(401);
+        expect(res.text).to.equal('Unauthorized');
+        done();
+      });
     });
 
     it('it should succesfully post only if user is loggedin', (done) => {
@@ -96,6 +96,22 @@ describe('Route: Documents', () => {
     });
 
     it('it should create documents with role access', (done) => {
+      const user = {
+        username: 'Hopeaz',
+        firstName: 'Hope',
+        lastName: 'Ngerebara',
+        email: 'Hopeaz@gmail.com',
+        password: '12345'
+      };
+      chai
+      .request(app)
+            .post('/users')
+            .send(user)
+            .end((err, res) => {
+              expect(res).to.have.status(201);
+              expect(res.text).to.include('"message":"User signed up succesfully"');
+              done();
+            });
       chai
       .request(app)
       .post('/users/login')

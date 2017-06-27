@@ -1,2 +1,2 @@
-web: npm run build 
-web: npm run start:server
+web: npm run heroku-prebuild
+web: npm run heroku-postbuild

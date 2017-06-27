@@ -24,16 +24,16 @@ describe('Route: Users', () => {
     password: '12345'
   };
   describe('/POST Users', () => {
-    // it('it should POST /Create a user with these fields', (done) => {
-    //   chai.request(app)
-    //         .post('/users')
-    //         .send(user)
-    //         .end((err, res) => {
-    //           expect(res).to.have.status(201);
-    //           expect(res.text).to.include('"message":"User signed up succesfully"');
-    //           done();
-    //         });
-    // });
+    it('it should POST /Create a user with these fields', (done) => {
+      chai.request(app)
+            .post('/users')
+            .send(user)
+            .end((err, res) => {
+              expect(res).to.have.status(201);
+              expect(res.text).to.include('"message":"User signed up succesfully"');
+              done();
+            });
+    });
     it('it should not POST if the username or email is not unique', (done) => {
       chai.request(app).post('/users').send(user).end((err, res) => {
         expect(res).to.have.status(400);

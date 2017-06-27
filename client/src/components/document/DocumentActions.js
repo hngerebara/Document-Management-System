@@ -5,7 +5,7 @@ export const DISPLAY_DOCUMENT_FAILURE_MESSAGE =
 'DISPLAY_DOCUMENT_FAILURE_MESSAGE';
 export const CREATE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
-export const VIEW_DOCUMENT_SUCCESS = 'VIEW_DOCUMENT_SUCCESS';
+export const FETCH_DOCUMENT_SUCCESS = 'FETCH_DOCUMENT_SUCCESS';
 export const UPDATE_DOCUMENT_SUCCESS = 'UPDATE_DOCUMENT_SUCCESS';
 export const DOCUMENT_FETCHED = 'DOCUMENT_FETCHED';
 export const DISPLAY_USER_FAILURE_MESSAGE = 'DISPLAY_USER_FAILURE_MESSAGE';
@@ -46,8 +46,8 @@ export const updateDocumentSuccess = document => ({
   document,
 });
 
-export const viewDocumentSuccess = document => ({
-  type: VIEW_DOCUMENT_SUCCESS,
+export const fetchDocumentSuccess = document => ({
+  type: FETCH_DOCUMENT_SUCCESS,
   document
 });
 
@@ -70,7 +70,7 @@ export const clearSearch = () => ({
   type: CLEAR_SEARCH,
 });
 
-export const fetchAllDocuments = (offset=0, limit=6) => (dispatch) => {
+export const fetchAllDocuments = (offset=0, limit=6) => (dispatch) =>
   axios.get(`/documents?limit=${limit}&offset=${offset}`)
   .then((response) => {
     dispatch(fetchDocumentsSuccess(response.data));
@@ -79,20 +79,19 @@ export const fetchAllDocuments = (offset=0, limit=6) => (dispatch) => {
     dispatch(displayDocumentFailureMessage(error.response));
     throw error;
   });
-};
 
-export const viewDocument = documentId => (dispatch) => {
-  axios.get(`/documents/${documentId}/`, document)
-      .then((response) => {
-        dispatch(viewDocumentSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(displayDocumentFailureMessage(error.response));
-        throw error;
-      });
-};
+export const fetchDocument = documentId => (dispatch) =>
+  axios.get(`/documents/${documentId}/`)
+    .then((response) => {
+      console.log(response);
+      dispatch(fetchDocumentSuccess(response.data.document));
+    })
+    .catch((error) => {
+      dispatch(displayDocumentFailureMessage(error.response));
+      throw error;
+    });
 
-export const fetchUserDocuments = creatorId => (dispatch) => {
+export const fetchUserDocuments = creatorId => (dispatch) =>
   axios.get(`/users/${creatorId}/documents`, creatorId)
   .then((response) => {
     dispatch(fetchUserDocumentSuccess(response.data.allDocuments));
@@ -101,20 +100,19 @@ export const fetchUserDocuments = creatorId => (dispatch) => {
     dispatch(displayDocumentFailureMessage(error.response));
     throw error;
   });
-};
 
-export const createDocument = document => (dispatch) => {
+export const createDocument = document => (dispatch) =>
   axios.post(`/documents`, document)
     .then(() => {
       document.id ? dispatch(updateDocumentSuccess(document)) :
         dispatch(createDocumentSuccess(document));
     }).catch((error) => {
+      console.log(error)
       dispatch(displayDocumentFailureMessage(error.response.statusText));
       throw error;
     });
-};
 
-export const searchAllDocuments = (search, offset = 0, limit = 6) => (dispatch) => {
+export const searchAllDocuments = (search, offset = 0, limit = 6) => (dispatch) =>
   axios.get(`/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(fetchSearchSuccess(response.data, search));
@@ -122,7 +120,6 @@ export const searchAllDocuments = (search, offset = 0, limit = 6) => (dispatch) 
       dispatch(searchFailureMessage(error.response));
       throw error;
     });
-};
 
 
 export const deleteDocument = documentId => (dispatch) => {
@@ -137,11 +134,10 @@ export const deleteDocument = documentId => (dispatch) => {
   });
 };
 
-export const updateDocument = (documentId, updatedDocument) => (dispatch) => {
-  axios.put(`/documents/${documentId}`, updatedDocument)
-    .then(() => {
-      dispatch({ UPDATE_DOCUMENT_SUCCESS, updatedDocument });
-    }).catch((error) => {
-      dispatch({ UPDATE_DOCUMENT_ERROR, error });
-    });
-};
+// export const updateDocument = (documentId, updatedDocument) => (dispatch) =>
+//   axios.put(`/documents/${documentId}`, updatedDocument)
+//     .then(() => {
+//       dispatch({ UPDATE_DOCUMENT_SUCCESS, updatedDocument });
+//     }).catch((error) => {
+//       dispatch({ UPDATE_DOCUMENT_ERROR, error });
+//     });

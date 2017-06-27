@@ -7,7 +7,7 @@ import AboutPage from './components/AboutPage';
 import CheckinPage from './components/auth/CheckinPage';
 import Signup from './components/auth/SignupPage';
 // import DashBoard from './components/DashBoard';
-import ManageDocumentpage from './components/document/ManageDocumentpage';
+import ManageDocumentPage from './components/document/ManageDocumentPage';
 import DocumentsPage from './components/document/otherDocuments/DocumentsPage';
 import UsersDocumentsPage from './components/document/userDocuments/UsersDocumentsPage';
 import UsersPage from './components/Admin/manageUsers/UsersPage';
@@ -45,7 +45,7 @@ export default (
     <Route path="/checkin" component={CheckinPage} onEnter={isLogin} />
     <Route path="/signup" component={Signup} onEnter={isLogin} />
     <Route path="/documents" component={DocumentsPage} onEnter={requireAuth} />
-     <Route path="/documents/:id" component={ManageDocumentpage} onEnter={requireAuth} />
+     <Route path="/documents/:id" component={ManageDocumentPage} onEnter={requireAuth} />
      <Route path="/users/:creatorId/documents" component={UsersDocumentsPage} onEnter={requireAuth} />
    
       {/*<Route path="documents" component={ListDocuments} />

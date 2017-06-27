@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, '../../', '/dist')));
 // middleware for token authentication
 app.use(authMiddleware.initialize());
 
-app.use(router);
+app.use('/api', router);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../index.html'));

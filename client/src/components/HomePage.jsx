@@ -24,7 +24,7 @@ class HomePage extends Component {
                   <span className="input-group-btn">
                           <button type="submit" 
                           className="btn btn-primary glyphicon glyphicon-lock">
-                          <Link to="/users">
+                          <Link to="/signup">
                             Signup
                             </Link>
                           </button>

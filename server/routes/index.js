@@ -9,10 +9,12 @@ const authMiddleware = auth();
 const router = express.Router();
 
 // signup and list users routes
+
+router.post('/users', usersController.create);
+
 router
   .route('/users')
   .all(authMiddleware.authenticate())
-  .post(usersController.create)
   .get(usersController.listUsers)
   .get(usersController.listUsersAndDocs);
 

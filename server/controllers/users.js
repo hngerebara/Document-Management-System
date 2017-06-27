@@ -21,7 +21,8 @@ const usersController = {
         const token = jwt.sign(payload, cfg.jwtSecret, {
           expiresIn: 60 * 60 * 24
         });
-        res.send({
+        return res.status(201)
+        .send({
           message: 'User signed up succesfully',
           token
         });

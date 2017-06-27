@@ -1,2 +1,1 @@
-web: npm run prebuild
-web: npm run postbuild
+web: npm run start:server

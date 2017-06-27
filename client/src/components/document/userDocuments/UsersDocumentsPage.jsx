@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import UserDocumentList from './UserDocumentList';
 import SearchBar from '../../common/SearchBar';
 import SideBar from '../../common/SideBar';
+import ViewDocument from '../ViewDocument';
 
 import {
   deleteDocument,
@@ -14,29 +15,42 @@ import {
 class UsersDocumentsPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentDocument: {}
+    }
   }
 
   componentDidMount() {
     this.props.fetchUserDocuments(this.props.params.creatorId);
   }
 
+  viewDocument = (documentId) => {
+    const { manageDocuments: { userDocuments } } = this.props;
+    const document = userDocuments.find(doc => doc.id === documentId);
+    if (document) {
+      console.log(document);
+      this.setState({ currentDocument: document });
+      $('.doc-modal').modal('open');
+    }
+  }
+
   render() {
     const { manageDocuments, user } = this.props;
-
     return (
       <div>
        <main>
         <div className="container">
         <h1>My Documents </h1>
-        <SideBar/>
+        <SideBar />
         <SearchBar />
         <UserDocumentList
           userDocuments={manageDocuments.userDocuments}
           user={user}
           deleteDocument={this.props.deleteDocument}
-          viewDocument={this.props.viewDocument}
+          viewDocument={this.viewDocument}
         />
       </div>
+      <ViewDocument document={this.state.currentDocument} edit />
       </main>
       </div>
     );

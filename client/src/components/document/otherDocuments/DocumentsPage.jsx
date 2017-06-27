@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import DocumentList from './DocumentList';
 import SearchBar from '../../common/SearchBar';
 import SideBar from '../../common/SideBar';
+import ViewDocument from '../ViewDocument';
 
 import {
   deleteDocument,
@@ -18,6 +19,9 @@ class DocumentsPage extends Component {
     super(props);
     if (!props.manageDocuments) {
       return <div>Loading...</div>;
+    }
+    this.state = {
+      currentDocument: {},
     }
     this.handlePageClick = this.handlePageClick.bind(this);
   }
@@ -42,6 +46,17 @@ class DocumentsPage extends Component {
     this.props.searchAllDocuments(search, offset);
   }
 
+  viewDocument = (documentId) => {
+    const { manageDocuments } = this.props;
+    const documents = manageDocuments.isSearching ? manageDocuments.searchDocuments :
+      manageDocuments.documents
+    const document = documents.find(doc => doc.id === documentId);
+    if (document) {
+      this.setState({ currentDocument: document });
+      $('.doc-modal').modal('open');
+    }
+  }
+
   render() {
     const { manageDocuments, user } = this.props;
     console.log(manageDocuments, "in render");
@@ -59,7 +74,7 @@ class DocumentsPage extends Component {
             manageDocuments.documents}
           user={user}
           deleteDocument={this.props.deleteDocument}
-          viewDocument={this.props.viewDocument}
+          viewDocument={this.viewDocument}
           searchAllDocument={searchAllDocuments}
         />
         
@@ -80,6 +95,7 @@ class DocumentsPage extends Component {
             subContainerClassName={'pages pagination'}
             activeClassName={'active'}
           />
+          <ViewDocument document={this.state.currentDocument} />
           </div>
 
       </div>

@@ -1,0 +1,18 @@
+dist: trusty
+language: node_js
+node_js:
+  - "6"
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'drop database if exists dms_test;' -U postgres
+  - psql -c 'create database dms_test;' -U postgres
+
+  - npm i -g sequelize-cli
+
+script:
+  - npm test
+
+after_success:
+  - npm run coveralls

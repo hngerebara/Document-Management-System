@@ -1,7 +1,13 @@
 const path = require('path');
+const webpack = require('webpack');
+require('dotenv').config();
 
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const SRC_DIR = path.resolve(__dirname, 'client/src/');
+
+const globalconstiables = {
+  API_URL: JSON.stringify(process.env.API_URL)
+};
 
 
 const config = {
@@ -34,6 +40,9 @@ const config = {
   devServer: {
     historyApiFallback: true
   },
+  plugins: [
+    new webpack.DefinePlugin(globalconstiables)
+  ]
 };
 
 

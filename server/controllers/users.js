@@ -15,8 +15,9 @@ const usersController = {
     })
       .then((user) => {
         const payload = {
+          id: user.id,
           username: user.username,
-          password: user.password
+          title: user.roleTitle
         };
         const token = jwt.sign(payload, cfg.jwtSecret, {
           expiresIn: 60 * 60 * 24

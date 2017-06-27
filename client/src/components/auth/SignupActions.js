@@ -1,17 +1,16 @@
-import axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
-
-const ROOT_URL = 'http://localhost:8090';
-
-
+import axios from '../../utils/api';
+import { setCurrentUser } from './AuthActions';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 
 export const signupUser = ({ username, firstName, lastName, email, password }) => dispatch =>
-axios.post(`${ROOT_URL}/users`, { username, firstName, lastName, email, password })
+axios.post('/users', { username, firstName, lastName, email, password })
   .then((response) => {
     const token = response.data.token;
     localStorage.setItem('token', token);
+    dispatch(setCurrentUser(jwtDecode(token)));
     dispatch({
       type: SIGNUP_SUCCESS,
       token,
@@ -27,6 +26,6 @@ axios.post(`${ROOT_URL}/users`, { username, firstName, lastName, email, password
 
 export function isUserExists(id) {
   return dispatch => {
-    return axios.get(`${ROOT_URL}/users/${id}`);
+    return axios.get(`/users/${id}`);
   }
 }

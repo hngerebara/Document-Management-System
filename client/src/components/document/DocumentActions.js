@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const ROOT_URL = 'http://localhost:8090';
+import axios from '../../utils/api';
 
 export const FETCH_DOCUMENTS_SUCCESS = 'FETCH_DOCUMENTS_SUCCESS';
 export const DISPLAY_DOCUMENT_FAILURE_MESSAGE =
@@ -73,7 +71,7 @@ export const clearSearch = () => ({
 });
 
 export const fetchAllDocuments = (offset=0, limit=6) => (dispatch) => {
-  axios.get(`${ROOT_URL}/documents?limit=${limit}&offset=${offset}`)
+  axios.get(`/documents?limit=${limit}&offset=${offset}`)
   .then((response) => {
     dispatch(fetchDocumentsSuccess(response.data));
   })
@@ -84,7 +82,7 @@ export const fetchAllDocuments = (offset=0, limit=6) => (dispatch) => {
 };
 
 export const viewDocument = documentId => (dispatch) => {
-  axios.get(`${ROOT_URL}/documents/${documentId}/`, document)
+  axios.get(`/documents/${documentId}/`, document)
       .then((response) => {
         dispatch(viewDocumentSuccess(response.data));
       })
@@ -95,7 +93,7 @@ export const viewDocument = documentId => (dispatch) => {
 };
 
 export const fetchUserDocuments = creatorId => (dispatch) => {
-  axios.get(`${ROOT_URL}/users/${creatorId}/documents`, creatorId)
+  axios.get(`/users/${creatorId}/documents`, creatorId)
   .then((response) => {
     dispatch(fetchUserDocumentSuccess(response.data.allDocuments));
   })
@@ -106,7 +104,7 @@ export const fetchUserDocuments = creatorId => (dispatch) => {
 };
 
 export const createDocument = document => (dispatch) => {
-  axios.post(`${ROOT_URL}/documents`, document)
+  axios.post(`/documents`, document)
     .then(() => {
       document.id ? dispatch(updateDocumentSuccess(document)) :
         dispatch(createDocumentSuccess(document));
@@ -117,7 +115,7 @@ export const createDocument = document => (dispatch) => {
 };
 
 export const searchAllDocuments = (search, offset = 0, limit = 6) => (dispatch) => {
-  axios.get(`${ROOT_URL}/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
+  axios.get(`/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(fetchSearchSuccess(response.data, search));
     }).catch((error) => {
@@ -128,7 +126,7 @@ export const searchAllDocuments = (search, offset = 0, limit = 6) => (dispatch) 
 
 
 export const deleteDocument = documentId => (dispatch) => {
-  axios.delete(`${ROOT_URL}/documents/${documentId}/`)
+  axios.delete(`/documents/${documentId}/`)
     .then((response) => {
       dispatch(deleteDocumentSuccess(response.data.message));
       dispatch(fetchAllDocuments());

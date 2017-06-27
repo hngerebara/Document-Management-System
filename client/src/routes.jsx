@@ -45,7 +45,7 @@ export default (
     <Route path="/checkin" component={CheckinPage} onEnter={isLogin} />
     <Route path="/signup" component={Signup} onEnter={isLogin} />
     <Route path="/documents" component={DocumentsPage} onEnter={requireAuth} />
-     <Route path="/documents/:id" component={ManageDocumentpage} onEnter={requireAuth} />
+     <Route path="/documents/:id" component={ManageDocumentPage} onEnter={requireAuth} />
      <Route path="/users/:creatorId/documents" component={UsersDocumentsPage} onEnter={requireAuth} />
    
       {/*<Route path="documents" component={ListDocuments} />

@@ -4,6 +4,7 @@ import rolesController from '../controllers/roles';
 import documentsController from '../controllers/documents';
 import searchController from '../controllers/search';
 import auth from '../config/middlewares/auth';
+import adminVerify from '../config/middlewares/adminVerification';
 
 const authMiddleware = auth();
 const router = express.Router();
@@ -15,8 +16,9 @@ router.post('/users', usersController.create);
 router
   .route('/users')
   .all(authMiddleware.authenticate())
-  .get(usersController.listUsers)
-  .get(usersController.listUsersAndDocs);
+  .get(adminVerify, usersController.listUsers);
+
+router.get('/users-docs', adminVerify, usersController.listUsersAndDocs);
 
 // signin
 router.post('/users/login', usersController.login);
@@ -65,13 +67,15 @@ searchController.searchUsers);
 
 // retrieve and create roles endpoint
 // only accessible by admin
-// router
-// .route('/roles')
-// .all(authMiddleware.authenticate())
-// .post('/roles', rolesController.create)
-// .get('/roles', rolesController.list)
-// .get('/roles', rolesController.retrieve)
-// .put('/roles', rolesController.update)
-// .delete('/roles', rolesController.destroy);
+router
+.route('/roles')
+.all(authMiddleware.authenticate(), adminVerify)
+.post(rolesController.create)
+.get(rolesController.list)
+.put(rolesController.update)
+.delete(rolesController.destroy);
+
+router.get('/roles/:id', authMiddleware.authenticate(),
+  adminVerify, rolesController.retrieve);
 
 export default router;

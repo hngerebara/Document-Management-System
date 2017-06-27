@@ -66,7 +66,7 @@ class SignupForm extends Component {
           type: 'success',
           text: 'You signed up successfully. Welcome!'
         });
-        browserHistory.push('/');
+        browserHistory.push('/documents');
       }
     ).catch(() => this.setState({ errors: 'Please check signup details', isLoading: false })
     );

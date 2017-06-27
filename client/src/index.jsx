@@ -14,7 +14,6 @@ import '../js/dms';
 
 const store = ConfigureStore();
 if (localStorage.token) {
-  setAuthToken(localStorage.token);
   const decodedToken = jwtDecode(localStorage.token);
   // set user object with the userId
   store.dispatch(setCurrentUser({ id: decodedToken.id,
@@ -23,7 +22,7 @@ if (localStorage.token) {
   }));
 }
 
-render(  
+render(
   <Provider store={store}>
     <Router history={browserHistory} routes={routes} />
   </Provider>,

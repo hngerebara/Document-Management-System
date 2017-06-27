@@ -1,9 +1,7 @@
-import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import { browserHistory } from 'react-router';
-
-const ROOT_URL = 'http://localhost:8090';
+import axios from '../../utils/api';
 
 export const CHECKIN_ERROR = 'CHECKIN_ERROR';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
@@ -17,11 +15,10 @@ export function setCurrentUser(user) {
 }
 
 export const checkinUserAction = ({ email, password }) =>
-dispatch => axios.post(`${ROOT_URL}/users/login`, { email, password })
+dispatch => axios.post('/users/login', { email, password })
   .then((response) => {
     const token = response.data.token;
     localStorage.setItem('token', token);
-    setAuthToken(token);
     dispatch(setCurrentUser(jwtDecode(token)));
     console.log(token)
     console.log(jwtDecode(token), "dedcoded token")

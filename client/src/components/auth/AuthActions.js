@@ -20,8 +20,6 @@ dispatch => axios.post('/users/login', { email, password })
     const token = response.data.token;
     localStorage.setItem('token', token);
     dispatch(setCurrentUser(jwtDecode(token)));
-    console.log(token)
-    console.log(jwtDecode(token), "dedcoded token")
   })
   .catch((error) => {
     dispatch({

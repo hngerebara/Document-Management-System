@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as documentActions from './DocumentActions';
+import { fetchDocument, createDocument } from './DocumentActions';
 import DocumentForm from './DocumentForm';
 // import {authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
@@ -9,15 +9,15 @@ import toastr from 'toastr';
 export class ManageDocumentPage extends Component {
   constructor(props, context) {
     super(props, context);
-
+    const document = {
+      id: null,
+      documentName: '',
+      description: '',
+      access: 'public',
+      content: '' 
+    }
     this.state = {
-      document: {
-        id: this.props.document.id ? this.props.document.id : null,
-        documentName: this.props.document.id ? this.props.document.documentName : '',
-        description: this.props.document.id ? this.props.document.description : '',
-        access: this.props.document.id ? this.props.document.access : 'public',
-        content: this.props.document.id ? this.props.document.content : ''
-      },
+      document: this.props.document || document,
       errors: {},
       saving: false
     };
@@ -26,10 +26,11 @@ export class ManageDocumentPage extends Component {
   }
 
 componentDidMount() {
-  const currentPath = location.pathname;
-  if (currentPath === '/documents/new') {
-    const document = this.state.document;
-    this.setState({ document });
+  const { params: { id } } = this.props;
+  const documentId = this.props.document.id;
+  if (id && id !== 'new' && !documentId) {
+    this.props.fetchDocument(id)
+      .catch(error => console.log(error));
   }
 }
   componentWillReceiveProps(nextProps) {
@@ -40,29 +41,22 @@ componentDidMount() {
 
   updateDocumentState(event) {
     const field = event.target.name;
-    const document = this.state.document;
-    document[field] = event.target.value;
+    const document = {
+      ...this.state.document,
+      [field]: event.target.value
+    };
     return this.setState({ document });
   }
   
   saveDocument(event) {
     event.preventDefault();
     this.setState({ saving: true });
-    // if (this.props.document !== null) {
-    //   this.props.actions.updateDocument(this.state.document)
-    //   .then(() => this.redirect())
-    //   .catch((error) => {
-    //     toastr.error(error);
-    //     this.setState({ saving: false });
-    //   });
-    // } else {
-      this.props.actions.createDocument(this.state.document)
+      this.props.createDocument(this.state.document)
       .then(() => this.redirect())
       .catch((error) => {
         toastr.error(error);
         this.setState({ saving: false });
       });
-    // }
   }
 
   redirect() {
@@ -71,10 +65,20 @@ componentDidMount() {
     this.context.router.push('/documents');
   }
 
+   handleEditorChange = (e) => {
+     const content = e.target.getContent();
+     const document = {
+       ...this.state.document,
+       content,
+     }
+     this.setState({ document });
+  }
+
   render() {
     return (
       <DocumentForm
         onChange={this.updateDocumentState}
+        handleEditorChange={this.handleEditorChange}
         onSave={this.saveDocument}
         document={this.state.document}
         errors={this.state.errors}
@@ -86,26 +90,23 @@ componentDidMount() {
 
 ManageDocumentPage.propTypes = {
   document: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
 };
 
 ManageDocumentPage.contextTypes = {
   router: PropTypes.object
 };
 
-function getDocumentById(documents, id) {
-  const document = documents.filter(document => document.id == id);
-  if (document) return document[0];
-  return null;
-}
+const getDocumentById = (documents, id) =>
+  documents.find(doc => String(doc.id) === id);
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps({ DocumentReducer }, ownProps) {
   const documentId = ownProps.params.id;
 
-  let document = { id: '', documentName: '', description: '', access: '', content: '' };
+  let document = { id: null, documentName: '', description: '', access: 'public', content: '' };
 
-  if (documentId && state.documents) {
-    document = getDocumentById(state.documents, documentId);
+  if (documentId && DocumentReducer.documents) {
+    const foundDocument = getDocumentById(DocumentReducer.documents, documentId);
+    document = foundDocument || document;
   }
 
   return {
@@ -113,10 +114,9 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(documentActions, dispatch)
-  };
-}
+const mapDispatchToProps = {
+  fetchDocument,
+  createDocument,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageDocumentPage);

@@ -1,7 +1,15 @@
-import { FETCH_DOCUMENTS_SUCCESS, CREATE_DOCUMENT_SUCCESS,
-DELETE_DOCUMENT_SUCCESS, UPDATE_DOCUMENT_SUCCESS,
-FETCH_USER_DOCUMENTS_SUCCESS, DISPLAY_DOCUMENT_FAILURE_MESSAGE,
- FETCH_SEARCH_SUCCESS, CLEAR_SEARCH } from './DocumentActions';
+import {
+  FETCH_DOCUMENTS_SUCCESS,
+  CREATE_DOCUMENT_SUCCESS,
+  DELETE_DOCUMENT_SUCCESS,
+  UPDATE_DOCUMENT_SUCCESS,
+  FETCH_USER_DOCUMENTS_SUCCESS,
+  DISPLAY_DOCUMENT_FAILURE_MESSAGE,
+  FETCH_SEARCH_SUCCESS,
+  CLEAR_SEARCH,
+  FETCH_DOCUMENT_SUCCESS
+} from './DocumentActions';
+
 
 const initialState = {
   documents: [],
@@ -10,7 +18,7 @@ const initialState = {
   searchDocuments: [],
   isSearching: false,
   userDocuments: [],
-  document: {},
+  currentDocument: {},
   searchQuery: '',
 };
 export default function DocumentsReducer(state = initialState, action) {
@@ -39,11 +47,15 @@ export default function DocumentsReducer(state = initialState, action) {
         ],
       };
 
-    // case VIEW_DOCUMENT_SUCCESS:
-    //   return {
-    //     ...state,
-    //     document: action.document
-    //   };
+    case FETCH_DOCUMENT_SUCCESS:
+      return {
+        ...state,
+        currentDocument: action.document,
+        documents: [
+          ...state.documents,
+          action.document
+        ]
+      };
 
     case CREATE_DOCUMENT_SUCCESS:
       return {
@@ -51,13 +63,13 @@ export default function DocumentsReducer(state = initialState, action) {
         document: action.document,
         count: state.count + 1,
         documents: [
-          ...state.documents,
           action.document,
+          ...state.documents,
         ]
       };
 
     case UPDATE_DOCUMENT_SUCCESS:
-      idx = state.documents.findIndex(document =>
+      indexOfDocument = state.documents.findIndex(document =>
       document.id === action.document.id);
       if (indexOfDocument === -1) {
         return {
@@ -67,11 +79,11 @@ export default function DocumentsReducer(state = initialState, action) {
       }
       return {
         ...state,
-        document: action.document,
         documents: [
           ...state.documents.slice(0, indexOfDocument),
           action.document,
           ...state.documents.slice(indexOfDocument + 1),
+        document: action.document
         ]
       };
 

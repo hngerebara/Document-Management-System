@@ -1,8 +1,9 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 import TextArea from '../common/TextArea';
+import TinyMCE from 'react-tinymce';
 
-const DocumentForm = ({ document, onSave, onChange, saving, errors }) => (
+const DocumentForm = ({ document, onSave, onChange, handleEditorChange, saving, errors }) => (
   <form>
     <h1>Manage Documents</h1>
     <TextInput
@@ -20,27 +21,26 @@ const DocumentForm = ({ document, onSave, onChange, saving, errors }) => (
       onChange={onChange}
       error={errors.description}
     />
-
+    <div className="input-field col s12">
     <select
-      name="access"
-      label="Access"
       value={document.access}
       onChange={onChange}
-      error={errors.access}
     >
       <option value="" disabled >Select Access Type</option>
       <option value="public">Public</option>
       <option value="private">Private</option>
       <option value="role">Role</option>
     </select>
+    </div>
 
-    <TextArea
-      name="content"
-      label="content"
-      value={document.content}
-      onChange={onChange}
-      error={errors.content}
-    />
+    <TinyMCE
+      content={document.content}
+      config={{
+          plugins: 'link image code',
+          toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+        }}
+      onChange={handleEditorChange}
+    /> 
 
     <input
       type="submit"

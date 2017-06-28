@@ -31,7 +31,6 @@ class CheckinPage extends Component {
 
   handleCheckin(event) {
     event.preventDefault();
-    console.log(this.state);
     if (this.isValid()) {
       this.setState({ errors: {}, success: 'Login success', isLoading: true });
       this.props

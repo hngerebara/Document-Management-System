@@ -10,41 +10,38 @@ class UsersPage extends React.Component {
   constructor(props) {
     super(props);
   }
-  
-
 
   componentDidMount() {
     this.props.fetchAllUsers();
   }
 
-
   render() {
     const { manageUsers } = this.props;
-    console.log(manageUsers,"gjhfdghjk")
     return (
       <div>
+      <main>
+        <div className="container">
         <h1>Users</h1>
-       
         <SearchBar />
+        <SideBar />
         <div>
           <ul>
-            {
-            manageUsers.users.map((user, index) =>
+            {manageUsers.users.map((user, index) => (
               <UsersList
                 key={index}
                 user={user}
                 deleteUser={this.props.deleteUser}
               />
-            )
-          }
+            ))}
           </ul>
         </div>
-          
+
+      </div>
+      </main>
       </div>
     );
   }
 }
-
 
 UsersPage.propTypes = {
   users: PropTypes.array.isRequired
@@ -54,5 +51,6 @@ const mapStateToProps = state => ({
   manageUsers: state.UsersReducer
 });
 
-
-export default connect(mapStateToProps, { fetchAllUsers, deleteUser })(UsersPage);
+export default connect(mapStateToProps, { fetchAllUsers, deleteUser })(
+  UsersPage
+);

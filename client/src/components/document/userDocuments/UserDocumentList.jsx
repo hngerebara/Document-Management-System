@@ -3,19 +3,15 @@ import UserDocumentListRow from './UserDocumentListRow';
 
 const UserDocumentList = ({ userDocuments, user, deleteDocument, viewDocument }) => {
   return (
-    <div>
-      <main>
-        <div className="container">
-          {userDocuments.map(document =>
-            <UserDocumentListRow
-              key={document.id}
-              document={document}
-              user={user}
-              deleteDocument={deleteDocument}
-              viewDocument={viewDocument}
-            />)}
-        </div>
-      </main>
+    <div className="row">
+      {userDocuments.map(document =>
+        <UserDocumentListRow
+          key={document.id}
+          document={document}
+          user={user}
+          deleteDocument={deleteDocument}
+          viewDocument={viewDocument}
+        />)}
     </div>
   );
 };

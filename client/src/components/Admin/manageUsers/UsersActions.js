@@ -17,38 +17,36 @@ export const displayFailureMessage = errorMessage => ({
 
 export const deleteUserSuccess = userId => ({
   type: DELETE_USER_SUCCESS,
-  userId,
+  userId
 });
 
 export const searchUserSuccess = usersSearch => ({
   type: SEARCH_USERS_SUCCESS,
-  usersSearch,
+  usersSearch
 });
 
 export const fetchAllUsers = (offset = 0) => (dispatch) => {
-  axios.get(`/users/?offset=${offset}`)
-  .then((response) => {
-    dispatch(fetchUsersSuccess(response.data));
-  })
-  .catch((error) => {
-    dispatch(displayFailureMessage(error.response));
-    throw error;
-  });
-};
-
-export const deleteUser = userId => (dispatch) =>
-  axios.delete(`/users/${userId}/`)
-    .then(() => {
-      dispatch(deleteUserSuccess(userId));
+  axios
+    .get(`/users/?offset=${offset}`)
+    .then((response) => {
+      dispatch(fetchUsersSuccess(response.data));
+    })
+    .catch((error) => {
+      dispatch(displayFailureMessage(error.response));
+      throw error;
     });
-
-export const searchUsers = (query, offset = 0) =>
-  (dispatch) => {
-    return axios.get(`/search/users/?q=${query}&offset=${offset}`)
-      .then((success) => {
-        dispatch(searchUserSuccess(success.data));
-      })
-      .catch((error) => {
-        throw error;
-      });
 };
+
+export const deleteUser = userId => dispatch =>
+  axios.delete(`/users/${userId}/`).then(() => {
+    dispatch(deleteUserSuccess(userId));
+  });
+
+export const searchUsers = (query, offset = 0) => dispatch => axios
+    .get(`/search/users/?q=${query}&offset=${offset}`)
+    .then((success) => {
+      dispatch(searchUserSuccess(success.data));
+    })
+    .catch((error) => {
+      throw error;
+    });

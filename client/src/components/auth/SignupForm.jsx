@@ -1,10 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import classnames from 'classnames';
 import validateInput from '../../../../server/validations/signup';
 import TextInput from '../common/TextInput';
 
+/**
+ *
+ *
+ * @class SignupForm
+ * @extends {Component}
+ */
 class SignupForm extends Component {
+
+
+  /**
+   * Creates an instance of SignupForm.
+   * @param {any} props
+   *
+   * @memberOf SignupForm
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -25,10 +38,20 @@ class SignupForm extends Component {
   }
 
 
+  /**
+   * @param {any} event
+   *
+   * @memberOf SignupForm
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @returns
+   *
+   * @memberOf SignupForm
+   */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
     if (!isValid) {
@@ -37,6 +60,11 @@ class SignupForm extends Component {
     return isValid;
   }
 
+  /**
+   * @param {any} event
+   *
+   * @memberOf SignupForm
+   */
   checkUserExists(event) {
     const field = event.target.name;
     const value = event.target.value;
@@ -56,6 +84,11 @@ class SignupForm extends Component {
     }
   }
 
+  /**
+   * @param {any} event
+   *
+   * @memberOf SignupForm
+   */
   handleSubmit(event) {
     event.preventDefault();
     if (this.isValid()) {
@@ -68,11 +101,20 @@ class SignupForm extends Component {
         });
         browserHistory.push('/documents');
       }
-    ).catch(() => this.setState({ errors: 'Please check signup details', isLoading: false })
+    ).catch(() => this.setState({
+      errors: 'Please check signup details',
+      isLoading: false
+    })
     );
     }
   }
 
+
+  /**
+   * @returns
+   *
+   * @memberOf SignupForm
+   */
   render() {
     const { errors } = this.state;
     return (
@@ -137,11 +179,11 @@ class SignupForm extends Component {
         />
 
         <div className="form-group">
-         <button
-                      className="pink btn waves-effect waves-light col s12"
-                      disabled={this.state.isLoading || this.state.invalid}
-                      type="submit"
-                      onClick={this.handleSubmit}
+          <button
+            className="pink btn waves-effect waves-light col s12"
+            disabled={this.state.isLoading || this.state.invalid}
+            type="submit"
+            onClick={this.handleSubmit}
           >
             Sign up
           </button>
@@ -152,7 +194,7 @@ class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  signupUser: PropTypes.func,
+  signupUser: PropTypes.func.isRequired,
   addFlashMessage: PropTypes.func.isRequired,
   isUserExists: PropTypes.func.isRequired
 };

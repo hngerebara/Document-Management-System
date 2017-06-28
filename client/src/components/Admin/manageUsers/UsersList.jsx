@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-
 const UsersList = ({ user, deleteUser }) => {
   const ondeleteUser = () => {
-    deleteUser(user.id)
-      .catch(error => console.log(error));
+    deleteUser(user.id).catch(error => console.log(error));
   };
 
   return (
@@ -16,10 +14,14 @@ const UsersList = ({ user, deleteUser }) => {
         <p>Role: {user.roleTitle} </p>
         <p>Date Joined: {user.roleTitle} </p>
         <a className="secondary-content" onClick={ondeleteUser}>
-          <i className="close waves-effect waves-light material-icons">close</i></a>
+          <i className="close waves-effect waves-light material-icons">
+            delete
+          </i>
+        </a>
         <Link to={`/users/${user.creatorId}`}>
           <a className="btn-floating btn-small waves-effect waves-light purple">
-          <i className="material-icons">visibility</i></a>
+            <i className="material-icons">visibility</i>
+          </a>
         </Link>
 
       </li>
@@ -27,4 +29,8 @@ const UsersList = ({ user, deleteUser }) => {
   );
 };
 
+UsersList.propTypes = {
+  deleteUser: PropTypes.func.isRequired,
+  user: React.PropTypes.object.isRequired
+};
 export default UsersList;

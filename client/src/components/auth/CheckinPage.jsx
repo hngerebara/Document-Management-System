@@ -1,24 +1,56 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { checkinUserAction } from './AuthActions';
 import { browserHistory, Link } from 'react-router';
 import validateInput from '../../../../server/validations/login';
 import TextInput from '../common/TextInput';
 
+/**
+ *
+ *
+ * @class CheckinPage
+ * @extends {Component}
+ */
 class CheckinPage extends Component {
+
+  /**
+   * Creates an instance of CheckinPage.
+   * @param {any} props
+   *
+   * @memberOf CheckinPage
+   */
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', errors: {}, success: '', isLoading: false };
+    this.state = {
+      email: '',
+      password: '',
+      errors: {},
+      success: '',
+      isLoading: false
+    };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckin = this.handleCheckin.bind(this);
   }
 
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberOf CheckinPage
+   */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf CheckinPage
+   */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
     if (!isValid) {
@@ -29,6 +61,13 @@ class CheckinPage extends Component {
     };
   }
 
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberOf CheckinPage
+   */
   handleCheckin(event) {
     event.preventDefault();
     if (this.isValid()) {
@@ -42,8 +81,15 @@ class CheckinPage extends Component {
     }
   }
 
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf CheckinPage
+   */
   render() {
-    const { errors, email, password, success, isLoading } = this.state;
+    const { errors, email, password } = this.state;
 
     return (
       <div className="login-container">
@@ -71,7 +117,7 @@ class CheckinPage extends Component {
                   label="Email"
                   onChange={this.handleChange}
                   checkUserExists={this.checkUserExists}
-                  value={this.state.email}
+                  value={email}
                   field="email"
                   className="validate"
                   type="text"
@@ -87,7 +133,7 @@ class CheckinPage extends Component {
                   label="password"
                   onChange={this.handleChange}
                   checkUserExists={this.checkUserExists}
-                  value={this.state.password}
+                  value={password}
                   field="password"
                   className="validate"
                   type="password"
@@ -106,8 +152,8 @@ class CheckinPage extends Component {
           </form>
         </div>
         <div className="card-action">
-              <span>Not Registered? <Link to="/users">SIGNUP</Link></span>
-            </div>
+          <span>Not Registered? <Link to="/users">SIGNUP</Link></span>
+        </div>
       </div>
     );
   }

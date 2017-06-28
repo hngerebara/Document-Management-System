@@ -7,17 +7,17 @@ const initialState = {
   isSearching: false,
 };
 
-export default function UsersReducer(state = initialState, action) {
+const UsersReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
-    return {
+      return {
         ...state,
         users: [
           ...state.users,
           ...action.users
         ],
-    };
-    
+      };
+
     case SEARCH_USERS_SUCCESS:
       return [
         ...state,
@@ -36,5 +36,6 @@ export default function UsersReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+export default UsersReducer;
 

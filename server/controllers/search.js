@@ -2,45 +2,34 @@ import { Users, Documents } from '../models';
 
 const searchController = {
   searchDocuments(req, res) {
-    const limit = req.query.limit || 6;
-    const offset = req.query.offset || 0;
-    const isAdmin = req.user.roleTitle === '1';
-    const query = req.query.search;
-    let queryDocs;
+    const limit = Number(req.query.limit) || 6;
+    const offset = Number(req.query.offset) || 0;
+    const isAdmin = req.user.roleId === 1;
+    const query = req.query.search || '';
+
     if (isAdmin) {
-      queryDocs = Documents.findAndCountAll({
+      return Documents.findAndCountAll({
         where: {
-          $or: [{ documentName: { $iLike: `%${query}%` } },
-            { content: { $iLike: `%${query}%` } }]
+          $or: [{ documentName: { $ilike: `%${query}%` } },
+          { description: { $ilike: `%${query}%` } },
+            { content: { $ilike: `%${query}%` } }]
+        },
+        include: {
+          model: Users,
+          attributes: ['firstName', 'lastName']
         },
         limit,
         offset
-      });
-    } else {
-      queryDocs = Documents.findAndCountAll({
-        where: {
-          $or: [{
-            access: {
-              $not: 'private'
-            }
-          }, { documentName: { $iLike: `%${query}%` } },
-            { content: { $iLike: `%${query}%` } }],
-          $and: [{ creatorId: req.user.id }]
-        },
-        limit,
-        offset,
-      });
-    }
-    queryDocs.then((documents) => {
+      })
+    .then((documents) => {
       const next = Math.ceil(documents.count / limit);
       const currentPage = Math.floor((offset / limit) + 1);
-      const pageSize = limit > documents.count
-      ? documents.count : limit;
+      const pageSize = limit > documents.count ? documents.count : limit;
       if (documents.length <= 0) {
         return res.status(200)
         .send({
           documents: [],
-          message: 'Documents Not Found',
+          message: `no results found for ${req.query.search}`,
         });
       }
       return res.status(200)
@@ -48,21 +37,70 @@ const searchController = {
         searchPagination: {
           page_count: next,
           page: currentPage,
-          page_size: Number(pageSize),
+          page_size: pageSize,
           total_count: documents.count
         },
         searchDocuments: documents.rows
       });
     })
-    .catch(error => res.status(400)
+    .catch(() => res.status(400)
         .send({
-          error,
+          message: 'Error occurred while retrieving documents'
+        }));
+    }
+    return Documents.findAndCountAll({
+      where: {
+        $and: [{
+          $or: [
+                { access: 'public', },
+            { $and: [
+                  { access: 'role' },
+                  { creatorId: req.user.roleId }
+            ] },
+          ],
+        },
+        {
+          $or: [
+                { documentName: { $ilike: `%${query}%` } },
+          { description: { $ilike: `%${query}%` } },
+            { content: { $ilike: `%${query}%` } }
+          ]
+        }
+        ]
+      },
+      include: {
+        model: Users,
+        attributes: ['firstName', 'lastName']
+      },
+      limit,
+      offset
+    })
+    .then((documents) => {
+      const next = Math.ceil(documents.count / limit);
+      const currentPage = Math.floor((offset / limit) + 1);
+      const pageSize = limit > documents.count ? documents.count : limit;
+
+      return res.status(200)
+      .send({
+        searchPagination: {
+          page_count: next,
+          page: currentPage,
+          page_size: pageSize,
+          total_count: documents.count
+        },
+        searchDocuments: documents.rows
+      });
+    })
+    .catch(() => res.status(400)
+        .send({
           message: 'Error occurred while retrieving documents'
         }));
   },
 
   searchUsers(req, res) {
-    const query = req.query.search;
+    const limit = Number(req.query.limit) || 6;
+    const offset = Number(req.query.offset) || 0;
+    const query = req.query.search || '';
     return Users
       .findAll({
         where: {
@@ -70,18 +108,36 @@ const searchController = {
             { firstName: { $iLike: `%${query}%` } },
             { lastName: { $iLike: `%${query}%` } },
             { email: { $iLike: `%${query}%` } }]
-        }
+        },
+        include: {
+          model: Users,
+          attributes: ['firstName', 'lastName']
+        },
+        limit,
+        offset
       })
+
       .then((users) => {
+        const next = Math.ceil(documents.count / limit);
+        const currentPage = Math.floor((offset / limit) + 1);
+        const pageSize = limit > documents.count ? documents.count : limit;
         if (users.length <= 0) {
           return res.status(200)
             .send({
               users: [],
-              message: 'User Not Found',
+              message: 'User(s) Not Found',
             });
         }
         return res.status(200)
-          .send({ users });
+      .send({
+        searchPagination: {
+          page_count: next,
+          page: currentPage,
+          page_size: pageSize,
+          total_count: documents.count
+        },
+        searchUsers: users.rows
+      });
       })
       .catch(error => res.status(400)
         .send({

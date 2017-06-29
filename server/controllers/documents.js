@@ -1,7 +1,7 @@
 import { Documents } from '../models/';
 
 const documentsController = {
-  create(req, res) {
+  createDocument(req, res) {
     return Documents.create({
       documentName: req.body.documentName,
       description: req.body.description,
@@ -19,10 +19,10 @@ const documentsController = {
       .catch(error => res.status(400).send(error));
   },
 
-  list(req, res) {
+  listDocuments(req, res) {
     const limit = req.query.limit || 6;
     const offset = req.query.offset || 0;
-    const isAdmin = req.user.roleTitle === 'Admin';
+    const isAdmin = req.user.roleId === 1;
     let queryDocs;
     if (isAdmin) {
       queryDocs = Documents.findAndCountAll({
@@ -61,7 +61,7 @@ const documentsController = {
     .catch(error => res.status(400).send(error));
   },
 
-  retrieve(req, res) {
+  retrieveDocument(req, res) {
     return Documents.findById(req.params.id)
       .then((document) => {
         if (!document) {
@@ -79,7 +79,7 @@ const documentsController = {
       .catch(error => res.status(400).send(error));
   },
 
-  update(req, res) {
+  updateDocument(req, res) {
     return Documents.findById(req.params.id)
     .then((document) => {
       if (!document) {
@@ -108,7 +108,7 @@ const documentsController = {
     });
   },
 
-  destroy(req, res) {
+  destroyDocument(req, res) {
     return Documents.findById(req.params.id)
       .then((document) => {
         if (!document) {

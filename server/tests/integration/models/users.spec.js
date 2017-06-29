@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../../config/app';
+import app from '../../../configs/app';
 import { Users } from '../../../models';
 import { usersTestSeed } from '../seeders';
 

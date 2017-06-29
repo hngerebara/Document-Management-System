@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
 import cfg from '../../../configs/config';
-import app from '../../../config/app';
+import app from '../../../configs/app';
 import { Users, Documents, sequelize, Roles } from '../../../models';
 // import Documents from '../models/documents';
 

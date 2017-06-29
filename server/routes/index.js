@@ -11,14 +11,16 @@ const router = express.Router();
 
 // signup and list users routes
 
-router.post('/users', usersController.create);
+router.post('/users', usersController.createUser);
+//logout user
+router.post('/users/logout', usersController.logout);
 
 router
   .route('/users')
   .all(authMiddleware.authenticate())
-  .get(adminVerify, usersController.listUsers);
+  .get(adminVerify, usersController.listAllUsers);
 
-router.get('/users-docs', adminVerify, usersController.listUsersAndDocs);
+// router.get('/users-docs', adminVerify, usersController.listAllUsersAndDocs);
 
 // signin
 router.post('/users/login', usersController.login);
@@ -27,31 +29,32 @@ router.post('/users/login', usersController.login);
 router
   .route('/users/:id')
   .all(authMiddleware.authenticate())
-  .get(usersController.retrieve)
-  .put(usersController.update)
-  .delete(usersController.destroy);
+  .get(usersController.retrieveUser)
+  .put(usersController.updateUser)
+  .delete(usersController.destroyUser);
 
 // create and retrieve documents by creator's id endpoint
 router
 .route('/users/:creatorId/documents')
 .all(authMiddleware.authenticate())
-.post(documentsController.create)
+.post(documentsController.createDocument)
 .get(usersController.retrieveAll);
 
 // Get all documents and create documents route
 router
   .route('/documents')
   .all(authMiddleware.authenticate())
-  .get(documentsController.list)
-  .post(documentsController.create);
+  .post(documentsController.createDocument)
+  .get(documentsController.listDocuments);
+
 
 // retrieve, update and delete documents by id endpoints
 router
   .route('/documents/:id')
   .all(authMiddleware.authenticate())
-  .get(documentsController.retrieve)
-  .put(documentsController.update)
-  .delete(documentsController.destroy);
+  .get(documentsController.retrieveDocument)
+  .put(documentsController.updateDocument)
+  .delete(documentsController.destroyDocument);
 
 
 // search documents

@@ -1,5 +1,5 @@
 // This will be our application entry. We'll setup our server here.
-import app from './server/config/app';
+import app from './server/configs/app';
 
 const port = parseInt(process.env.PORT, 10) || 8090;
 app.set('port', port);

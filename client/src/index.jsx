@@ -10,7 +10,6 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser } from './components/auth/AuthActions';
 import '../styles/custom.scss';
-import '../js/dms';
 
 const store = ConfigureStore();
 if (localStorage.token) {

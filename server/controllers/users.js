@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Users, Documents } from '../models';
-import cfg from '../config/config';
+import cfg from '../configs/config';
 
 
 const usersController = {
@@ -17,7 +17,7 @@ const usersController = {
         const payload = {
           id: user.id,
           username: user.username,
-          title: user.roleTitle
+          roleId: user.roleId
         };
         const token = jwt.sign(payload, cfg.jwtSecret, {
           expiresIn: 60 * 60 * 24
@@ -28,7 +28,10 @@ const usersController = {
           token
         });
       })
-      .catch(error => res.status(400).send(error)
+      .catch(error => res.status(400).send({
+        message: 'There was an error signing you up',
+        error
+      })
       );
   },
 
@@ -151,7 +154,7 @@ const usersController = {
             const payload = {
               id: user.id,
               username: user.username,
-              title: user.roleTitle
+              roleId: user.id
             };
             const token = jwt.sign(payload, cfg.jwtSecret, {
               expiresIn: 60 * 60 * 24

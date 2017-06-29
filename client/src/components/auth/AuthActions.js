@@ -7,14 +7,12 @@ export const CHECKIN_ERROR = 'CHECKIN_ERROR';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
 
-export function setCurrentUser(user) {
-  return {
-    type: SET_CURRENT_USER,
-    user
-  };
-}
+const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
+  user,
+});
 
-export const checkinUserAction = ({ email, password }) =>
+const checkinUserAction = ({ email, password }) =>
 dispatch => axios.post('/users/login', { email, password })
   .then((response) => {
     const token = response.data.token;
@@ -29,9 +27,16 @@ dispatch => axios.post('/users/login', { email, password })
   });
 
 
-export const signOutUser = () => (dispatch) => {
+const signOutUser = () => (dispatch) => {
   localStorage.removeItem('token');
   setAuthToken(false);
   dispatch(setCurrentUser({}));
   browserHistory.push('/');
 };
+
+export {
+  setCurrentUser,
+  checkinUserAction,
+  signOutUser
+};
+

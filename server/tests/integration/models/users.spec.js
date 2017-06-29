@@ -47,11 +47,11 @@ describe('Checking Users model', () => {
 
 // describe('Checking Users', () => {
 //   describe('an existing user', () => {
-//     it('should be able to create a new user if not existing', () => {
-//       Users.create(usersTestSeed[0]);
-//       expect(usersTestSeed[0]).to.exist;
-//       expect(typeof usersTestSeed[0]).to.equal('object');
-//     });
+//     // it('should be able to create a new user if not existing', () => {
+//     //   Users.create(usersTestSeed[0]);
+//     //   expect(usersTestSeed[0]).to.exist;
+//     //   expect(typeof usersTestSeed[0]).to.equal('object');
+//     // });
 
 //     it('should return `unique violation error` if username already exist`', (done) => {
 //       Users.create(usersTestSeed[0])
@@ -62,15 +62,15 @@ describe('Checking Users model', () => {
 //         });
 //     });
 
-//     it('should return `unique violation error` if email already exist`', (done) => {
-//       Users.create(usersTestSeed[1])
-//         .catch((errors) => {
-//           errors.message.should.eql('email already exist. choose another or login');
-//           errors.errors[0].type.should.eql('unique violation');
-//           errors.name.should.eql('SequelizeUniqueConstraintError');
-//           done();
-//         });
-//     });
+//     // it('should return `unique violation error` if email already exist`', (done) => {
+//     //   Users.create(usersTestSeed[1])
+//     //     .catch((errors) => {
+//     //       errors.message.should.eql('email already exist. choose another or login');
+//     //       errors.errors[0].type.should.eql('unique violation');
+//     //       errors.name.should.eql('SequelizeUniqueConstraintError');
+//     //       done();
+//     //     });
+//     // });
 //   });
 // });
 

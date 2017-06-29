@@ -3,8 +3,8 @@ import usersController from '../controllers/users';
 import rolesController from '../controllers/roles';
 import documentsController from '../controllers/documents';
 import searchController from '../controllers/search';
-import auth from '../config/middlewares/auth';
-import adminVerify from '../config/middlewares/adminVerification';
+import auth from '../configs/middlewares/auth';
+import adminVerify from '../configs/middlewares/adminVerification';
 
 const authMiddleware = auth();
 const router = express.Router();

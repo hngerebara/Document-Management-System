@@ -2,7 +2,7 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 export default function validateInput(data) {
-  let errors = {};
+  const errors = {};
 
   if (Validator.isEmpty(data.email)) {
     errors.identifier = 'This field is required';

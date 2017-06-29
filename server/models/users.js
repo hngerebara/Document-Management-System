@@ -54,9 +54,9 @@ export default(sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    roleTitle: {
-      type: DataTypes.STRING,
-      defaultValue: 'Staff',
+    roleId: {
+      type: DataTypes.INTEGER,
+      defaultValue: 2,
       allowNull: false
     }
   }, {
@@ -69,12 +69,12 @@ export default(sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         Users.belongsTo(models.Roles, {
-          onDelete: 'CASCADE',
-          foreignKey: 'roleTitle'
+          onDelete: 'SET NULL',
+          foreignKey: 'roleId'
         });
       
         Users.hasMany(models.Documents, {
-          onDelete: 'CASCADE',
+          onDelete: 'SET NULL',
           foreignKey: 'creatorId',
           as: 'allDocuments'
         });

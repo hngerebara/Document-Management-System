@@ -4,7 +4,7 @@ const searchController = {
   searchDocuments(req, res) {
     const limit = req.query.limit || 6;
     const offset = req.query.offset || 0;
-    const isAdmin = req.user.roleTitle === 'Admin';
+    const isAdmin = req.user.roleTitle === '1';
     const query = req.query.search;
     let queryDocs;
     if (isAdmin) {

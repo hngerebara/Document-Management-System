@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
-import cfg from '../../../config/config';
+import cfg from '../../../configs/config';
 import app from '../../../config/app';
 import { Users, sequelize, Roles } from '../../../models';
 // import db from '../../../models';

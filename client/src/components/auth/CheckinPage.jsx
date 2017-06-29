@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { checkinUserAction } from './AuthActions';
 import { browserHistory, Link } from 'react-router';
 import validateInput from '../../../../server/validations/login';
-import TextInput from '../common/TextInput';
 
 /**
  *
@@ -12,7 +11,6 @@ import TextInput from '../common/TextInput';
  * @extends {Component}
  */
 class CheckinPage extends Component {
-
   /**
    * Creates an instance of CheckinPage.
    * @param {any} props
@@ -92,67 +90,56 @@ class CheckinPage extends Component {
     const { errors, email, password } = this.state;
 
     return (
-      <div className="login-container">
-        { this.state.error ?
-          <div className="login error">
-            { this.state.error }
-          </div>
-            : <span />
-          }
+      <div className="row">
+        <div className="col s10 m6 l3 offset-l5 offset-s1  offset-m3">
+          <div className="card z-depth-2">
+            <div className="card-header">
+              <img src="/client/images/document.jpeg" alt="hopeaz" />
+            </div>
+            <div className="card-content">
+              <form>
+                <div className="row">
+                  <div className="input-field">
+                    <i className="material-icons prefix">account_circle</i>
+                    <input
+                      type="text"
+                      className="validate"
+                      name="email"
+                      onChange={this.handleChange}
+                      checkUserExists={this.checkUserExists}
+                    />
+                    <label htmlFor="icon_prefix">Email</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="input-field">
+                    <i className="material-icons prefix">lock_outline</i>
+                    <input
+                      type="password"
+                      onChange={this.handleChange}
+                      checkUserExists={this.checkUserExists}
+                      className="validate"
+                      name="password"
+                    />
+                    <label htmlFor="icon_prefix">Password</label>
+                  </div>
+                </div>
 
-        { this.state.success ?
-          <div className="login success">
-            { this.state.success }
+                <div className="row">
+                  <button
+                    className="btn waves-effect waves-light col s12"
+                    type="submit"
+                    onClick={this.handleCheckin}
+                  >
+                    CHECKIN
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div className="card-action">
+              <span>Not Registered? <Link to="/signup">SIGNUP</Link></span>
+            </div>
           </div>
-            : <span />
-          }
-        <div className="card-content">
-          <form>
-            <div className="row">
-              <div className="input-field">
-                <i className="material-icons prefix">account_circle</i>
-                <TextInput
-                  name="email"
-                  error={errors.email}
-                  label="Email"
-                  onChange={this.handleChange}
-                  checkUserExists={this.checkUserExists}
-                  value={email}
-                  field="email"
-                  className="validate"
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field">
-                <i className="material-icons prefix">lock_outline</i>
-                <TextInput
-                  name="password"
-                  error={errors.password}
-                  label="password"
-                  onChange={this.handleChange}
-                  checkUserExists={this.checkUserExists}
-                  value={password}
-                  field="password"
-                  className="validate"
-                  type="password"
-                />
-              </div>
-            </div>
-            <div className="row">
-              <button
-                className="pink btn waves-effect waves-light col s12"
-                type="submit"
-                onClick={this.handleCheckin}
-              >
-                CHECKIN
-              </button>
-            </div>
-          </form>
-        </div>
-        <div className="card-action">
-          <span>Not Registered? <Link to="/users">SIGNUP</Link></span>
         </div>
       </div>
     );

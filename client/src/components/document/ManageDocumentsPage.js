@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchDocument, createDocument } from './DocumentActions';
 import DocumentForm from './DocumentForm';
-// import {authorsFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
 
-export class ManageDocumentPage extends Component {
+class ManageDocumentsPage extends Component {
   constructor(props, context) {
     super(props, context);
     const document = {
@@ -30,12 +29,15 @@ componentDidMount() {
   const documentId = this.props.document.id;
   if (id && id !== 'new' && !documentId) {
     this.props.fetchDocument(id)
-      .catch(error => console.log(error));
+    .catch((error) => {
+        toastr.error(error);
+     });
   }
 }
   componentWillReceiveProps(nextProps) {
     if (this.props.document.id != nextProps.document.id) {
-      this.setState({ document: Object.assign({}, nextProps.document) });
+      this.setState({
+        document: Object.assign({}, nextProps.document) });
     }
   }
 
@@ -88,11 +90,11 @@ componentDidMount() {
   }
 }
 
-ManageDocumentPage.propTypes = {
+ManageDocumentsPage.propTypes = {
   document: PropTypes.object.isRequired,
 };
 
-ManageDocumentPage.contextTypes = {
+ManageDocumentsPage.contextTypes = {
   router: PropTypes.object
 };
 
@@ -119,4 +121,4 @@ const mapDispatchToProps = {
   createDocument,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageDocumentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageDocumentsPage);

@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import moment from 'moment';
 
-const UsersList = ({ user, deleteUser }) => {
+const UsersList = ({ user, viewUser, deleteUser }) => {
+  
   const ondeleteUser = () => {
     deleteUser(user.id).catch(error => console.log(error));
   };
@@ -11,19 +13,16 @@ const UsersList = ({ user, deleteUser }) => {
       <li className="collection-item avatar" key={user.id}>
         <img src="images/yuna.jpg" alt="" className="circle" />
         <span className="title">{user.username}</span>
-        <p>Role: {user.roleTitle} </p>
-        <p>Date Joined: {user.roleTitle} </p>
+        <p>Role: {user.Role.title} </p>
+        <p>Date Joined: {moment(user.createdAt).format('L')} </p>
         <a className="secondary-content" onClick={ondeleteUser}>
           <i className="close waves-effect waves-light material-icons">
             delete
           </i>
         </a>
-        <Link to={`/users/${user.creatorId}`}>
-          <a className="btn-floating btn-small waves-effect waves-light purple">
-            <i className="material-icons">visibility</i>
-          </a>
-        </Link>
-
+         <div className="card-action">
+            <button onClick={() => viewUser(user.id)}>View Document</button>
+          </div>
       </li>
     </ul>
   );
@@ -31,6 +30,7 @@ const UsersList = ({ user, deleteUser }) => {
 
 UsersList.propTypes = {
   deleteUser: PropTypes.func.isRequired,
+  viewUser: PropTypes.func.isRequired,
   user: React.PropTypes.object.isRequired
 };
 export default UsersList;

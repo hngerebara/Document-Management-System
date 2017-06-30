@@ -1,5 +1,5 @@
 import { FETCH_USERS_SUCCESS, DELETE_USER_SUCCESS,
- SEARCH_USERS_SUCCESS } from './UsersActions';
+ SEARCH_USERS_SUCCESS, CLEAR_SEARCH } from './UsersActions';
 
 
 const initialState = {
@@ -7,8 +7,8 @@ const initialState = {
   isSearching: false,
   pagination: {},
   searchPagination: {},
-  searchDocuments: [],
-  currentDocument: {},
+  searchUsers: [],
+  currentUser: {},
   searchQuery: ''
 };
 
@@ -24,13 +24,26 @@ export default function UsersReducer(state = initialState, action) {
       };
 
     case SEARCH_USERS_SUCCESS:
-      return [
+      const { searchUsers, searchPagination } = action.data;
+      return {
         ...state,
-        action.usersSearch
-      ];
+        searchDocuments,
+        searchPagination,
+        isSearching: true,
+        searchQuery: action.searchQuery,
+      };
+
+    case CLEAR_SEARCH:
+      return {
+        ...state,
+        searchUsers: [],
+        searchPagination: {},
+        isSearching: false
+      };
+
 
     case DELETE_USER_SUCCESS: {
-      const indexOfUserToDelete = state.findIndex(
+      const indexOfUserToDelete = state.find(
         user => user.id === action.userId);
       return [
         ...state.slice(0, indexOfUserToDelete),

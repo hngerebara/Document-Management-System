@@ -1,4 +1,5 @@
 import axios from '../../utils/api';
+import toastr from 'toastr';
 
 export const FETCH_DOCUMENTS_SUCCESS = 'FETCH_DOCUMENTS_SUCCESS';
 export const DISPLAY_DOCUMENT_FAILURE_MESSAGE =
@@ -80,10 +81,9 @@ export const fetchAllDocuments = (offset=0, limit=6) => (dispatch) =>
     throw error;
   });
 
-export const fetchDocument = documentId => (dispatch) =>
+export const fetchDocument = documentId => dispatch =>
   axios.get(`/documents/${documentId}/`)
     .then((response) => {
-      console.log(response);
       dispatch(fetchDocumentSuccess(response.data.document));
     })
     .catch((error) => {
@@ -91,28 +91,27 @@ export const fetchDocument = documentId => (dispatch) =>
       throw error;
     });
 
-export const fetchUserDocuments = creatorId => (dispatch) =>
+export const fetchUserDocuments = creatorId => dispatch =>
   axios.get(`/users/${creatorId}/documents`, creatorId)
   .then((response) => {
-    dispatch(fetchUserDocumentSuccess(response.data.allDocuments));
+    dispatch(fetchUserDocumentSuccess(response.data.user.allDocuments));
   })
   .catch((error) => {
     dispatch(displayDocumentFailureMessage(error.response));
     throw error;
   });
 
-export const createDocument = document => (dispatch) =>
-  axios.post(`/documents`, document)
-    .then(() => {
-      document.id ? dispatch(updateDocumentSuccess(document)) :
-        dispatch(createDocumentSuccess(document));
+export const createDocument = document => dispatch =>
+  axios.post('/documents', document)
+    .then((res) => {
+      document.id ? dispatch(updateDocumentSuccess(res.data)) :
+        dispatch(createDocumentSuccess(res.data));
     }).catch((error) => {
-      console.log(error)
       dispatch(displayDocumentFailureMessage(error.response.statusText));
       throw error;
     });
 
-export const searchAllDocuments = (search, offset = 0, limit = 6) => (dispatch) =>
+export const searchAllDocuments = (search, offset = 0, limit = 6) => dispatch =>
   axios.get(`/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(fetchSearchSuccess(response.data, search));

@@ -8,7 +8,6 @@ import ViewDocument from '../ViewDocument';
 import {
   deleteDocument,
   fetchUserDocuments,
-  viewDocument,
   searchUsersDocuments
 } from '../DocumentActions';
 
@@ -19,6 +18,7 @@ class UsersDocumentsPage extends Component {
       currentDocument: {}
     }
   }
+  
 
   componentDidMount() {
     this.props.fetchUserDocuments(this.props.params.creatorId);
@@ -28,7 +28,6 @@ class UsersDocumentsPage extends Component {
     const { manageDocuments: { userDocuments } } = this.props;
     const document = userDocuments.find(doc => doc.id === documentId);
     if (document) {
-      console.log(document);
       this.setState({ currentDocument: document });
       $('.doc-modal').modal('open');
     }
@@ -60,8 +59,7 @@ class UsersDocumentsPage extends Component {
 UsersDocumentsPage.propTypes = {
   manageDocuments: PropTypes.object.isRequired,
   deleteDocument: PropTypes.func.isRequired,
-  fetchUserDocuments: PropTypes.func.isRequired,
-  viewDocument: PropTypes.func.isRequired
+  fetchUserDocuments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -72,6 +70,5 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   deleteDocument,
   fetchUserDocuments,
-  viewDocument,
   searchUsersDocuments
 })(UsersDocumentsPage);

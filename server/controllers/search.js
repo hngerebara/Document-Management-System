@@ -118,23 +118,16 @@ const searchController = {
       })
 
       .then((users) => {
-        const next = Math.ceil(documents.count / limit);
+        const next = Math.ceil(users.count / limit);
         const currentPage = Math.floor((offset / limit) + 1);
-        const pageSize = limit > documents.count ? documents.count : limit;
-        if (users.length <= 0) {
-          return res.status(200)
-            .send({
-              users: [],
-              message: 'User(s) Not Found',
-            });
-        }
+        const pageSize = limit > users.count ? users.count : limit;
         return res.status(200)
       .send({
         searchPagination: {
           page_count: next,
           page: currentPage,
           page_size: pageSize,
-          total_count: documents.count
+          total_count: users.count
         },
         searchUsers: users.rows
       });

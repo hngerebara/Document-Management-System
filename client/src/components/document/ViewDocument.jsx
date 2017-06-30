@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-const ViewPage = ({ document, edit }) => {
+const ViewDocument = ({ document, edit }) => {
 
   return (
     <div id="modal1" className="doc-modal modal modal-fixed-footer">
@@ -18,12 +18,18 @@ const ViewPage = ({ document, edit }) => {
         >
           Close
         </a>
-        {edit && <Link className="modal-action waves-effect waves-light btn modal-close" to={`/editDocument/${document.id}`}>Edit</Link>}
+        { edit && 
+          <Link 
+            to={`/editDocument/${document.id}`} 
+            className="modal-action waves-effect waves-light btn modal-close" 
+          > <i className="material-icons left">mode_edit</i>
+          Edit</Link>
+        }
       </div>
     </div>
   );
 };
 
-ViewPage.propTypes = {};
+ViewDocument.propTypes = {};
 
-export default ViewPage;
+export default ViewDocument;

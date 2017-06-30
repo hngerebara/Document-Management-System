@@ -10,6 +10,10 @@ const UserDocumentListRow = ({
 }) => {
   const isOwner = document.creatorId === user.id;
 
+
+
+
+
   return (
     <div className="col s12 m6 l4">
       <div className="card small">
@@ -17,16 +21,13 @@ const UserDocumentListRow = ({
           <span className="card-title">{document.documentName}</span>
         </div>
          <span>Access Type: {document.access}</span> <div><br></br></div>
-          <span>Date Created:  {moment(document.created_At).format('L')}</span>
+          <span>Date Published:  {moment(document.created_At).format('L')}</span>
         <div className="card-action">
-          <button onClick={() => viewDocument(document.id)}>
+          <button onClick={() => viewDocument(document.id)} >
             View Document
           </button>
           {isOwner &&
             <div>
-              <button>
-                <Link to={`/editDocument/${document.id}`}>Edit Document</Link>
-              </button>
               <button onClick={() => deleteDocument(document.id)}>
                 Delete Document
               </button>

@@ -19,7 +19,6 @@ class SideBar extends Component {
   render() {
     const { isAuthenticated, user } = this.props.Auth;
     const isAdmin = this.props.Auth.user.id === 1;
-    console.log(this.props.Auth.user)
 
     return (
       <div className="sidebar">

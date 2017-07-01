@@ -11,7 +11,11 @@ const rolesController = {
           role
         });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(409)
+      .send({
+        message: 'New role could not be created',
+        error
+      }));
   },
 
   list(req, res) {
@@ -22,7 +26,11 @@ const rolesController = {
           roles
         });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400)
+      .send({
+        message: 'Could not retrieve roles',
+        error
+      }));
   },
 
   retrieve(req, res) {

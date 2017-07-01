@@ -1,9 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
-import cfg from '../../../configs/config';
-import app from '../../../configs/app';
-import { Users, sequelize, Roles } from '../../../models';
+import cfg from '../../../../server/configs/config';
+import app from '../../../../server/app';
+import { Users, sequelize, Roles } from '../../../../server/models';
 // import db from '../../../models';
 
 const expect = chai.expect;

@@ -16,7 +16,11 @@ const documentsController = {
           document
         });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(409)
+      .send({
+        message: 'So sorry, your document could not be created',
+        error
+      }));
   },
 
   listDocuments(req, res) {

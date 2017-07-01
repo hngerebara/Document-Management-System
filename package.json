@@ -10,7 +10,7 @@
     "start:server": "nodemon ./server/server.js --exec babel-node",
     "postinstall": "webpack && cp index.html dist/index.html && npm run migrate_test_db",
     "migrate_test_db": "sequelize db:migrate",
-    "test:server": "NODE_ENV=test nyc babel-node ./node_modules/mocha/bin/_mocha ./server/tests/integration/**/*.js",
+    "test:server": "NODE_ENV=test nyc babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.js",
     "test:client": "NODE_ENV=test nyc --reporter=text  --reporter=html --extension .jsx ./node_modules/mocha/bin/_mocha tests/client/tests_setup.js tests/client/components/auth/CheckinPage.spec.js tests/client/**/*spec.js"
   },
   "nyc": {

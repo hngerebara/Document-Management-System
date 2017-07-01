@@ -1,8 +1,8 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../../configs/app';
-import { Users } from '../../../models';
-import { usersTestSeed } from '../seeders';
+import app from '../../../../server/app';
+import { Users } from '../../../../server/models';
+import { usersTestSeed } from '../../seeders';
 
 const expect = chai.expect;
 

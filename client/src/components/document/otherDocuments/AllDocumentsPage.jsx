@@ -5,6 +5,7 @@ import AllDocumentsList from './AllDocumentsList';
 import SearchBar from '../../common/SearchBar';
 import SideBar from '../../common/SideBar';
 import ViewDocument from '../ViewDocument';
+import Header from '../../common/Header';
 
 import {
   deleteDocument,
@@ -47,6 +48,7 @@ class AllDocumentsPage extends Component {
 
   viewDocument = (documentId) => {
     const { manageDocuments } = this.props;
+    console.log(manageDocuments.isSearching,"ljhjghjk")
     const documents = manageDocuments.isSearching ? manageDocuments.searchDocuments :
       manageDocuments.documents
     const document = documents.find(doc => doc.id === documentId);
@@ -61,6 +63,7 @@ class AllDocumentsPage extends Component {
     console.log(user)
     return (
       <div>
+       <Header />
       <main>
         <div className="container">
         <h3>All documents </h3>

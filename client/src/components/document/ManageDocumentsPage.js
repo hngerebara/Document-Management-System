@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchDocument, createDocument } from './DocumentActions';
 import DocumentForm from './DocumentForm';
+import SideBar from '../common/SideBar';
 import toastr from 'toastr';
+import Header from '../common/Header';
 
 class ManageDocumentsPage extends Component {
   constructor(props, context) {
@@ -78,6 +80,12 @@ componentDidMount() {
 
   render() {
     return (
+      <div>
+       <Header />
+      <main>
+        <div className="container">
+      <div className="row">
+      <SideBar />
       <DocumentForm
         onChange={this.updateDocumentState}
         handleEditorChange={this.handleEditorChange}
@@ -86,6 +94,10 @@ componentDidMount() {
         errors={this.state.errors}
         saving={this.state.saving}
       />
+      </div>
+      </div>
+      </main>
+      </div>
     );
   }
 }

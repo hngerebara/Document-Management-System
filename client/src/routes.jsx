@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import jwtDecode from 'jwt-decode';
 import App from './components/App';
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
@@ -10,10 +9,6 @@ import ManageDocumentsPage from './components/document/ManageDocumentsPage';
 import AllDocumentsPage from './components/document/otherDocuments/AllDocumentsPage';
 import UsersDocumentsPage from './components/document/userDocuments/UsersDocumentsPage';
 import UsersPage from './components/admin/manageUsers/UsersPage';
-
-// import ListDocuments from './components/document/ListDocuments';
-// import ViewDocument from './components/document/ViewDocument';
-// import  from './utils/';
 
 const requireAuth = (nextState, replace) => {
   const token = localStorage.getItem('token');
@@ -44,11 +39,6 @@ export default (
     <Route path="/documents/new" component={ManageDocumentsPage} onEnter={requireAuth} />
      <Route path="/editDocument/:id" component={ManageDocumentsPage} onEnter={requireAuth} />
      <Route path="/users/:creatorId/documents" component={UsersDocumentsPage} onEnter={requireAuth} />
-   
-      {/*<Route path="documents" component={ListDocuments} />
-      <Route path="dashboard" component={DashBoard} />
-     <Route path="documents/:id" component={ViewDocument} />
-   <Route path="UsersPage" component={UsersPage} onEnter={}/>*/}
   </Route>
 );
 

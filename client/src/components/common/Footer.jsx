@@ -1,16 +1,13 @@
 import React from 'react';
 
 const Footer = () => (
-  <div>
     <footer className="page-footer deep-purple darken-3">
-    <div class="footer-copyright deep-purple darken-4">
-      <div class="container">
-        <time datetime="{{ site.time | date: '%Y' }}">&copy; 2016 Hope Ngerebara</time>
+      <div className="footer-copyright deep-purple darken-4">
+        <div className="container">
+          &copy; 2016 Hope Ngerebara
+        </div>
       </div>
-    </div>
-  </footer>
-
-  </div>
+    </footer>
 );
 
-export default Footer
+export default Footer;

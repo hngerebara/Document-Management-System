@@ -1,20 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
-import DocumentList from './DocumentList';
+import AllDocumentsList from './AllDocumentsList';
 import SearchBar from '../../common/SearchBar';
 import SideBar from '../../common/SideBar';
 import ViewDocument from '../ViewDocument';
+import Header from '../../common/Header';
 
 import {
   deleteDocument,
   fetchAllDocuments,
-  viewDocument,
   searchAllDocuments,
   clearSearch
 } from '../DocumentActions';
 
-class DocumentsPage extends Component {
+class AllDocumentsPage extends Component {
   constructor(props) {
     super(props);
     if (!props.manageDocuments) {
@@ -24,6 +24,7 @@ class DocumentsPage extends Component {
       currentDocument: {},
     }
     this.handlePageClick = this.handlePageClick.bind(this);
+    this.searchClick = this.searchClick.bind(this);
   }
 
   componentDidMount() {
@@ -34,20 +35,20 @@ class DocumentsPage extends Component {
 
   handlePageClick(data) {
     const selected = data.selected;
-    const offset = Math.ceil(selected * 5);
+    const offset = Math.ceil(selected * 3);
     this.props.fetchAllDocuments(offset);
   }
 
   searchClick = (data) => {
-    console.log(data, "data on searchclik")
     const selected = data.selected;
     const search = this.props.manageDocuments.searchQuery;
-    const offset = Math.ceil(selected * 5);
+    const offset = Math.ceil(selected * 3);
     this.props.searchAllDocuments(search, offset);
   }
 
   viewDocument = (documentId) => {
     const { manageDocuments } = this.props;
+    console.log(manageDocuments.isSearching,"ljhjghjk")
     const documents = manageDocuments.isSearching ? manageDocuments.searchDocuments :
       manageDocuments.documents
     const document = documents.find(doc => doc.id === documentId);
@@ -59,16 +60,17 @@ class DocumentsPage extends Component {
 
   render() {
     const { manageDocuments, user } = this.props;
-    console.log(manageDocuments, "in render");
+    console.log(user)
     return (
       <div>
+       <Header />
       <main>
         <div className="container">
         <h3>All documents </h3>
          <SideBar />
         <SearchBar />
 
-        <DocumentList
+        <AllDocumentsList
           documents={manageDocuments.isSearching ?
             manageDocuments.searchDocuments :
             manageDocuments.documents}
@@ -105,7 +107,7 @@ class DocumentsPage extends Component {
   }
 }
 
-DocumentsPage.propTypes = {
+AllDocumentsPage.propTypes = {
   manageDocuments: PropTypes.object.isRequired,
   deleteDocument: PropTypes.func.isRequired,
   fetchAllDocuments: PropTypes.func.isRequired,
@@ -120,7 +122,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   deleteDocument,
   fetchAllDocuments,
-  viewDocument,
   searchAllDocuments,
   clearSearch
-})(DocumentsPage);
+})(AllDocumentsPage);

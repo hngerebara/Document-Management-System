@@ -16,39 +16,38 @@ class HomePage extends Component {
   render() {
     return (
       <div className="welcome">
-
         <div id="wrap">
           <div id="box">
-              <div className="col-md-12 text-center pull-middle">
-                <p className="flow-text">Welcome to</p>
-                <h1 className="title grey-text text-lighten-3">Hopeaz DMS</h1>
-                <blockquote className="flow-text">
+            <div className="col-md-12 text-center pull-middle">
+              <p className="flow-text">Welcome to</p>
+              <h1 className="title grey-text text-lighten-3">Hopeaz DMS</h1>
+              <blockquote className="flow-text">
                   A convienient place to manage your documents
                 </blockquote>
-                <span className="input-group-btn">
-                  <button
-                    type="submit"
-                    className="btn btn-primary glyphicon glyphicon-lock"
-                  >
-                    <Link to="/signup">
+              <span className="input-group-btn">
+                <button
+                  type="submit"
+                  className="btn btn-primary glyphicon glyphicon-lock"
+                >
+                  <Link to="/signup">
                       Signup
                     </Link>
-                  </button>
-                </span>
-                <span className="input-group-btn">
-                  <button
-                    type="submit"
-                    className="btn btn-primary glyphicon glyphicon-lock"
-                  >
-                    <Link to="/checkin">
+                </button>
+              </span>
+              <span className="input-group-btn">
+                <button
+                  type="submit"
+                  className="btn btn-primary glyphicon glyphicon-lock"
+                >
+                  <Link to="/checkin">
                       Checkin
                     </Link>
-                  </button>
-                </span>
-              </div>
+                </button>
+              </span>
+            </div>
           </div>
 
-      </div>
+        </div>
       </div>
     );
   }

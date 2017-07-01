@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 
 
-const DocumentListRow = ({ document, user, viewDocument }) => {
+const AllDocumentsListRow = ({ document, user, viewDocument }) => {
 
   return (
     <div className="col s12 m6 l4">
@@ -22,10 +22,10 @@ const DocumentListRow = ({ document, user, viewDocument }) => {
   );
 };
 
-DocumentListRow.propTypes = {
+AllDocumentsListRow.propTypes = {
   document: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   viewDocument: PropTypes.func.isRequired
 };
 
-export default DocumentListRow;
+export default AllDocumentsListRow;

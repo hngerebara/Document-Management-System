@@ -126,7 +126,7 @@ const usersController = {
           });
         }
         return res.status(200)
-        .send({ message: 'Found all users and their documents',
+        .send({ message: 'Found user and retrieved documents',
           user
         });
       })

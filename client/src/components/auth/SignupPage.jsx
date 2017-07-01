@@ -23,7 +23,7 @@ class SignupPage extends Component {
               />
             </div>
             <div className="card-action">
-              <span>Not Registered? <Link to="/signup">SIGNUP</Link></span>
+              <span>Already Registered? <Link to="/checkin">CHECKIN</Link></span>
             </div>
           </div>
         </div>

@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
-import DocumentListRow from './DocumentListRow';
+import AllDocumentsListRow from './AllDocumentsListRow';
 
-const DocumentList = ({
+const AllDocumentsList = ({
   documents,
   user,
   viewDocument
 }) => (
    <div className="row">
         {documents.map(document => (
-          <DocumentListRow
+          <AllDocumentsListRow
             key={document.id}
             document={document}
             user={user}
@@ -18,10 +18,10 @@ const DocumentList = ({
   </div>
   );
 
-DocumentList.propTypes = {
+AllDocumentsList.propTypes = {
   documents: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   viewDocument: PropTypes.func.isRequired
 };
 
-export default DocumentList;
+export default AllDocumentsList;

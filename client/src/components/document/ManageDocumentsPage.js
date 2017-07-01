@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchDocument, createDocument } from './DocumentActions';
 import DocumentForm from './DocumentForm';
-// import {authorsFormattedForDropdown} from '../../selectors/selectors';
+import SideBar from '../common/SideBar';
 import toastr from 'toastr';
+import Header from '../common/Header';
 
-export class ManageDocumentPage extends Component {
+class ManageDocumentsPage extends Component {
   constructor(props, context) {
     super(props, context);
     const document = {
@@ -30,12 +31,15 @@ componentDidMount() {
   const documentId = this.props.document.id;
   if (id && id !== 'new' && !documentId) {
     this.props.fetchDocument(id)
-      .catch(error => console.log(error));
+    .catch((error) => {
+        toastr.error(error);
+     });
   }
 }
   componentWillReceiveProps(nextProps) {
     if (this.props.document.id != nextProps.document.id) {
-      this.setState({ document: Object.assign({}, nextProps.document) });
+      this.setState({
+        document: Object.assign({}, nextProps.document) });
     }
   }
 
@@ -76,6 +80,12 @@ componentDidMount() {
 
   render() {
     return (
+      <div>
+       <Header />
+      <main>
+        <div className="container">
+      <div className="row">
+      <SideBar />
       <DocumentForm
         onChange={this.updateDocumentState}
         handleEditorChange={this.handleEditorChange}
@@ -84,15 +94,19 @@ componentDidMount() {
         errors={this.state.errors}
         saving={this.state.saving}
       />
+      </div>
+      </div>
+      </main>
+      </div>
     );
   }
 }
 
-ManageDocumentPage.propTypes = {
+ManageDocumentsPage.propTypes = {
   document: PropTypes.object.isRequired,
 };
 
-ManageDocumentPage.contextTypes = {
+ManageDocumentsPage.contextTypes = {
   router: PropTypes.object
 };
 
@@ -119,4 +133,4 @@ const mapDispatchToProps = {
   createDocument,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageDocumentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageDocumentsPage);

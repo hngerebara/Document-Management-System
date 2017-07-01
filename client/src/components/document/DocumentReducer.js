@@ -19,7 +19,7 @@ const initialState = {
   isSearching: false,
   userDocuments: [],
   currentDocument: {},
-  searchQuery: '',
+  searchQuery: ''
 };
 export default function DocumentsReducer(state = initialState, action) {
   let indexOfDocument = 0;
@@ -65,8 +65,27 @@ export default function DocumentsReducer(state = initialState, action) {
         documents: [
           action.document,
           ...state.documents,
-        ]
+        ],
       };
+  
+    case FETCH_SEARCH_SUCCESS:
+      const { searchDocuments, searchPagination } = action.data;
+      return {
+        ...state,
+        searchDocuments,
+        searchPagination,
+        isSearching: true,
+        searchQuery: action.searchQuery,
+      };
+
+    case CLEAR_SEARCH:
+      return {
+        ...state,
+        searchDocuments: [],
+        searchPagination: {},
+        isSearching: false
+      };
+
 
     case UPDATE_DOCUMENT_SUCCESS:
       indexOfDocument = state.documents.findIndex(document =>
@@ -83,8 +102,8 @@ export default function DocumentsReducer(state = initialState, action) {
           ...state.documents.slice(0, indexOfDocument),
           action.document,
           ...state.documents.slice(indexOfDocument + 1),
-        document: action.document
-        ]
+        ],
+        document: action.document,
       };
 
 
@@ -102,27 +121,10 @@ export default function DocumentsReducer(state = initialState, action) {
         document: undefined,
         count: state.count - 1,
         documents: [
+          action.document,
           ...state.documents.slice(0, indexOfDocument),
           ...state.documents.slice(indexOfDocument + 1)
         ]
-      };
-
-    case FETCH_SEARCH_SUCCESS:
-      const { searchDocuments, searchPagination } = action.data;
-      return {
-        ...state,
-        searchDocuments,
-        searchPagination,
-        isSearching: true,
-        searchQuery: action.searchQuery,
-      };
-
-    case CLEAR_SEARCH:
-      return {
-        ...state,
-        searchDocuments: [],
-        searchPagination: {},
-        isSearching: false
       };
 
     default:

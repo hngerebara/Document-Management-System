@@ -15,9 +15,10 @@ const store = ConfigureStore();
 if (localStorage.token) {
   const decodedToken = jwtDecode(localStorage.token);
   // set user object with the userId
-  store.dispatch(setCurrentUser({ id: decodedToken.id,
+  store.dispatch(setCurrentUser({
+    id: decodedToken.id,
     username: decodedToken.username,
-    title: decodedToken.title
+    roleId: decodedToken.roleId
   }));
 }
 

@@ -49,7 +49,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '../../', '/dist')));
+app.use(express.static(path.join(__dirname, '../', '/dist')));
 // middleware for token authentication
 app.use(authMiddleware.initialize());
 
@@ -57,7 +57,7 @@ allRoutes(router);
 app.use('/api', router);
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../index.html'));
+  res.sendFile(path.join(__dirname, '../', 'dist', 'index.html'));
 });
 
 

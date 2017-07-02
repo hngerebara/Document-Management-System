@@ -27,10 +27,10 @@ const usersController = {
           token
         });
       })
-      .catch(error =>
+      .catch(errors =>
         res.status(400).send({
           message: 'User email or password already exists',
-          error
+          errors
         })
       );
   },
@@ -192,7 +192,7 @@ const usersController = {
         .then((user) => {
           if (!user) {
             return res.status(401).send({
-              message: 'email or password did not match'
+              message: 'User does not exist'
             });
           }
           if (Users.IsPassword(user.password, password)) {
@@ -210,17 +210,39 @@ const usersController = {
             });
           } else {
             res.status(401).send({
-              message: 'passwords did not match'
+              message: 'Incorrect Password'
             });
           }
         })
-        .catch((error) => {
+        .catch((errors) => {
           res.status(401).send({
             message: 'User not found',
-            error
+            errors
           });
         });
     }
+    return res.status(400)
+    .send({
+      message: 'Enter a valid email and password',
+    });
+  },
+
+  checkUsername(req, res) {
+    const username = req.params.username;
+    Users.findOne({ where: { username }})
+    .then((user) => {
+      if(user) {
+        return res.status(400)
+        .send({
+          message: 'username already exist'
+        })
+      }
+      return res.status(200)
+      .send({
+        message:'successful'
+      })
+
+    })
   },
 
   logout(req, res) {

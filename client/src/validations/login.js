@@ -5,11 +5,11 @@ export default function validateInput(data) {
   const errors = {};
 
   if (Validator.isEmpty(data.email)) {
-    errors.identifier = 'This field is required';
+    errors.email = 'Please checkin with a valid email';
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'This field is required';
+    errors.password = 'Enter your password';
   }
 
   return {

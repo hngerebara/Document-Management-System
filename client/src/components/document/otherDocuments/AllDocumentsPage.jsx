@@ -35,7 +35,7 @@ class AllDocumentsPage extends Component {
 
   handlePageClick(data) {
     const selected = data.selected;
-    const offset = Math.ceil(selected * 3);
+    const offset = Math.ceil(selected * 6);
     this.props.fetchAllDocuments(offset);
   }
 
@@ -48,7 +48,6 @@ class AllDocumentsPage extends Component {
 
   viewDocument = (documentId) => {
     const { manageDocuments } = this.props;
-    console.log(manageDocuments.isSearching,"ljhjghjk")
     const documents = manageDocuments.isSearching ? manageDocuments.searchDocuments :
       manageDocuments.documents
     const document = documents.find(doc => doc.id === documentId);

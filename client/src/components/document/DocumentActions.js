@@ -4,7 +4,7 @@ import toastr from 'toastr';
 export const FETCH_DOCUMENTS_SUCCESS = 'FETCH_DOCUMENTS_SUCCESS';
 export const DISPLAY_DOCUMENT_FAILURE_MESSAGE =
 'DISPLAY_DOCUMENT_FAILURE_MESSAGE';
-export const CREATE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
+export const CREATE_DOCUMENT_SUCCESS = 'CREATE_DOCUMENT_SUCCESS';
 export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
 export const FETCH_DOCUMENT_SUCCESS = 'FETCH_DOCUMENT_SUCCESS';
 export const UPDATE_DOCUMENT_SUCCESS = 'UPDATE_DOCUMENT_SUCCESS';
@@ -62,9 +62,9 @@ export const fetchUserDocumentSuccess = userDocuments => ({
   userDocuments
 });
 
-export const deleteDocumentSuccess = document => ({
+export const deleteDocumentSuccess = documentId => ({
   type: DELETE_DOCUMENT_SUCCESS,
-  document,
+  documentId,
 });
 
 export const clearSearch = () => ({
@@ -123,9 +123,8 @@ export const searchAllDocuments = (search, offset = 0, limit = 6) => dispatch =>
 
 export const deleteDocument = documentId => (dispatch) => {
   axios.delete(`/documents/${documentId}/`)
-    .then((response) => {
-      dispatch(deleteDocumentSuccess(response.data.message));
-      dispatch(fetchAllDocuments());
+    .then(() => {
+      dispatch(deleteDocumentSuccess(documentId));
     })
   .catch((error) => {
     dispatch(displayDocumentFailureMessage(error.response));

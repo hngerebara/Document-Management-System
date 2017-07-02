@@ -41,10 +41,7 @@ export default function DocumentsReducer(state = initialState, action) {
     case FETCH_USER_DOCUMENTS_SUCCESS:
       return {
         ...state,
-        userDocuments: [
-          ...state.userDocuments,
-          ...action.userDocuments
-        ],
+        userDocuments: action.userDocuments
       };
 
     case FETCH_DOCUMENT_SUCCESS:
@@ -108,8 +105,8 @@ export default function DocumentsReducer(state = initialState, action) {
 
 
     case DELETE_DOCUMENT_SUCCESS:
-      indexOfDocument = state.documents.findIndex(document =>
-      document.id === action.document.id);
+      indexOfDocument = state.userDocuments.findIndex(document =>
+      document.id === action.documentId);
       if (indexOfDocument === -1) {
         return {
           ...state,
@@ -119,11 +116,9 @@ export default function DocumentsReducer(state = initialState, action) {
       return {
         ...state,
         document: undefined,
-        count: state.count - 1,
-        documents: [
-          action.document,
-          ...state.documents.slice(0, indexOfDocument),
-          ...state.documents.slice(indexOfDocument + 1)
+        userDocuments: [
+          ...state.userDocuments.slice(0, indexOfDocument),
+          ...state.userDocuments.slice(indexOfDocument + 1)
         ]
       };
 

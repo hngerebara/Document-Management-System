@@ -100,7 +100,7 @@ Admin user can:
 ## Installation
 -----------------------------------------------------------------------------------------------
 * Ensure that you have NodeJs and Postgres installed on your machine
-* Clone the repository $ git clone 
+* Clone the repository $ git clone https://github.com/andela-hngerebara/Document-Management-System.git
 * Change into the directory $ cd doc-management
 * Install all required dependencies with $ npm install
 

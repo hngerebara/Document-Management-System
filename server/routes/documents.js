@@ -32,12 +32,30 @@ const documentRoute = (router) => {
      *       - Documents
      *     description: Creates a new documents
      *     summary: Creates a new document
+     *     consumes:
+     *       - application/x-www-form-urlencoded
      *     produces:
      *       - application/json
      *     parameters:
      *       - name: Authorization
      *         description: JWT Token to authorize users
      *         in: header
+     *         required: true
+     *       - name: documentName
+     *         description: document name
+     *         in: formData
+     *         required: true
+     *       - name: description
+     *         description: description
+     *         in: formData
+     *         required: true
+     *       - name: access
+     *         description: access
+     *         in: formData
+     *         required: true
+     *       - name: content
+     *         description: content
+     *         in: formData
      *         required: true
      *         schema:
      *           $ref: '#/definitions/Documents'
@@ -85,6 +103,10 @@ const documentRoute = (router) => {
      *     produces:
      *       - application/json
      *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
      *       - name: id
      *         description: Documents's id
      *         in: path
@@ -108,11 +130,32 @@ const documentRoute = (router) => {
      *     produces:
      *       - application/json
      *     parameters:
-     *       - name: document
-     *         in: body
-     *         description: Fields for the Documents resource
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
+     *       - name: id
+     *         description: Documents's id
+     *         in: path
+     *         required: true
+     *         type: integer
+     *       - name: documentName
+     *         description: document name
+     *         in: formData
+     *         required: true
+     *       - name: description
+     *         description: description
+     *         in: formData
+     *         required: true
+     *       - name: access
+     *         description: access
+     *         in: formData
+     *         required: true
+     *       - name: content
+     *         description: content
+     *         in: formData
+     *         required: true
      *         schema:
-     *           type: object
      *           $ref: '#/definitions/Documents'
      *     responses:
      *       200:
@@ -130,6 +173,10 @@ const documentRoute = (router) => {
      *     produces:
      *       - application/json
      *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
      *       - name: id
      *         description: Documents's id
      *         in: path

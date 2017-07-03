@@ -116,10 +116,6 @@ a {
   color: #634ea0;
 }
 
-.btn {
-  background-color:#634ea0;
-}
-
 .deep-purple .darken-3 {
   background-color: #767B9E;
 }
@@ -140,14 +136,20 @@ html, body {
 .card-header{
     background-color: #767B9E;
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-top: 35px;
 }
-header,
 main,
+header {
+  padding-left: 240px;
+  width:100%;
+}
+
 footer {
   padding-left: 240px;
   width:100%;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
 }
 
 @media only screen and (max-width: 992px) {

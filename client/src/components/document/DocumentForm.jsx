@@ -12,19 +12,21 @@ const DocumentForm = ({
   <form>
     <h1>Manage Documents</h1>
 
-    <div className="row">
-      <div className="input-field col s6">
-        <input
-          type="text"
-          className="validate"
-          name="documentName"
-          value={document.documentName}
-          onChange={onChange}
-          error={errors.documentName}
-        />
-        <label htmlFor="icon_prefix">Doocument Name</label>
+    <div className="row col s12">
+      <div className="row col s6">
+        <div className="input-field">
+          <input
+            type="text"
+            className="validate"
+            name="documentName"
+            value={document.documentName}
+            onChange={onChange}
+            error={errors.documentName}
+          />
+          <label htmlFor="icon_prefix">Doocument Name</label>
       </div>
-      <div className="input-field col s6">
+
+      <div className="input-field">
         <input
           type="text"
           className="validate"
@@ -35,9 +37,7 @@ const DocumentForm = ({
         />
         <label htmlFor="icon_prefix">Description</label>
       </div>
-    </div>
 
-<div className="row">
     <div className="input-field">
       <select value={document.access} onChange={onChange}>
         <option value="" disabled>Select Access Type</option>
@@ -47,7 +47,8 @@ const DocumentForm = ({
       </select>
     </div>
   </div>
-
+  
+  <div className="row col s6">
     <TinyMCE
       content={document.content}
       config={{
@@ -56,6 +57,8 @@ const DocumentForm = ({
       }}
       onChange={handleEditorChange}
     />
+  </div>
+  
 
     <div className="row">
       <button
@@ -67,6 +70,7 @@ const DocumentForm = ({
       >
         Submit
       </button>
+    </div>
     </div>
   </form>
 );

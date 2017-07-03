@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import ReactPaginate from "react-paginate";
 import SearchBar from "../../common/SearchBar";
 import SideBar from "../../common/SideBar";
-import ViewUser from './ViewUser';
 import UsersList from "./UsersList";
+import Header from '../../common/Header';
 
 import {
   fetchAllUsers,
@@ -55,18 +55,6 @@ class UsersPage extends Component {
     this.props.searchAllUsers(search, offset);
   };
 
-  viewUser = userId => {
-    const { manageUsers } = this.props;
-    const users = manageUsers.isSearching
-      ? manageUsers.searchUsers
-      : manageUsers.users;
-    const user = users.find(user => user.id === userId);
-    if (user) {
-      this.setState({ currentUser: user });
-      $(".user-modal").modal("open");
-    }
-  };
-
   /**
    *
    * @returns [array]
@@ -77,6 +65,7 @@ class UsersPage extends Component {
     const { manageUsers } = this.props;
     return (
       <div>
+      <Header />
         <main>
           <div className="container">
             <h1>Users</h1>
@@ -95,10 +84,8 @@ class UsersPage extends Component {
                         : manageUsers.users
                     }
                     searchAllUsers={searchAllUsers}
-                    viewUser={this.viewUser}
                   />
                 ))}
-                <ViewUser user={this.state.currentUser} />
               </ul>
             </div>
             <div className="userspagination">

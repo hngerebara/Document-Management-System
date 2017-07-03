@@ -22,7 +22,7 @@ class SideBar extends Component {
       <div className="sidebar">
         <ul id="slide-out" className="side-nav fixed">
           <li className="center">
-            <div className="indigo darken-2 white-text">
+            <div className="indigo lighten-2 white-text">
               <div className="row">
                 <img
                   src="/client/images/hopeazdms_logo.png"
@@ -56,14 +56,9 @@ class SideBar extends Component {
 
             {isAdmin &&
               <div>
-                <li id="dash_users" className="waves-effect">
-                  <Link to="/users">
-                    <i className="mdi-social-people left" />Users
-                  </Link>
-                </li>
                 <li>
-                  <Link to="/roles">
-                    <i className="mdi-social-people left" />Roles
+                  <Link to="/users">
+                    <i className="waves-effect"/>Users
                   </Link>
                 </li>
               </div>}

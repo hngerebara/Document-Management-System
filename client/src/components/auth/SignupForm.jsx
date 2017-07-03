@@ -112,9 +112,9 @@ class SignupForm extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <form>
+      <form className="col-12">
         <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
             <i className="material-icons prefix">account_circle</i>
             <input
               type="text"
@@ -125,42 +125,10 @@ class SignupForm extends Component {
               onBlur={this.checkUserExists}
             />
             <label htmlFor="icon_prefix">username</label>
-          </div>
           {errors.username && <span>{errors.username}</span>}
-        </div>
-
-        <div className="row">
-          <div className="input-field">
-            <i className="material-icons prefix">account_circle</i>
-            <input
-              type="text"
-              className="validate"
-              name="firstName"
-              value={this.state.firstName}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="icon_prefix">FirstName</label>
           </div>
-          {errors.firstName && <span>{errors.firstName}</span>}
-        </div>
 
-        <div className="row">
-          <div className="input-field">
-            <i className="material-icons prefix">account_circle</i>
-            <input
-              type="text"
-              className="validate"
-              name="lastName"
-              value={this.state.lastName}
-              onChange={this.handleChange}
-            />
-            <label htmlFor="icon_prefix">LastName</label>
-          </div>
-          {errors.lastName && <span>{errors.lastName}</span>}
-        </div>
-
-        <div className="row">
-          <div className="input-field">
+           <div className="input-field col s6">
             <i className="material-icons prefix">account_circle</i>
             <input
               type="text"
@@ -170,12 +138,40 @@ class SignupForm extends Component {
               onChange={this.handleChange}
             />
             <label htmlFor="icon_prefix">Email</label>
-          </div>
           {errors.email && <span>{errors.email}</span>}
+          </div>
         </div>
 
         <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
+            <i className="material-icons prefix">account_circle</i>
+            <input
+              type="text"
+              className="validate"
+              name="firstName"
+              value={this.state.firstName}
+              onChange={this.handleChange}
+            />
+            <label htmlFor="icon_prefix">FirstName</label>
+          {errors.firstName && <span>{errors.firstName}</span>}
+          </div>
+
+          <div className="input-field col s6">
+            <i className="material-icons prefix">account_circle</i>
+            <input
+              type="text"
+              className="validate"
+              name="lastName"
+              value={this.state.lastName}
+              onChange={this.handleChange}
+            />
+            <label htmlFor="icon_prefix">LastName</label>
+          {errors.lastName && <span>{errors.lastName}</span>}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="input-field col s6">
             <i className="material-icons prefix">lock_outline</i>
             <input
               type="password"
@@ -185,12 +181,10 @@ class SignupForm extends Component {
               name="password"
             />
             <label htmlFor="icon_prefix">Password</label>
-          </div>
           {errors.password && <span>{errors.password}</span>}
-        </div>
+          </div>
 
-        <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
             <i className="material-icons prefix">lock_outline</i>
             <input
               type="password"
@@ -200,8 +194,8 @@ class SignupForm extends Component {
               name="passwordConfirmation"
             />
             <label htmlFor="icon_prefix">Confirm Password</label>
-          </div>
           {errors.passwordConfirmation && <span>{errors.passwordConfirmation}</span>}
+          </div>
         </div>
 
         <div className="row">

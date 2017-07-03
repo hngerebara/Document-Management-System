@@ -74,7 +74,7 @@ class CheckinPage extends Component {
       this.props.checkinUserAction(this.state)
         .then(() => {
           toastr.success('Checked in succesfully');
-          browserHistory.push('/documents')
+          browserHistory.push('/documents');
         })
         .catch(() =>
           this.setState({
@@ -96,8 +96,8 @@ class CheckinPage extends Component {
 
     return (
       <div className="row">
-        <div className="col s10 m6 l3 offset-l5 offset-s1  offset-m3">
-          <div className="card z-depth-2">
+        <div className="col s12 m6 l3 offset-l3 offset-s1">
+          <div className="auth-card z-depth-2">
             <div className="card-header">
               <img src="/client/images/document.jpeg" alt="hopeaz" />
             </div>
@@ -116,7 +116,6 @@ class CheckinPage extends Component {
                     <label htmlFor="icon_prefix">Email</label>
                   </div>
                   {errors.email && <span>{errors.email}</span>}
-                  {console.log(errors.email)}
                 </div>
                 <div className="row">
                   <div className="input-field">

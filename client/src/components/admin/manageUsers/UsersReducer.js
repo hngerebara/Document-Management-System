@@ -17,10 +17,7 @@ export default function UsersReducer(state = initialState, action) {
     case FETCH_USERS_SUCCESS:
       return {
         ...state,
-        users: [
-          ...state.users,
-          ...action.users
-        ],
+        users: action.users,
       };
 
     case SEARCH_USERS_SUCCESS:

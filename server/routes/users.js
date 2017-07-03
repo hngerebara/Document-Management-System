@@ -189,6 +189,8 @@ const userRoute = (router) => {
     .route('/users/:creatorId/documents')
     .get(authMiddleware.authenticate(), usersController.retrieveAll);
 
+  router.get('/check-username/:username', usersController.checkUsername);
+
   // router.get('/users-docs', adminVerify, usersController.listAllUsersAndDocs);
 };
 

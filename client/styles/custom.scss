@@ -36,7 +36,7 @@ header, main, footer {
 .card-image {
 	height: 185px;
 	width: 250px;
-	background-color: green;
+	background-color: rgb(160, 78, 155);
 	position: relative;
 }
 
@@ -92,8 +92,6 @@ h1 {
     animation-timing-function: linear;
 }
 
-
-
 #wrap {
   min-height: 100%;
   height: auto;
@@ -115,7 +113,7 @@ h1.title,
 }
 
 a {
-  color: white;
+  color: #634ea0;
 }
 
 .btn {
@@ -123,13 +121,14 @@ a {
 }
 
 .deep-purple .darken-3 {
-  background-color: rgb(99, 78, 160);
+  background-color: #767B9E;
 }
 
 html, body {
     height: 100%;
     width: 100%;
-    display: table
+    display: table;
+    background: white;
 }
 
 
@@ -139,21 +138,16 @@ html, body {
 }
 
 .card-header{
-    background-color: #4527a0;
+    background-color: #767B9E;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
 }
-
-//....................
 header,
 main,
 footer {
   padding-left: 240px;
-}
-
-body {
-  backgroud: white;
+  width:100%;
 }
 
 @media only screen and (max-width: 992px) {
@@ -164,27 +158,11 @@ body {
   }
 }
 
-#credits li,
-#credits li a {
-  color: white;
-}
-
-#credits li a {
-  font-weight: bold;
-}
-
 .footer-copyright .container,
 .footer-copyright .container a {
   color: #BCC2E2;
 }
 
-.fab-tip {
-  position: fixed;
-  right: 85px;
-  padding: 0px 0.5rem;
-  text-align: right;
-  background-color: #323232;
-  border-radius: 2px;
-  color: #FFF;
-  width: auto;
+.auth-card {
+  width: 700px;
 }

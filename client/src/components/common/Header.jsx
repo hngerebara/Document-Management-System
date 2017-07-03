@@ -20,8 +20,10 @@ export class Header extends React.Component {
 
     return (
       <header>
-        <nav id="main-nav" className="indigo" role="navigation">
+        <nav id="main-nav" className="indigo lighten-2" role="navigation">
           <div className="container">
+           <a href="#" data-activates="slide-out" 
+           className="button-collapse"><i className="mdi-navigation-menu">Hopeaz DMS</i></a>
             <ul className="right hide-on-med-and-down">
               <li>Hello {user.username}</li>
               <li>

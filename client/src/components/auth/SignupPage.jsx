@@ -2,24 +2,21 @@ import React, { Component, PropTypes } from 'react';
 import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
 import { browserHistory, Link } from 'react-router';
-import { signupUser, isUserExists } from './SignupActions';
-import { addFlashMessage } from '../flash/FlashMessageActions';
+import { signupUser } from './SignupActions';
 
 class SignupPage extends Component {
   render() {
-    const { signupUser, addFlashMessage, isUserExists } = this.props;
+    const { signupUser} = this.props;
     return (
       <div className="row">
-        <div className="col s10 m6 l3 offset-l5 offset-s1  offset-m3">
-          <div className="card z-depth-2">
+        <div className="col s12 m6 l3 offset-l3 offset-s1">
+          <div className="auth-card z-depth-2">
             <div className="card-header">
               <img src="/client/images/document.jpeg" alt="hopeaz" />
             </div>
             <div className="card-content">
               <SignupForm
-                isUserExists={isUserExists}
                 signupUser={signupUser}
-                addFlashMessage={addFlashMessage}
               />
             </div>
             <div className="card-action">
@@ -33,11 +30,9 @@ class SignupPage extends Component {
 }
 
 SignupPage.propTypes = {
-  signupUser: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
-  isUserExists: PropTypes.func.isRequired
+  signupUser: PropTypes.func.isRequired
 };
 
-export default connect(null, { signupUser, addFlashMessage, isUserExists })(
+export default connect(null, { signupUser })(
   SignupPage
 );

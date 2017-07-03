@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import toastr from 'toastr';
 import { connect } from 'react-redux';
 import { checkinUserAction } from './AuthActions';
 import { browserHistory, Link } from 'react-router';
-import validateInput from '../../../../server/validations/login';
+import validateInput from '../../validations/login';
 
 /**
  *
@@ -69,12 +70,16 @@ class CheckinPage extends Component {
   handleCheckin(event) {
     event.preventDefault();
     if (this.isValid()) {
-      this.setState({ errors: {}, success: 'Login success', isLoading: true });
-      this.props
-        .checkinUserAction(this.state)
-        .then(() => browserHistory.push('/documents'))
+      this.setState({ errors: {}, isLoading: true });
+      this.props.checkinUserAction(this.state)
+        .then(() => {
+          toastr.success('Checked in succesfully');
+          browserHistory.push('/documents');
+        })
         .catch(() =>
-          this.setState({ error: 'User name or password not correct' })
+          this.setState({
+            errors: 'User name or password not correct',
+            isLoading: false })
         );
     }
   }
@@ -91,8 +96,8 @@ class CheckinPage extends Component {
 
     return (
       <div className="row">
-        <div className="col s10 m6 l3 offset-l5 offset-s1  offset-m3">
-          <div className="card z-depth-2">
+        <div className="col s12 m6 l3 offset-l3 offset-s1">
+          <div className="auth-card z-depth-2">
             <div className="card-header">
               <img src="/client/images/document.jpeg" alt="hopeaz" />
             </div>
@@ -105,11 +110,12 @@ class CheckinPage extends Component {
                       type="text"
                       className="validate"
                       name="email"
+                      value={email}
                       onChange={this.handleChange}
-                      checkUserExists={this.checkUserExists}
                     />
                     <label htmlFor="icon_prefix">Email</label>
                   </div>
+                  {errors.email && <span>{errors.email}</span>}
                 </div>
                 <div className="row">
                   <div className="input-field">
@@ -117,12 +123,13 @@ class CheckinPage extends Component {
                     <input
                       type="password"
                       onChange={this.handleChange}
-                      checkUserExists={this.checkUserExists}
                       className="validate"
                       name="password"
+                      value={password}
                     />
                     <label htmlFor="icon_prefix">Password</label>
                   </div>
+                  {errors.password && <span>{errors.password}</span>}
                 </div>
 
                 <div className="row">

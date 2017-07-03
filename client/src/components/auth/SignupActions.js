@@ -1,7 +1,7 @@
-import jwtDecode from 'jwt-decode';
-
 import axios from '../../utils/api';
+import jwtDecode from 'jwt-decode';
 import { setCurrentUser } from './AuthActions';
+
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 
@@ -12,9 +12,7 @@ export const SIGNUP_ERROR = 'SIGNUP_ERROR';
  * @param {any} id
  * @returns
  */
-export const isUserExists = (id) => {
-  return dispatch => axios.get(`/users/${id}`);
-}
+
 
 export const signupUser = ({
   username,

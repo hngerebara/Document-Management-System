@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import validateInput from '../../../../server/validations/signup';
-
+import axios from '../../utils/api';
+import validateInput from '../../validations/signup';
+import toastr from 'toastr';
 /**
  *
  *
@@ -56,30 +57,30 @@ class SignupForm extends Component {
     return isValid;
   }
 
-  /**
-   * @param {any} event
-   *
-   * @memberOf SignupForm
-   */
+
   checkUserExists(event) {
     const field = event.target.name;
-    const value = event.target.value;
-    if (value !== '') {
-      this.props.isUserExists(value).then((res) => {
-        const errors = this.state.errors;
-        let invalid;
-        if (res.data.user) {
-          errors[field] = `User Exists with this${field}`;
-          invalid = true;
-        } else {
-          errors[field] = '';
-          invalid = false;
-        }
-        this.setState({ errors, invalid });
+    const username = event.target.value;
+    if (username) {
+      axios.get(`/check-username/${username}`)
+      .then((res) => {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            username: '',
+          },
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            username: 'Username already exist',
+          }
+        });
       });
     }
   }
-
   /**
    * @param {any} event
    *
@@ -89,13 +90,9 @@ class SignupForm extends Component {
     event.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props
-        .signupUser(this.state)
+      this.props.signupUser(this.state)
         .then(() => {
-          this.props.addFlashMessage({
-            type: 'success',
-            text: 'You signed up successfully. Welcome!'
-          });
+          toastr.success('Signed up succesfully');
           browserHistory.push('/documents');
         })
         .catch(() =>
@@ -115,9 +112,9 @@ class SignupForm extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <form>
+      <form className="col-12">
         <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
             <i className="material-icons prefix">account_circle</i>
             <input
               type="text"
@@ -125,44 +122,13 @@ class SignupForm extends Component {
               name="username"
               value={this.state.username}
               onChange={this.handleChange}
-              checkUserExists={this.checkUserExists}
+              onBlur={this.checkUserExists}
             />
             <label htmlFor="icon_prefix">username</label>
+          {errors.username && <span>{errors.username}</span>}
           </div>
-        </div>
 
-        <div className="row">
-          <div className="input-field">
-            <i className="material-icons prefix">account_circle</i>
-            <input
-              type="text"
-              className="validate"
-              name="firstName"
-              value={this.state.firstName}
-              onChange={this.handleChange}
-              checkUserExists={this.checkUserExists}
-            />
-            <label htmlFor="icon_prefix">FirstName</label>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="input-field">
-            <i className="material-icons prefix">account_circle</i>
-            <input
-              type="text"
-              className="validate"
-              name="lastName"
-              value={this.state.lastName}
-              onChange={this.handleChange}
-              checkUserExists={this.checkUserExists}
-            />
-            <label htmlFor="icon_prefix">LastName</label>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="input-field">
+           <div className="input-field col s6">
             <i className="material-icons prefix">account_circle</i>
             <input
               type="text"
@@ -170,39 +136,65 @@ class SignupForm extends Component {
               name="email"
               value={this.state.email}
               onChange={this.handleChange}
-              checkUserExists={this.checkUserExists}
             />
             <label htmlFor="icon_prefix">Email</label>
+          {errors.email && <span>{errors.email}</span>}
           </div>
         </div>
 
         <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
+            <i className="material-icons prefix">account_circle</i>
+            <input
+              type="text"
+              className="validate"
+              name="firstName"
+              value={this.state.firstName}
+              onChange={this.handleChange}
+            />
+            <label htmlFor="icon_prefix">FirstName</label>
+          {errors.firstName && <span>{errors.firstName}</span>}
+          </div>
+
+          <div className="input-field col s6">
+            <i className="material-icons prefix">account_circle</i>
+            <input
+              type="text"
+              className="validate"
+              name="lastName"
+              value={this.state.lastName}
+              onChange={this.handleChange}
+            />
+            <label htmlFor="icon_prefix">LastName</label>
+          {errors.lastName && <span>{errors.lastName}</span>}
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="input-field col s6">
             <i className="material-icons prefix">lock_outline</i>
             <input
               type="password"
               value={this.state.password}
               onChange={this.handleChange}
-              checkUserExists={this.checkUserExists}
               className="validate"
               name="password"
             />
             <label htmlFor="icon_prefix">Password</label>
+          {errors.password && <span>{errors.password}</span>}
           </div>
-        </div>
 
-        <div className="row">
-          <div className="input-field">
+          <div className="input-field col s6">
             <i className="material-icons prefix">lock_outline</i>
             <input
               type="password"
               value={this.state.passwordConfirmation}
               onChange={this.handleChange}
-              checkUserExists={this.checkUserExists}
               className="validate"
               name="passwordConfirmation"
             />
             <label htmlFor="icon_prefix">Confirm Password</label>
+          {errors.passwordConfirmation && <span>{errors.passwordConfirmation}</span>}
           </div>
         </div>
 
@@ -210,6 +202,7 @@ class SignupForm extends Component {
           <button
             className="btn waves-effect waves-light col s12"
             type="submit"
+            disabled={this.state.isLoading}
             onClick={this.handleSubmit}
           >
             SIGN UP
@@ -221,9 +214,7 @@ class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  signupUser: PropTypes.func.isRequired,
-  addFlashMessage: PropTypes.func.isRequired,
-  isUserExists: PropTypes.func.isRequired
+  signupUser: PropTypes.func.isRequired
 };
 
 export default SignupForm;

@@ -82,7 +82,6 @@ class UsersPage extends Component {
             <h1>Users</h1>
             <SideBar />
             <SearchBar />
-
             <div>
               <ul>
                 {manageUsers.users.map((user =>
@@ -111,7 +110,7 @@ class UsersPage extends Component {
                 pageCount={
                   manageUsers.isSearching
                     ? manageUsers.searchPagination.page_count
-                    : manageUsers.pagination
+                    : manageUsers.pagination.page_count
                 }
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={5}
@@ -124,11 +123,9 @@ class UsersPage extends Component {
                 subContainerClassName={"pages pagination"}
                 activeClassName={"active"}
               />
-
             </div>
           </div>
         </main>
-
       </div>
     );
   }

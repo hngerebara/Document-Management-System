@@ -9,28 +9,25 @@ const UserDocumentListRow = ({
   viewDocument
 }) => {
   const isOwner = document.creatorId === user.id;
-
-
-
-
-
   return (
     <div className="col s12 m6 l4">
       <div className="card small">
         <div className="card-image">
           <span className="card-title">{document.documentName}</span>
         </div>
-         <span>Access Type: {document.access}</span> <div><br></br></div>
-          <span>Date Published:  {moment(document.created_At).format('L')}</span>
+        <span>Access Type: {document.access}</span> <div><br /></div>
+        <span>Date Published:{moment(document.created_At).format('L')}</span>
         <div className="card-action">
-          <button onClick={() => viewDocument(document.id)} >
-            View Document
-          </button>
+          <a
+            className="waves-effect waves-light btn-small"
+            onClick={() => viewDocument(document.id)}
+          ><i className="material-icons">visibility</i></a>
           {isOwner &&
             <div>
-              <button onClick={() => deleteDocument(document.id)}>
-                Delete Document
-              </button>
+              <a
+                className="waves-effect waves-light btn-small"
+                onClick={() => deleteDocument(document.id)}
+              ><i className="material-icons">delete_forever</i></a>
             </div>}
         </div>
       </div>

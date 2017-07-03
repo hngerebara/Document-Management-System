@@ -1,8 +1,9 @@
+## HOPEAZ DMS
 A document management system (DMS) is a system (based on computer programs in the case of the management of digital documents)used to track, manage and store documents and reduce paper. It provides a restful API for users to create and manage documents giving different privileges based on user roles.
 
 The developed application is a react redux based application based on RESTful API for users to create and manage documents giving different privileges based on user roles and managing authentication using JWT.
 
-# Development
+## Development
 
 This application was developed using the following frameworks.
 
@@ -11,7 +12,7 @@ This application was developed using the following frameworks.
 * Express
 * Sequelize as ORM
 
-### Structure
+## Structure
 ---------------------------------------------------------------------------------------------------------------------------
 ```sh
 ├client                # Client-side/ front end
@@ -70,14 +71,14 @@ This application was developed using the following frameworks.
 
 ```
 
-# Application Features
+## Application Features
 ----------------------------------------------------------------------------------------------
 
-## User Authentication
+### User Authentication
 
 Users are authenticated and validated using passport js. JWT tokens are generated on signup and login  to ensure alldocuments and API endpoints are protected.
 
-## Document Management
+### Document Management
 
 Users can: 
 * Create an account
@@ -96,24 +97,24 @@ Admin user can:
 * Delete any user.
 * Search for any user.
 
-# Installation
+## Installation
 -----------------------------------------------------------------------------------------------
 * Ensure that you have NodeJs and Postgres installed on your machine
 * Clone the repository $ git clone 
 * Change into the directory $ cd doc-management
 * Install all required dependencies with $ npm install
 
-# Usage
+## Usage
 -----------------------------------------------------------------------------------------------
 * Run npm start to start the application on development environment
 
 
-# Testing
+## Testing
 * Run client test by running npm test:client
 * Run server test by running npm test:server
 
 
-# API Documentation
+## API Documentation
 
 The API has routes, each dedicated to a single task that uses HTTP response codes to indicate API status and errors.
 
@@ -159,7 +160,7 @@ Admin can:
 * Users cannot share documents with people.
 * Users cannot update their profile(working on it)
 
-### Contribute
+## Contribute
 ---------------------------------------------------------------------------------------------------------------------------
 
 If you are interested in contributing to development of Hopeaz DMS, that's really great!
@@ -176,7 +177,7 @@ Follow the instructions below to contribute.
 
 * Create a pull request
 
-### FAQ
+## FAQ
 ----------------------------------------------------------------------------------------------------------------------
 
 1. What if I want to use another port?
@@ -187,7 +188,7 @@ where <your_desired_port> is the port you want to use. So, if you want to use po
 
 PORT=8080
 
-### Licence
+## Licence
 ----------------------------------------------------------------------------------------------------------------------
 
 This project is authored by <a href="https://google.com/search?q=Hope+Ngerebara">Hope Ngerebara</a> and is licensed for your use, modification and distribution under the ISC license. 

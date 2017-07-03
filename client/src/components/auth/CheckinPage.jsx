@@ -30,6 +30,7 @@ class CheckinPage extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckin = this.handleCheckin.bind(this);
+    this.isValid = this.isValid.bind(this);
   }
 
   /**
@@ -51,13 +52,11 @@ class CheckinPage extends Component {
    * @memberOf CheckinPage
    */
   isValid() {
-    // const { errors, isValid } = validateInput(this.state);
+    const { errors, isValid } = validateInput(this.state);
     if (!isValid) {
-      this.setState({ errors: 'Wrong input' });
+      this.setState({ errors });
     }
-    // return {
-    //   isValid
-    // };
+    return isValid;
   }
 
   /**
@@ -70,15 +69,13 @@ class CheckinPage extends Component {
   handleCheckin(event) {
     event.preventDefault();
     if (this.isValid()) {
-      this.setState({ errors: 'Wrong input', isLoading: true });
       this.props.checkinUserAction(this.state)
         .then(() => {
           browserHistory.push('/documents');
-          toastr.success('Checked in succesfully');
         })
         .catch(() =>
           this.setState({
-            errors: 'User name or password not correct',
+            errors: { email: 'in correct'},
             isLoading: false })
         );
     }

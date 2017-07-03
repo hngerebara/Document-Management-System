@@ -58,6 +58,13 @@ const userRoute = (router) => {
      *     summary: Returns all users
      *     produces:
      *       - application/json
+     *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
+     *         schema:
+     *           $ref: '#/definitions/Users'
      *     responses:
      *       200:
      *         description: An array of Users
@@ -78,16 +85,18 @@ const userRoute = (router) => {
      *       - Users
      *     description: logs a user in and Returns a token;
      *     summary: logs a user in
+     *     consumes:
+     *       - application/x-www-form-urlencoded
      *     produces:
      *       - application/json
      *     parameters:
      *       - name: email
      *         description: user email
-     *         in: body
+     *         in: formData
      *         required: true
      *       - name: password
      *         description: user password
-     *         in: body
+     *         in: formData
      *         required: true
      *         schema:
      *           $ref: '#/definitions/Users'

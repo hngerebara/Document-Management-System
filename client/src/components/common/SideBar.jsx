@@ -25,7 +25,7 @@ class SideBar extends Component {
             <div className="indigo lighten-2 white-text">
               <div className="row">
                 <img
-                  src="/client/images/hopeazdms_logo.png"
+                  src="https://res.cloudinary.com/dwrl3tf6j/image/upload/v1499075232/hopeazdms_logo_d3cirn.png"
                   className="circle responsive-img"
                 />
                 <p>

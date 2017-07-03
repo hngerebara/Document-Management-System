@@ -13,7 +13,7 @@ const DocumentForm = ({
     <h1>Manage Documents</h1>
 
     <div className="row">
-      <div className="input-field">
+      <div className="input-field col s6">
         <input
           type="text"
           className="validate"
@@ -24,10 +24,7 @@ const DocumentForm = ({
         />
         <label htmlFor="icon_prefix">Doocument Name</label>
       </div>
-    </div>
-
-    <div className="row">
-      <div className="input-field">
+      <div className="input-field col s6">
         <input
           type="text"
           className="validate"
@@ -40,7 +37,8 @@ const DocumentForm = ({
       </div>
     </div>
 
-    <div className="input-field col s12">
+<div className="row">
+    <div className="input-field">
       <select value={document.access} onChange={onChange}>
         <option value="" disabled>Select Access Type</option>
         <option value="public">Public</option>
@@ -48,6 +46,7 @@ const DocumentForm = ({
         <option value="role">Role</option>
       </select>
     </div>
+  </div>
 
     <TinyMCE
       content={document.content}

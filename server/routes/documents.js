@@ -7,7 +7,7 @@ const documentRoute = (router) => {
   /**
      * @swagger
      * definition:
-     *   Users:
+     *   Documents:
      *     properties:
      *       documentName:
      *         type: string
@@ -35,9 +35,9 @@ const documentRoute = (router) => {
      *     produces:
      *       - application/json
      *     parameters:
-     *       - name: document
-     *         description: documents object
-     *         in: body
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
      *         required: true
      *         schema:
      *           $ref: '#/definitions/Documents'
@@ -58,6 +58,11 @@ const documentRoute = (router) => {
      *     summary: Gets all documents
      *     produces:
      *       - application/json
+     *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
      *     responses:
      *       200:
      *         description: An array of documents

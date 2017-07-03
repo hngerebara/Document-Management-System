@@ -204,12 +204,12 @@ const usersController = {
             const token = jwt.sign(payload, cfg.jwtSecret, {
               expiresIn: 60 * 60 * 24
             });
-            res.send({
+            return res.send({
               message: 'Successfully signed in',
               token
             });
           } else {
-            res.status(401).send({
+            return res.status(401).send({
               message: 'Incorrect Password'
             });
           }
@@ -220,6 +220,7 @@ const usersController = {
             errors
           });
         });
+      return;
     }
     return res.status(400)
     .send({
@@ -246,7 +247,7 @@ const usersController = {
   },
 
   logout(req, res) {
-    res.send({ message: 'You have succesfully logged out' });
+    return res.send({ message: 'You have succesfully logged out' });
   }
 };
 

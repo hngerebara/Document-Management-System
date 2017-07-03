@@ -58,7 +58,6 @@ export default function DocumentsReducer(state = initialState, action) {
       return {
         ...state,
         document: action.document,
-        count: state.count + 1,
         documents: [
           action.document,
           ...state.documents,

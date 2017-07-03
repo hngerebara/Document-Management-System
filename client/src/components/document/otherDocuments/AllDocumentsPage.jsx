@@ -59,7 +59,6 @@ class AllDocumentsPage extends Component {
 
   render() {
     const { manageDocuments, user } = this.props;
-    console.log(user)
     return (
       <div>
        <Header />

@@ -21,9 +21,9 @@ class HomePage extends Component {
             <div className="col-md-12 text-center pull-middle">
               <p className="flow-text">Welcome to</p>
               <h1 className="title grey-text text-lighten-3">Hopeaz DMS</h1>
-              <blockquote className="flow-text">
+              <p className="flow-text">
                   A convienient place to manage your documents
-                </blockquote>
+                </p>
               <span className="input-group-btn">
                 <button
                   type="submit"

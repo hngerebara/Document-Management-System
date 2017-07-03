@@ -51,13 +51,13 @@ class CheckinPage extends Component {
    * @memberOf CheckinPage
    */
   isValid() {
-    const { errors, isValid } = validateInput(this.state);
+    // const { errors, isValid } = validateInput(this.state);
     if (!isValid) {
-      this.setState({ errors });
+      this.setState({ errors: 'Wrong input' });
     }
-    return {
-      isValid
-    };
+    // return {
+    //   isValid
+    // };
   }
 
   /**
@@ -70,11 +70,11 @@ class CheckinPage extends Component {
   handleCheckin(event) {
     event.preventDefault();
     if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+      this.setState({ errors: 'Wrong input', isLoading: true });
       this.props.checkinUserAction(this.state)
         .then(() => {
-          toastr.success('Checked in succesfully');
           browserHistory.push('/documents');
+          toastr.success('Checked in succesfully');
         })
         .catch(() =>
           this.setState({
@@ -99,7 +99,10 @@ class CheckinPage extends Component {
         <div className="col s12 m6 l3 offset-l3 offset-s1">
           <div className="auth-card z-depth-2">
             <div className="card-header">
-              <img src="/client/images/document.jpeg" alt="hopeaz" />
+              <img
+                src="https://res.cloudinary.com/dwrl3tf6j/image/upload/v1499075232/hopeazdms_logo_d3cirn.png"
+                alt="hopez" className="circle responsive-img"
+                />
             </div>
             <div className="card-content">
               <form>

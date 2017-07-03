@@ -48,6 +48,10 @@ const searchRoute = (router) => {
          *       - Search
          *     description: Returns all documents created by a user
          *     parameters:
+         *       - name: Authorization
+         *         description: JWT Token to authorize users
+         *         in: header
+         *         required: true
          *       - name: query
          *         description: search qeury
          *         in: path
@@ -74,6 +78,10 @@ const searchRoute = (router) => {
      *     description: Returns all Users that match the search query
      *     summary: Returns all users that match the search query
      *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
      *       - name: query
      *         description: search qeury
      *         in: path

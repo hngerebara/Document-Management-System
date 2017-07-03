@@ -12,7 +12,10 @@ class SignupPage extends Component {
         <div className="col s12 m6 l3 offset-l3 offset-s1">
           <div className="auth-card z-depth-2">
             <div className="card-header">
-              <img src="/client/images/document.jpeg" alt="hopeaz" />
+              <img
+                src="https://res.cloudinary.com/dwrl3tf6j/image/upload/v1499075232/hopeazdms_logo_d3cirn.png"
+                alt="hopez" className="circle responsive-img"
+                />
             </div>
             <div className="card-content">
               <SignupForm

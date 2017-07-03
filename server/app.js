@@ -7,7 +7,7 @@ import auth from './configs/middlewares/auth';
 import cors from 'cors';
 // import swagger from './routes/swagger';
 
-const pathurl = path.join(__dirname + '/routes/*.js');
+const pathurl = path.join(__dirname, '/routes/*.js');
 
 const app = express();
 const router = express.Router();
@@ -20,7 +20,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Describing RESTful API endpoints with Swagger',
   },
-  host: pathurl,
+  host: 'localhost:8090',
   basePath: '/',
 };
 

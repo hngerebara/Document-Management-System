@@ -15,7 +15,11 @@ class ViewDocument extends Component {
           <h4>{document.documentName}</h4>
           <p>Description: {document.description}</p>
           <hr />
-          <p>{document.content}</p>
+          <p
+            className="innerhtml margin-5px"
+            dangerouslySetInnerHTML={{ __html: document.content }}
+          >
+          </p>
         </div>
         <div className="modal-footer">
           <a

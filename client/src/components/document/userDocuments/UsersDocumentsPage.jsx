@@ -40,7 +40,7 @@ class UsersDocumentsPage extends Component {
 searchClick = (data) => {
     const selected = data.selected;
     const search = this.props.manageDocuments.searchQuery;
-    const offset = Math.ceil(selected * 3);
+    const offset = Math.ceil(selected * 6);
     this.props.searchUsersDocuments(search, offset);
   }
 

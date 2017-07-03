@@ -31,12 +31,32 @@ const userRoute = (router) => {
      *       - Users
      *     description: Creates a new User
      *     summary: create new user
+    *     consumes:
+     *       - application/x-www-form-urlencoded
      *     produces:
      *       - application/json
      *     parameters:
-     *       - name: user
-     *         description: user object
-     *         in: body
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
+     *       - name: username
+     *         description: username
+     *         in: formData
+     *         required: true
+     *       - name: firstName
+     *         description: first name
+     *         in: formData
+     *       - name: lastName
+     *         description: last name
+     *         in: formData
+     *       - name: email
+     *         description: email
+     *         in: formData
+     *         required: true
+     *       - name: password
+     *         description: password
+     *         in: formData
      *         required: true
      *         schema:
      *           $ref: '#/definitions/Users'
@@ -58,6 +78,13 @@ const userRoute = (router) => {
      *     summary: Returns all users
      *     produces:
      *       - application/json
+     *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
+     *         schema:
+     *           $ref: '#/definitions/Users'
      *     responses:
      *       200:
      *         description: An array of Users
@@ -78,16 +105,18 @@ const userRoute = (router) => {
      *       - Users
      *     description: logs a user in and Returns a token;
      *     summary: logs a user in
+     *     consumes:
+     *       - application/x-www-form-urlencoded
      *     produces:
      *       - application/json
      *     parameters:
      *       - name: email
      *         description: user email
-     *         in: body
+     *         in: formData
      *         required: true
      *       - name: password
      *         description: user password
-     *         in: body
+     *         in: formData
      *         required: true
      *         schema:
      *           $ref: '#/definitions/Users'
@@ -129,8 +158,12 @@ const userRoute = (router) => {
      *     produces:
      *       - application/json
      *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
      *       - name: id
-     *         description: User's id
+     *         description: user's id
      *         in: path
      *         required: true
      *         type: integer
@@ -151,9 +184,34 @@ const userRoute = (router) => {
      *     summary: updates a single User
      *     produces: application/json
      *     parameters:
-     *       - name: user
-     *         description: user object
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
+     *       - name: id
+     *         description: user's id
      *         in: path
+     *         required: true
+     *         type: integer
+     *       - name: username
+     *         description: username
+     *         in: formData
+     *         required: true
+     *       - name: firstName
+     *         description: first name
+     *         in: formData
+     *         required: true
+     *       - name: lastName
+     *         description: lastname
+     *         in: formData
+     *         required: true
+     *       - name: email
+     *         description: email
+     *         in: formData
+     *         required: true
+     *       - name: password
+     *         description: password
+     *         in: formData
      *         required: true
      *         schema:
      *           type: array
@@ -172,9 +230,13 @@ const userRoute = (router) => {
      *     description: Deletes a single User
      *     produces:
      *       - application/json
-     *     parameters:
+    *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
      *       - name: id
-     *         description: User's id
+     *         description: user's id
      *         in: path
      *         required: true
      *         type: integer

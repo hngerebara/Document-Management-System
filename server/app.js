@@ -5,7 +5,6 @@ import path from 'path';
 import allRoutes from './routes';
 import auth from './configs/middlewares/auth';
 import cors from 'cors';
-// import swagger from './routes/swagger';
 
 const pathurl = path.join(__dirname, '/routes/*.js');
 

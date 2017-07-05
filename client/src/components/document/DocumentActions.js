@@ -1,74 +1,60 @@
 import axios from '../../utils/api';
 import toastr from 'toastr';
-
-export const FETCH_DOCUMENTS_SUCCESS = 'FETCH_DOCUMENTS_SUCCESS';
-export const DISPLAY_DOCUMENT_FAILURE_MESSAGE =
-'DISPLAY_DOCUMENT_FAILURE_MESSAGE';
-export const CREATE_DOCUMENT_SUCCESS = 'CREATE_DOCUMENT_SUCCESS';
-export const DELETE_DOCUMENT_SUCCESS = 'DELETE_DOCUMENT_SUCCESS';
-export const FETCH_DOCUMENT_SUCCESS = 'FETCH_DOCUMENT_SUCCESS';
-export const UPDATE_DOCUMENT_SUCCESS = 'UPDATE_DOCUMENT_SUCCESS';
-export const DOCUMENT_FETCHED = 'DOCUMENT_FETCHED';
-export const DISPLAY_USER_FAILURE_MESSAGE = 'DISPLAY_USER_FAILURE_MESSAGE';
-export const FETCH_USER_DOCUMENTS_SUCCESS = 'FETCH_USER_DOCUMENTS_SUCCESS';
-export const UPDATE_DOCUMENT_ERROR = 'UPDATE_DOCUMENT_ERROR';
-export const FETCH_SEARCH_SUCCESS = 'FETCH_SEARCH_SUCCESS';
-export const SEARCH_FAILURE_MESSAGE = 'SEARCH_FAILURE_MESSAGE';
-export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+import * as types from './DocumentActionTypes';
 
 export const displayDocumentFailureMessage = errorMessage => ({
-  type: DISPLAY_DOCUMENT_FAILURE_MESSAGE,
+  type: types.DISPLAY_DOCUMENT_FAILURE_MESSAGE,
   errorMessage
 });
 
 export const fetchSearchSuccess = (data, searchQuery) => ({
-  type: FETCH_SEARCH_SUCCESS,
+  type: types.FETCH_SEARCH_SUCCESS,
   data,
   searchQuery
 });
 
 export const searchFailureMessage = errorMessage => ({
-  type: SEARCH_FAILURE_MESSAGE,
+  type: types.SEARCH_FAILURE_MESSAGE,
   errorMessage
 });
 
 export const fetchDocumentsSuccess = data => ({
-  type: FETCH_DOCUMENTS_SUCCESS,
+  type: types.FETCH_DOCUMENTS_SUCCESS,
   data
 });
 
 export const createDocumentSuccess = document => ({
-  type: CREATE_DOCUMENT_SUCCESS,
+  type: types.CREATE_DOCUMENT_SUCCESS,
   document,
 });
 
 export const updateDocumentSuccess = document => ({
-  type: UPDATE_DOCUMENT_SUCCESS,
+  type: types.UPDATE_DOCUMENT_SUCCESS,
   document,
 });
 
 export const fetchDocumentSuccess = document => ({
-  type: FETCH_DOCUMENT_SUCCESS,
+  type: types.FETCH_DOCUMENT_SUCCESS,
   document
 });
 
 export const fetchUserDocumentFailed = userDocumentsError => ({
-  type: DISPLAY_USER_FAILURE_MESSAGE,
+  type: types.DISPLAY_USER_FAILURE_MESSAGE,
   userDocumentsError
 });
 
 export const fetchUserDocumentSuccess = userDocuments => ({
-  type: FETCH_USER_DOCUMENTS_SUCCESS,
+  type: types.FETCH_USER_DOCUMENTS_SUCCESS,
   userDocuments
 });
 
 export const deleteDocumentSuccess = documentId => ({
-  type: DELETE_DOCUMENT_SUCCESS,
+  type: types.DELETE_DOCUMENT_SUCCESS,
   documentId,
 });
 
 export const clearSearch = () => ({
-  type: CLEAR_SEARCH,
+  type: types.CLEAR_SEARCH,
 });
 
 export const fetchAllDocuments = (offset = 0, limit = 6) => dispatch =>

@@ -33,7 +33,7 @@ class UsersPage extends Component {
    *
    * @memberOf UsersPage
    */
-
+   
   componentDidMount() {
     this.props.fetchAllUsers();
   }
@@ -47,8 +47,8 @@ class UsersPage extends Component {
   render() {
     const { manageUsers } = this.props;
     const users = manageUsers.isSearching
-                        ? manageUsers.searchUsers
-                        : manageUsers.users;
+      ? manageUsers.searchUsers
+      : manageUsers.users;
     return (
       <div>
         <Header />
@@ -59,22 +59,19 @@ class UsersPage extends Component {
             <SearchBar searchFn={this.props.searchAllUsers} />
             <div>
               <ul>
-                <UsersList
-                  users={users}
-                  deleteUser={this.props.deleteUser}
-                />
+                <UsersList users={users} deleteUser={this.props.deleteUser} />
               </ul>
             </div>
-            
-              <Pagination
-                searchQuery={manageUsers.searchQuery}
-                fetchFn={this.props.fetchAllUsers}
-                searchFn={this.props.searchAllUsers}
-                isSearching={manageUsers.isSearching}
-                pagination={manageUsers.pagination}
-                searchPagination={manageUsers.searchPagination}
-              />
-           
+
+            <Pagination
+              searchQuery={manageUsers.searchQuery}
+              fetchFn={this.props.fetchAllUsers}
+              searchFn={this.props.searchAllUsers}
+              isSearching={manageUsers.isSearching}
+              pagination={manageUsers.pagination}
+              searchPagination={manageUsers.searchPagination}
+            />
+
           </div>
         </main>
       </div>

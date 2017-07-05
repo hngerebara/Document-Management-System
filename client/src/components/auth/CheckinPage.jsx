@@ -75,7 +75,7 @@ class CheckinPage extends Component {
         })
         .catch(() =>
           this.setState({
-            errors: { email: 'in correct'},
+            errors: { email: 'in correct' },
             isLoading: false })
         );
     }

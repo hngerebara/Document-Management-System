@@ -6,7 +6,7 @@ import SearchBar from "../../common/SearchBar";
 import SideBar from "../../common/SideBar";
 import ViewDocument from "../ViewDocument";
 import Header from "../../common/Header";
-import Pagination from '../../common/Pagination';
+import Pagination from "../../common/Pagination";
 
 import {
   deleteDocument,
@@ -40,8 +40,8 @@ class AllDocumentsPage extends Component {
   render() {
     const { manageDocuments, user } = this.props;
     const documents = manageDocuments.isSearching
-                  ? manageDocuments.searchDocuments
-                  : manageDocuments.documents
+      ? manageDocuments.searchDocuments
+      : manageDocuments.documents;
 
     return (
       <div>
@@ -50,24 +50,23 @@ class AllDocumentsPage extends Component {
           <div className="container">
             <h1>All documents </h1>
             <SideBar />
-            <SearchBar searchFn={this.props.searchAllDocuments}/>
+            <SearchBar searchFn={this.props.searchAllDocuments} />
             <AllDocumentsList
-              documents = {documents}
+              documents={documents}
               user={user}
               deleteDocument={this.props.deleteDocument}
               viewDocument={this.viewDocument}
             />
-    { documents.length > 0 &&
-            <Pagination 
-            searchQuery={manageDocuments.searchQuery}
-            fetchFn={this.props.fetchAllDocuments}
-            searchFn={this.props.searchAllDocuments}
-            isSearching={manageDocuments.isSearching}
-            pagination={manageDocuments.pagination}
-            searchPagination={manageDocuments.searchPagination}
-            />
-   }
-            
+            {documents.length > 0 &&
+              <Pagination
+                searchQuery={manageDocuments.searchQuery}
+                fetchFn={this.props.fetchAllDocuments}
+                searchFn={this.props.searchAllDocuments}
+                isSearching={manageDocuments.isSearching}
+                pagination={manageDocuments.pagination}
+                searchPagination={manageDocuments.searchPagination}
+              />}
+
             <ViewDocument document={this.state.currentDocument} />
           </div>
         </main>

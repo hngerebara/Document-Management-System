@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 
 export default function (ComposedComponent) {
   class Authenticate extends React.Component {
-    
     componentWillMount() {
       if (!this.props.isAuthenticated) {
         this.browserHistory.push('/checkin');
@@ -18,9 +17,7 @@ export default function (ComposedComponent) {
     }
 
     render() {
-      return (
-        <ComposedComponent {...this.props} />
-      );
+      return <ComposedComponent {...this.props} />;
     }
   }
 

@@ -66,7 +66,6 @@ const searchRoute = (router) => {
          */
     .get(authMiddleware.authenticate(), searchController.searchDocuments);
 
-  // search users
   router
     .route('/search/users')
     /**

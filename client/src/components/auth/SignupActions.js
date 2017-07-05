@@ -1,9 +1,7 @@
 import axios from '../../utils/api';
 import jwtDecode from 'jwt-decode';
+import * as types from './AuthActionTypes';
 import { setCurrentUser } from './AuthActions';
-
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
-export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 
 /**
  *
@@ -28,14 +26,14 @@ export const signupUser = ({
       localStorage.setItem('token', token);
       dispatch(setCurrentUser(jwtDecode(token)));
       dispatch({
-        type: SIGNUP_SUCCESS,
+        type: types.SIGNUP_SUCCESS,
         token,
         message: 'Sign Up successful'
       });
     })
     .catch((error) => {
       dispatch({
-        type: SIGNUP_ERROR
+        type: types.SIGNUP_ERROR
       });
       throw error;
     });

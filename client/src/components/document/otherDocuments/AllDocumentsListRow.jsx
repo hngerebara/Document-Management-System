@@ -12,7 +12,7 @@ const AllDocumentsListRow = ({ document, viewDocument }) => {
           <span className="card-title">{document.documentName}</span>
         </div>
         <span>Access Type: {document.access}</span> <div><br></br></div>
-        <span>Date Created:  {moment(document.created_At).format('L')}</span>
+        <span>Date Created:{moment(document.created_At).format('L')}</span>
         <div className="card-action">
           <a
             className="waves-effect waves-light btn-small right-align"

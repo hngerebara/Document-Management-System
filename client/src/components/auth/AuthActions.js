@@ -1,14 +1,11 @@
 import setAuthToken from '../../utils/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import { browserHistory } from 'react-router';
+import * as types from './AuthActionTypes';
 import axios from '../../utils/api';
 
-export const CHECKIN_ERROR = 'CHECKIN_ERROR';
-export const SET_CURRENT_USER = 'SET_CURRENT_USER';
-
-
 const setCurrentUser = user => ({
-  type: SET_CURRENT_USER,
+  type: types.SET_CURRENT_USER,
   user,
 });
 
@@ -21,7 +18,7 @@ dispatch => axios.post('/users/login', { email, password })
   })
   .catch((error) => {
     dispatch({
-      type: CHECKIN_ERROR,
+      type: types.CHECKIN_ERROR,
       error
     });
   });

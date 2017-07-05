@@ -39,6 +39,9 @@ class ViewDocument extends Component {
     );
   }
 }
-ViewDocument.propTypes = {};
+ViewDocument.propTypes = {
+  document: PropTypes.object.isRequired,
+  edit: PropTypes.bool.isRequired
+};
 
 export default ViewDocument;

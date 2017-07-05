@@ -9,9 +9,9 @@ const DocumentForm = ({
   saving,
   errors
 }) => (
+
   <form>
     <h1>Manage Documents</h1>
-
     <div className="row col s12">
       <div className="row col s6">
         <div className="input-field">
@@ -77,10 +77,11 @@ const DocumentForm = ({
 
 DocumentForm.propTypes = {
   document: PropTypes.object.isRequired,
+  saving: PropTypes.bool.isRequired,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  handleEditorChange:  PropTypes.func.isRequired
+  handleEditorChange: PropTypes.func.isRequired
 };
 
 export default DocumentForm;

@@ -67,30 +67,19 @@ const documentsController = {
 
   retrieveDocument(req, res) {
     return Documents.findById(req.params.id)
-      .then((document) => {
-        if (!document) {
-          return res.status(404)
-          .send({
-            message: 'Document Not Found'
-          });
-        }
-        return res.status(200)
+      .then(document =>
+        res.status(200)
         .send({
           message: 'Document successfully retrieved',
           document
-        });
-      })
+        })
+      )
       .catch(error => res.status(400).send(error));
   },
 
   updateDocument(req, res) {
     return Documents.findById(req.params.id)
     .then((document) => {
-      if (!document) {
-        return res.status(404).send({
-          message: 'Document not found'
-        });
-      }
       if (document.creatorId !== req.user.id) {
         return res.status(401).send({
           message: 'You don\'t have access to this document',

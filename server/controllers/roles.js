@@ -1,4 +1,4 @@
-import { Roles, Users } from '../models';
+import { Roles } from '../models';
 
 const rolesController = {
   create(req, res) {

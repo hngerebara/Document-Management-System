@@ -42,11 +42,11 @@ const usersController = {
       limit,
       offset,
       attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
-      include: [{
-        model: Roles,
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
-      }
-      
+      include: [
+        {
+          model: Roles,
+          attributes: { exclude: ['createdAt', 'updatedAt'] }
+        }
       ]
     })
       .then((users) => {
@@ -75,9 +75,7 @@ const usersController = {
   retrieveUser(req, res) {
     Users.findOne({
       where: {
-        $or: [
-          { id: req.params.id }
-        ]
+        $or: [{ id: req.params.id }]
       }
     }).then((user) => {
       if (!user) {
@@ -85,8 +83,7 @@ const usersController = {
           .status(404)
           .send({ message: `User with id ${req.params.id} does not exist` });
       }
-      res.status(200)
-      .send({
+      res.status(200).send({
         message: `User Found with id ${req.params.id} was found`,
         user
       });
@@ -108,24 +105,18 @@ const usersController = {
             message: 'User Not Found'
           });
         }
-        return res.status(200)
-        .send({ message: 'Found user and retrieved documents',
+        return res.status(200).send({
+          message: 'Found user and retrieved documents',
           user
         });
       })
       .catch(error => res.status(400).send(error));
   },
 
-
   updateUser(req, res) {
     return Users.findById(req.params.id)
     .then((user) => {
-      if (!user) {
-        return res.status(404).send({
-          message: 'User not found'
-        });
-      }
-      return user
+      user
         .update({
           userName: req.body.userName,
           firstName: req.body.firstName,
@@ -133,13 +124,18 @@ const usersController = {
           email: req.body.email,
           password: req.body.password
         })
-        .then(() => res.status(200)
-        .send({ message: 'User details updated',
-          user
-        }))
-        .catch(error => res.status(400)
-        .send({ message: 'You have no rights to update this profile',
-          error }));
+        .then(() =>
+          res.status(200).send({
+            message: 'User details updated',
+            user
+          })
+        )
+        .catch(error =>
+          res.status(400).send({
+            message: 'You have no rights to update this profile',
+            error
+          })
+        );
     });
   },
 
@@ -158,13 +154,15 @@ const usersController = {
               message: 'User deleted successfully.'
             })
           )
-          .catch(error => res.status(409)
-          .send({ message: 'An error occured while attempting to delete user, Try again',
-            error }));
+          .catch(error =>
+            res.status(409).send({
+              message: 'An error occured while attempting to delete user, Try again',
+              error
+            })
+          );
       })
       .catch(error => res.status(400).send(error));
   },
-
 
   login(req, res) {
     if (req.body.email && req.body.password) {
@@ -172,11 +170,6 @@ const usersController = {
       const password = req.body.password;
       Users.findOne({ where: { email } })
         .then((user) => {
-          if (!user) {
-            return res.status(401).send({
-              message: 'User does not exist'
-            });
-          }
           if (Users.IsPassword(user.password, password)) {
             const payload = {
               id: user.id,
@@ -203,24 +196,20 @@ const usersController = {
         });
       return;
     }
-    return res.status(400)
-    .send({
-      message: 'Enter a valid email and password',
+    return res.status(400).send({
+      message: 'Enter a valid email and password'
     });
   },
 
   checkUsername(req, res) {
     const username = req.params.username;
-    Users.findOne({ where: { username } })
-    .then((user) => {
+    Users.findOne({ where: { username } }).then((user) => {
       if (user) {
-        return res.status(400)
-        .send({
+        return res.status(400).send({
           message: 'username already exist'
         });
       }
-      return res.status(200)
-      .send({
+      return res.status(200).send({
         message: 'successful'
       });
     });

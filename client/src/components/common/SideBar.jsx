@@ -58,7 +58,8 @@ class SideBar extends Component {
               <div>
                 <li>
                   <Link to="/users">
-                    <i className="waves-effect"/>Users
+                    <i className="waves-effect" />
+                    Users
                   </Link>
                 </li>
               </div>}

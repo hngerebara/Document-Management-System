@@ -144,7 +144,6 @@ const userRoute = (router) => {
      */
   router.route('/users/logout').post(usersController.logout);
 
-  // retrieve, delete and  update user by id enpoints
   router
     .route('/users/:id')
     /**
@@ -246,14 +245,11 @@ const userRoute = (router) => {
      */
     .delete(authMiddleware.authenticate(), usersController.destroyUser);
 
-  // create and retrieve documents by creator's id endpoint
   router
     .route('/users/:creatorId/documents')
     .get(authMiddleware.authenticate(), usersController.retrieveAll);
 
   router.get('/check-username/:username', usersController.checkUsername);
-
-  // router.get('/users-docs', adminVerify, usersController.listAllUsersAndDocs);
 };
 
 export default userRoute;

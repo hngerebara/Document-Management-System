@@ -17,7 +17,6 @@ export class Header extends React.Component {
 
   render() {
     const { user } = this.props.Auth;
-
     return (
       <header>
         <nav id="main-nav" className="indigo lighten-2" role="navigation">

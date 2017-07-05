@@ -8,9 +8,9 @@ export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const SEARCH_FAILURE_MESSAGE = 'SEARCH_FAILURE_MESSAGE';
 
 
-export const fetchUsersSuccess = users => ({
+export const fetchUsersSuccess = data => ({
   type: FETCH_USERS_SUCCESS,
-  users
+  data
 });
 
 export const displayFailureMessage = errorMessage => ({
@@ -42,7 +42,7 @@ export const fetchAllUsers = (offset = 0, limit = 4) => (dispatch) => {
   axios
     .get(`/users?limit=${limit}&offset=${offset}`)
     .then((response) => {
-      dispatch(fetchUsersSuccess(response.data.users));
+      dispatch(fetchUsersSuccess(response.data));
     })
     .catch((error) => {
       dispatch(displayFailureMessage(error.response));

@@ -85,7 +85,7 @@ const searchController = {
         searchPagination: {
           pageCount: next,
           page: currentPage,
-          pagesize: pageSize,
+          rowsPerPage: pageSize,
           totalCount: documents.count
         },
         searchDocuments: documents.rows

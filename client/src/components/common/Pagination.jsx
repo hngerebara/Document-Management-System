@@ -25,13 +25,12 @@ class Pagination extends Component {
 
   render() {
     const { isSearching, searchPagination, pagination } = this.props;
+    
     return (
       <div className="pagination">
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}
-          breakLabel={<a href="">...</a>}
-          breakClassName={"break-me"}
           pageCount={
             isSearching ? searchPagination.pageCount : pagination.pageCount
           }

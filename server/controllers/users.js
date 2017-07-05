@@ -52,10 +52,10 @@ const usersController = {
         res.status(200).send({
           message: 'users successfully retrieved',
           pagination: {
-            page_count: next,
+            pageCount: next,
             page: currentPage,
-            page_size: Number(pageSize),
-            total_count: users.count
+            rowsPerPage: Number(pageSize),
+            totalCount: users.count
           },
           users: users.rows
         });

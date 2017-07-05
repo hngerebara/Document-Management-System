@@ -39,6 +39,10 @@ class AllDocumentsPage extends Component {
 
   render() {
     const { manageDocuments, user } = this.props;
+    const documents = manageDocuments.isSearching
+                  ? manageDocuments.searchDocuments
+                  : manageDocuments.documents
+
     return (
       <div>
         <Header />
@@ -48,16 +52,12 @@ class AllDocumentsPage extends Component {
             <SideBar />
             <SearchBar searchFn={this.props.searchAllDocuments}/>
             <AllDocumentsList
-              documents = {
-                manageDocuments.isSearching
-                  ? manageDocuments.searchDocuments
-                  : manageDocuments.documents
-              }
+              documents = {documents}
               user={user}
               deleteDocument={this.props.deleteDocument}
               viewDocument={this.viewDocument}
             />
-
+    { documents.length > 0 &&
             <Pagination 
             searchQuery={manageDocuments.searchQuery}
             fetchFn={this.props.fetchAllDocuments}
@@ -66,6 +66,7 @@ class AllDocumentsPage extends Component {
             pagination={manageDocuments.pagination}
             searchPagination={manageDocuments.searchPagination}
             />
+   }
             
             <ViewDocument document={this.state.currentDocument} />
           </div>

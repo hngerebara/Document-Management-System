@@ -46,7 +46,9 @@ class UsersPage extends Component {
    */
   render() {
     const { manageUsers } = this.props;
-
+    const users = manageUsers.isSearching
+                        ? manageUsers.searchUsers
+                        : manageUsers.users;
     return (
       <div>
         <Header />
@@ -58,16 +60,12 @@ class UsersPage extends Component {
             <div>
               <ul>
                 <UsersList
-                  users={
-                      manageUsers.isSearching
-                        ? manageUsers.searchUsers
-                        : manageUsers.users
-                    }
+                  users={users}
                   deleteUser={this.props.deleteUser}
                 />
               </ul>
             </div>
-            <div className="userspagination">
+            
               <Pagination
                 searchQuery={manageUsers.searchQuery}
                 fetchFn={this.props.fetchAllUsers}
@@ -76,7 +74,7 @@ class UsersPage extends Component {
                 pagination={manageUsers.pagination}
                 searchPagination={manageUsers.searchPagination}
               />
-            </div>
+           
           </div>
         </main>
       </div>
@@ -87,7 +85,7 @@ class UsersPage extends Component {
 UsersPage.propTypes = {
   fetchAllUsers: PropTypes.func.isRequired,
   searchAllUsers: PropTypes.func.isRequired,
-  manageUsers: PropTypes.object,
+  manageUsers: PropTypes.object.isRequired,
   deleteUser: PropTypes.func.isRequired
 };
 

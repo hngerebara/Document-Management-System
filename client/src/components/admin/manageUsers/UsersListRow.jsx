@@ -29,6 +29,6 @@ const UsersListRow = ({ user, deleteUser }) => {
 
 UsersListRow.propTypes = {
   deleteUser: PropTypes.func.isRequired,
-  user: React.PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 };
 export default UsersListRow;

@@ -49,15 +49,15 @@ const documentsController = {
     return queryDocs.then((documents) => {
       const next = Math.ceil(documents.count / limit);
       const currentPage = Math.floor((offset / limit) + 1);
-      const pageSize = limit > documents.count
+      const pagesize = limit > documents.count
       ? documents.count : limit;
       res.status(200)
       .send({
         pagination: {
-          page_count: next,
+          pageCount: next,
           page: currentPage,
-          page_size: Number(pageSize),
-          total_count: documents.count
+          rowsPerPage: Number(pagesize),
+          totalCount: documents.count
         },
         documents: documents.rows
       });

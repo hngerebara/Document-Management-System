@@ -1,6 +1,9 @@
-import { FETCH_USERS_SUCCESS, DELETE_USER_SUCCESS,
- SEARCH_USERS_SUCCESS, CLEAR_SEARCH } from './UsersActions';
-
+import {
+  FETCH_USERS_SUCCESS,
+  DELETE_USER_SUCCESS,
+  SEARCH_USERS_SUCCESS,
+  CLEAR_SEARCH
+} from './UsersActions';
 
 const initialState = {
   users: [],
@@ -15,9 +18,11 @@ const initialState = {
 export default function UsersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
+    const { users, pagination } = action.data;
       return {
         ...state,
-        users: action.users,
+        users,
+        pagination
       };
 
     case SEARCH_USERS_SUCCESS:
@@ -27,7 +32,7 @@ export default function UsersReducer(state = initialState, action) {
         searchUsers,
         searchPagination,
         isSearching: true,
-        searchQuery: action.searchQuery,
+        searchQuery: action.searchQuery
       };
 
     case CLEAR_SEARCH:
@@ -38,10 +43,8 @@ export default function UsersReducer(state = initialState, action) {
         isSearching: false
       };
 
-
     case DELETE_USER_SUCCESS: {
-      const indexOfUserToDelete = state.find(
-        user => user.id === action.userId);
+      const indexOfUserToDelete = state.find(user => user.id === action.userId);
       return [
         ...state.slice(0, indexOfUserToDelete),
         ...state.slice(indexOfUserToDelete + 1)
@@ -52,4 +55,3 @@ export default function UsersReducer(state = initialState, action) {
       return state;
   }
 }
-

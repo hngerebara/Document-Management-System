@@ -2,12 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 class ViewDocument extends Component {
-  
   componentDidMount() {
     $('.doc-modal').modal();
   }
 
-  render(){
+  render() {
     const { edit, document } = this.props;
     return (
       <div id="modal1" className="doc-modal modal modal-fixed-footer">
@@ -18,8 +17,7 @@ class ViewDocument extends Component {
           <p
             className="innerhtml margin-5px"
             dangerouslySetInnerHTML={{ __html: document.content }}
-          >
-          </p>
+          />
         </div>
         <div className="modal-footer">
           <a
@@ -28,13 +26,14 @@ class ViewDocument extends Component {
           >
             Close
           </a>
-          { edit &&
-            <Link 
-              to={`/editDocument/${document.id}`} 
-              className="modal-action waves-effect waves-light btn modal-close" 
-            > <i className="material-icons left">mode_edit</i>
-            Edit</Link>
-          }
+          {edit &&
+            <Link
+              to={`/editDocument/${document.id}`}
+              className="modal-action waves-effect waves-light btn modal-close"
+            >
+              {' '}<i className="material-icons left">mode_edit</i>
+              Edit
+            </Link>}
         </div>
       </div>
     );

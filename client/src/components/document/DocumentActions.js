@@ -119,15 +119,6 @@ export const searchAllDocuments = (search, offset = 0, limit = 6) => dispatch =>
       throw error;
     });
 
-export const searchUsersDocuments = (search, offset = 0, limit = 6) => dispatch =>
-  axios.get(`/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
-    .then((response) => {
-      dispatch(fetchSearchSuccess(response.data, search));
-    }).catch((error) => {
-      dispatch(searchFailureMessage(error.response));
-      throw error;
-    });
-
 export const deleteDocument = documentId => (dispatch) => {
   axios.delete(`/documents/${documentId}/`)
     .then(() => {

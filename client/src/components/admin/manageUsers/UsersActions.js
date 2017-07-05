@@ -56,7 +56,7 @@ export const deleteUser = userId => dispatch =>
   });
 
 
-export const searchAllUsers = (search, offset = 0, limit = 4) => dispatch =>
+export const searchAllUsers = (search, offset = 0, limit = 6) => dispatch =>
   axios.get(`/search/users?search=${search}&limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(searchUserSuccess(response.data, search));

@@ -41,13 +41,17 @@ const usersController = {
     return Users.findAndCountAll({
       limit,
       offset,
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
       include: [{
-        model: Roles
-      }]
+        model: Roles,
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+      }
+      
+      ]
     })
       .then((users) => {
         const next = Math.ceil(users.count / limit);
-        const currentPage = Math.floor(offset / limit + 1);
+        const currentPage = Math.floor((offset / limit) + 1);
         const pageSize = limit > users.count ? users.count : limit;
         res.status(200).send({
           message: 'users successfully retrieved',

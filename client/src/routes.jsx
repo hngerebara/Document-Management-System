@@ -5,7 +5,7 @@ import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import CheckinPage from './components/auth/CheckinPage';
 import SignupPage from './components/auth/SignupPage';
-import ManageDocumentsPage from './components/document/ManageDocumentsPage';
+import CreateDocumentPage from './components/document/CreateDocumentPage';
 import AllDocumentsPage from './components/document/otherDocuments/AllDocumentsPage';
 import UsersDocumentsPage from './components/document/userDocuments/UsersDocumentsPage';
 import UsersPage from './components/admin/manageUsers/UsersPage';
@@ -36,8 +36,8 @@ export default (
     <Route path="/checkin" component={CheckinPage} onEnter={isLogin} />
     <Route path="/signup" component={SignupPage} onEnter={isLogin} />
     <Route path="/documents" component={AllDocumentsPage} onEnter={requireAuth} />
-    <Route path="/documents/new" component={ManageDocumentsPage} onEnter={requireAuth} />
-     <Route path="/editDocument/:id" component={ManageDocumentsPage} onEnter={requireAuth} />
+    <Route path="/documents/new" component={CreateDocumentPage} onEnter={requireAuth} />
+     <Route path="/editDocument/:id" component={CreateDocumentPage} onEnter={requireAuth} />
      <Route path="/users/:creatorId/documents" component={UsersDocumentsPage} onEnter={requireAuth} />
   </Route>
 );

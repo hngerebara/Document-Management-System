@@ -7,7 +7,7 @@ import SideBar from '../common/SideBar';
 import toastr from 'toastr';
 import Header from '../common/Header';
 
-class ManageDocumentsPage extends Component {
+class CreateDocumentPage extends Component {
   constructor(props, context) {
     super(props, context);
     const document = {
@@ -102,11 +102,11 @@ componentDidMount() {
   }
 }
 
-ManageDocumentsPage.propTypes = {
+CreateDocumentPage.propTypes = {
   document: PropTypes.object.isRequired,
 };
 
-ManageDocumentsPage.contextTypes = {
+CreateDocumentPage.contextTypes = {
   router: PropTypes.object
 };
 
@@ -133,4 +133,4 @@ const mapDispatchToProps = {
   createDocument,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageDocumentsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateDocumentPage);

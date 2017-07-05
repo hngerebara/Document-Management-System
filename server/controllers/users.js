@@ -68,31 +68,10 @@ const usersController = {
       );
   },
 
-  // listAllUsersAndDocs(req, res) {
-  //   console.log(req,"kfjhkgjfvdj")
-  //   return Users.findAll({
-  //     include: [
-  //       {
-  //         model: Documents,
-  //         as: 'allDocuments'
-  //       }
-  //     ]
-  //   })
-  //     .then(users =>
-  //       res.status(200).send({
-  //         message: 'Users and their documents retrieved succesfully',
-  //         users
-  //       })
-  //     )
-  //     .catch(error => res.status(400).send(error));
-  // },
-
   retrieveUser(req, res) {
     Users.findOne({
       where: {
         $or: [
-          // { email: req.params.id },
-          // { username: req.params.id },
           { id: req.params.id }
         ]
       }
@@ -133,6 +112,7 @@ const usersController = {
       .catch(error => res.status(400).send(error));
   },
 
+
   updateUser(req, res) {
     return Users.findById(req.params.id)
     .then((user) => {
@@ -141,7 +121,6 @@ const usersController = {
           message: 'User not found'
         });
       }
-    //  if (req.user.id === req.params.id) {
       return user
         .update({
           userName: req.body.userName,
@@ -154,7 +133,6 @@ const usersController = {
         .send({ message: 'User details updated',
           user
         }))
-    // }
         .catch(error => res.status(400)
         .send({ message: 'You have no rights to update this profile',
           error }));
@@ -208,11 +186,10 @@ const usersController = {
               message: 'Successfully signed in',
               token
             });
-          } else {
-            return res.status(401).send({
-              message: 'Incorrect Password'
-            });
           }
+          return res.status(401).send({
+            message: 'Incorrect Password'
+          });
         })
         .catch((errors) => {
           res.status(401).send({
@@ -230,20 +207,19 @@ const usersController = {
 
   checkUsername(req, res) {
     const username = req.params.username;
-    Users.findOne({ where: { username }})
+    Users.findOne({ where: { username } })
     .then((user) => {
-      if(user) {
+      if (user) {
         return res.status(400)
         .send({
           message: 'username already exist'
-        })
+        });
       }
       return res.status(200)
       .send({
-        message:'successful'
-      })
-
-    })
+        message: 'successful'
+      });
+    });
   },
 
   logout(req, res) {

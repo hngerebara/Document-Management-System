@@ -1,4 +1,4 @@
-import { Users, Documents } from '../models';
+import { Users, Documents, Roles } from '../models';
 
 const searchController = {
   searchDocuments(req, res) {
@@ -35,10 +35,10 @@ const searchController = {
       return res.status(200)
       .send({
         searchPagination: {
-          page_count: next,
+          pageCount: next,
           page: currentPage,
-          page_size: pageSize,
-          total_count: documents.count
+          pagesize: pageSize,
+          totalCount: documents.count
         },
         searchDocuments: documents.rows
       });
@@ -83,10 +83,10 @@ const searchController = {
       return res.status(200)
       .send({
         searchPagination: {
-          page_count: next,
+          pageCount: next,
           page: currentPage,
-          page_size: pageSize,
-          total_count: documents.count
+          pagesize: pageSize,
+          totalCount: documents.count
         },
         searchDocuments: documents.rows
       });
@@ -97,22 +97,24 @@ const searchController = {
         }));
   },
 
+
   searchUsers(req, res) {
     const limit = Number(req.query.limit) || 6;
     const offset = Number(req.query.offset) || 0;
     const query = req.query.search || '';
     return Users
-      .findAll({
+      .findAndCountAll({
         where: {
-          $or: [{ username: { $iLike: `%${query}%` } },
-            { firstName: { $iLike: `%${query}%` } },
-            { lastName: { $iLike: `%${query}%` } },
-            { email: { $iLike: `%${query}%` } }]
+          $or: [{ username: { $ilike: `%${query}%` } },
+            { firstName: { $ilike: `%${query}%` } },
+            { lastName: { $ilike: `%${query}%` } },
+            { email: { $ilike: `%${query}%` } }]
         },
         include: {
-          model: Users,
-          attributes: ['firstName', 'lastName']
+          model: Roles,
+          attributes: ['title']
         },
+        order: [['updatedAt', 'DESC']],
         limit,
         offset
       })
@@ -120,14 +122,14 @@ const searchController = {
       .then((users) => {
         const next = Math.ceil(users.count / limit);
         const currentPage = Math.floor((offset / limit) + 1);
-        const pageSize = limit > users.count ? users.count : limit;
+        const pagesize = limit > users.count ? users.count : limit;
         return res.status(200)
       .send({
         searchPagination: {
-          page_count: next,
-          page: currentPage,
-          page_size: pageSize,
-          total_count: users.count
+          pageCount: next,
+          pageNo: currentPage,
+          rowsPerPage: pagesize,
+          totalCount: users.count
         },
         searchUsers: users.rows
       });

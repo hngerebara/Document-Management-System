@@ -5,6 +5,7 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes'; 
 import { Provider } from 'react-redux'; 
 import ConfigureStore from './store/ConfigureStore';
+import CheckCurrentUser from './utils/checkCurrentUser';
 import '../styles/custom.scss';
 
 const store = ConfigureStore();

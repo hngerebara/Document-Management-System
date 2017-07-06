@@ -3,7 +3,7 @@ import UsersReducer from '../components/admin/manageUsers/UsersReducer';
 import DocumentReducer from '../components/document/DocumentReducer';
 import Auth from '../components/auth/AuthReducer';
 
-const RootReducer = combineReducers({  
+const RootReducer = combineReducers({
   UsersReducer,
   DocumentReducer,
   Auth

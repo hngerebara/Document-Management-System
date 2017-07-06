@@ -8,13 +8,6 @@ export default function validateInput(data) {
     errors.username = 'Please enter your username';
   }
 
-  // if (!Validator.isEmpty(data.firstName)) {
-  //   errors.firstName = 'Please enter your first name';
-  // }
-  // if (!Validator.isEmpty(data.lastName)) {
-  //   errors.lastName = 'Please enter your last name';
-  // }
-
   if (!Validator.isEmail(data.email)) {
     errors.email = 'Please enter a valid email';
   }

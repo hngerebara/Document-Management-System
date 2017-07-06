@@ -8,7 +8,7 @@ import {
   FETCH_SEARCH_SUCCESS,
   CLEAR_SEARCH,
   FETCH_DOCUMENT_SUCCESS
-} from './DocumentActions';
+} from './DocumentActionTypes';
 
 
 const initialState = {

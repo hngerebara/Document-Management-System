@@ -1,47 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { addFlashMessage } from '../components/flash/FlashMessageActions';
 
-export default function(ComposedComponent) {
+export default function (ComposedComponent) {
   class Authenticate extends React.Component {
     componentWillMount() {
       if (!this.props.isAuthenticated) {
-        this.props.addFlashMessage({
-          type: 'error',
-          text: 'You need to login to access this page'
-        });
-        this.context.router.push('/checkin')
+        this.browserHistory.push('/checkin');
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.isAuthenticated) {
-        this.context.router.push('/')
+        this.browserHistory.push('/');
       }
     }
 
     render() {
-      return (
-        <ComposedComponent {...this.props} />
-      );
+      return <ComposedComponent {...this.props} />;
     }
   }
 
   Authenticate.propTypes = {
-    isAuthenticated: React.PropTypes.bool.isRequired,
-    addFlashMessage: React.PropTypes.func.isRequired
-  }
+    isAuthenticated: React.PropTypes.bool.isRequired
+  };
 
   Authenticate.contextTypes = {
     router: React.PropTypes.object.isRequired
-  }
+  };
 
-  function mapStateToProps(state) {
-    return {
-      isAuthenticated: state.Auth.isAuthenticated
-    };
-  }
+  const mapStateToProps = state => ({
+    isAuthenticated: state.Auth.isAuthenticated
+  });
 
-  return connect(mapStateToProps, { addFlashMessage })(Authenticate);
+  return connect(mapStateToProps, null)(Authenticate);
 }

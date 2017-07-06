@@ -98,8 +98,8 @@ const documentRoute = (router) => {
      *   get:
      *     tags:
      *       - Documents
-     *     description: Returns a single Documents
-     *     summary: Gets a single documents
+     *     description: Returns a single Document
+     *     summary: Gets a single document
      *     produces:
      *       - application/json
      *     parameters:

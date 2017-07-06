@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import moment from 'moment';
 
 const UserDocumentListRow = ({
@@ -21,13 +20,17 @@ const UserDocumentListRow = ({
           <a
             className="waves-effect waves-light btn-small"
             onClick={() => viewDocument(document.id)}
-          ><i className="material-icons">visibility</i></a>
+          >
+            <i className="material-icons">visibility</i>
+          </a>
           {isOwner &&
             <div>
               <a
                 className="waves-effect waves-light btn-small"
                 onClick={() => deleteDocument(document.id)}
-              ><i className="material-icons">delete_forever</i></a>
+              >
+                <i className="material-icons">delete_forever</i>
+              </a>
             </div>}
         </div>
       </div>

@@ -59,11 +59,11 @@ class SignupForm extends Component {
 
 
   checkUserExists(event) {
-    const field = event.target.name;
     const username = event.target.value;
     if (username) {
       axios.get(`/check-username/${username}`)
       .then((res) => {
+        console.log(res)
         this.setState({
           errors: {
             ...this.state.errors,
@@ -125,10 +125,10 @@ class SignupForm extends Component {
               onBlur={this.checkUserExists}
             />
             <label htmlFor="icon_prefix">username</label>
-          {errors.username && <span>{errors.username}</span>}
+            {errors.username && <span>{errors.username}</span>}
           </div>
 
-           <div className="input-field col s6">
+          <div className="input-field col s6">
             <i className="material-icons prefix">account_circle</i>
             <input
               type="text"
@@ -138,7 +138,7 @@ class SignupForm extends Component {
               onChange={this.handleChange}
             />
             <label htmlFor="icon_prefix">Email</label>
-          {errors.email && <span>{errors.email}</span>}
+            {errors.email && <span>{errors.email}</span>}
           </div>
         </div>
 
@@ -153,7 +153,7 @@ class SignupForm extends Component {
               onChange={this.handleChange}
             />
             <label htmlFor="icon_prefix">FirstName</label>
-          {errors.firstName && <span>{errors.firstName}</span>}
+            {errors.firstName && <span>{errors.firstName}</span>}
           </div>
 
           <div className="input-field col s6">
@@ -166,7 +166,7 @@ class SignupForm extends Component {
               onChange={this.handleChange}
             />
             <label htmlFor="icon_prefix">LastName</label>
-          {errors.lastName && <span>{errors.lastName}</span>}
+            {errors.lastName && <span>{errors.lastName}</span>}
           </div>
         </div>
 
@@ -181,7 +181,7 @@ class SignupForm extends Component {
               name="password"
             />
             <label htmlFor="icon_prefix">Password</label>
-          {errors.password && <span>{errors.password}</span>}
+            {errors.password && <span>{errors.password}</span>}
           </div>
 
           <div className="input-field col s6">
@@ -194,7 +194,9 @@ class SignupForm extends Component {
               name="passwordConfirmation"
             />
             <label htmlFor="icon_prefix">Confirm Password</label>
-          {errors.passwordConfirmation && <span>{errors.passwordConfirmation}</span>}
+            {errors.passwordConfirmation &&
+              <span>{errors.passwordConfirmation}</span>
+            }
           </div>
         </div>
 

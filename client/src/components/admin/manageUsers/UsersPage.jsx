@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from "react";
-import { connect } from "react-redux";
-import ReactPaginate from "react-paginate";
-import SearchBar from "../../common/SearchBar";
-import SideBar from "../../common/SideBar";
-import UsersList from "./UsersList";
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import SearchBar from '../../common/SearchBar';
+import SideBar from '../../common/SideBar';
+import UsersList from './UsersList';
 import Header from '../../common/Header';
+import Pagination from '../../common/Pagination';
 
 import {
   fetchAllUsers,
   deleteUser,
   searchAllUsers,
   clearSearch
-} from "./UsersActions";
+} from './UsersActions';
 
 /**
  *
@@ -26,8 +26,6 @@ class UsersPage extends Component {
     this.state = {
       currentUser: {}
     };
-    this.handlePageClick = this.handlePageClick.bind(this);
-    this.searchClick = this.searchClick.bind(this);
   }
   /**
    * call fetchAllUsers
@@ -35,25 +33,10 @@ class UsersPage extends Component {
    *
    * @memberOf UsersPage
    */
-
+   
   componentDidMount() {
-    this.props.manageUsers.isSearching
-      ? this.props.searchAllUsers()
-      : this.props.fetchAllUsers();
+    this.props.fetchAllUsers();
   }
-
-  handlePageClick(data) {
-    const selected = data.selected;
-    const offset = Math.ceil(selected * 3);
-    this.props.fetchAllUsers(offset);
-  }
-
-  searchClick = data => {
-    const selected = data.selected;
-    const search = this.props.manageUsers.searchQuery;
-    const offset = Math.ceil(selected * 3);
-    this.props.searchAllUsers(search, offset);
-  };
 
   /**
    *
@@ -63,54 +46,32 @@ class UsersPage extends Component {
    */
   render() {
     const { manageUsers } = this.props;
+    const users = manageUsers.isSearching
+      ? manageUsers.searchUsers
+      : manageUsers.users;
     return (
       <div>
-      <Header />
+        <Header />
         <main>
           <div className="container">
             <h1>Users</h1>
             <SideBar />
-            <SearchBar />
+            <SearchBar searchFn={this.props.searchAllUsers} />
             <div>
               <ul>
-                {manageUsers.users.map((user =>
-                  <UsersList
-                    key={user.id}
-                    user={user}
-                    deleteUser={this.props.deleteUser}
-                    users={
-                      manageUsers.isSearching
-                        ? manageUsers.searchUsers
-                        : manageUsers.users
-                    }
-                    searchAllUsers={searchAllUsers}
-                  />
-                ))}
+                <UsersList users={users} deleteUser={this.props.deleteUser} />
               </ul>
             </div>
-            <div className="userspagination">
-              <ReactPaginate
-                previousLabel={"previous"}
-                nextLabel={"next"}
-                breakLabel={<a href="">...</a>}
-                breakClassName={"break-me"}
-                pageCount={
-                  manageUsers.isSearching
-                    ? manageUsers.searchPagination.page_count
-                    : manageUsers.pagination.page_count
-                }
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={
-                  manageUsers.isSearching
-                    ? this.searchClick
-                    : this.handlePageClick
-                }
-                containerClassName={"pagination"}
-                subContainerClassName={"pages pagination"}
-                activeClassName={"active"}
-              />
-            </div>
+
+            <Pagination
+              searchQuery={manageUsers.searchQuery}
+              fetchFn={this.props.fetchAllUsers}
+              searchFn={this.props.searchAllUsers}
+              isSearching={manageUsers.isSearching}
+              pagination={manageUsers.pagination}
+              searchPagination={manageUsers.searchPagination}
+            />
+
           </div>
         </main>
       </div>
@@ -121,7 +82,7 @@ class UsersPage extends Component {
 UsersPage.propTypes = {
   fetchAllUsers: PropTypes.func.isRequired,
   searchAllUsers: PropTypes.func.isRequired,
-  manageUsers: PropTypes.object,
+  manageUsers: PropTypes.object.isRequired,
   deleteUser: PropTypes.func.isRequired
 };
 

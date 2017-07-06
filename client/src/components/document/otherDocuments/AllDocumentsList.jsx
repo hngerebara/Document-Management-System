@@ -6,15 +6,15 @@ const AllDocumentsList = ({
   user,
   viewDocument
 }) => (
-   <div className="row">
-        {documents.map(document => (
-          <AllDocumentsListRow
-            key={document.id}
-            document={document}
-            user={user}
-            viewDocument={viewDocument}
-          />
-          ))}
+  <div className="row">
+    {documents.map(document => (
+      <AllDocumentsListRow
+        key={document.id}
+        document={document}
+        user={user}
+        viewDocument={viewDocument}
+      />
+    ))}
   </div>
   );
 

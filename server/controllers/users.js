@@ -41,21 +41,25 @@ const usersController = {
     return Users.findAndCountAll({
       limit,
       offset,
-      include: [{
-        model: Roles
-      }]
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+      include: [
+        {
+          model: Roles,
+          attributes: { exclude: ['createdAt', 'updatedAt'] }
+        }
+      ]
     })
       .then((users) => {
         const next = Math.ceil(users.count / limit);
-        const currentPage = Math.floor(offset / limit + 1);
+        const currentPage = Math.floor((offset / limit) + 1);
         const pageSize = limit > users.count ? users.count : limit;
         res.status(200).send({
           message: 'users successfully retrieved',
           pagination: {
-            page_count: next,
+            pageCount: next,
             page: currentPage,
-            page_size: Number(pageSize),
-            total_count: users.count
+            rowsPerPage: Number(pageSize),
+            totalCount: users.count
           },
           users: users.rows
         });
@@ -68,33 +72,10 @@ const usersController = {
       );
   },
 
-  // listAllUsersAndDocs(req, res) {
-  //   console.log(req,"kfjhkgjfvdj")
-  //   return Users.findAll({
-  //     include: [
-  //       {
-  //         model: Documents,
-  //         as: 'allDocuments'
-  //       }
-  //     ]
-  //   })
-  //     .then(users =>
-  //       res.status(200).send({
-  //         message: 'Users and their documents retrieved succesfully',
-  //         users
-  //       })
-  //     )
-  //     .catch(error => res.status(400).send(error));
-  // },
-
   retrieveUser(req, res) {
     Users.findOne({
       where: {
-        $or: [
-          // { email: req.params.id },
-          // { username: req.params.id },
-          { id: req.params.id }
-        ]
+        $or: [{ id: req.params.id }]
       }
     }).then((user) => {
       if (!user) {
@@ -102,8 +83,7 @@ const usersController = {
           .status(404)
           .send({ message: `User with id ${req.params.id} does not exist` });
       }
-      res.status(200)
-      .send({
+      res.status(200).send({
         message: `User Found with id ${req.params.id} was found`,
         user
       });
@@ -125,8 +105,8 @@ const usersController = {
             message: 'User Not Found'
           });
         }
-        return res.status(200)
-        .send({ message: 'Found user and retrieved documents',
+        return res.status(200).send({
+          message: 'Found user and retrieved documents',
           user
         });
       })
@@ -136,13 +116,7 @@ const usersController = {
   updateUser(req, res) {
     return Users.findById(req.params.id)
     .then((user) => {
-      if (!user) {
-        return res.status(404).send({
-          message: 'User not found'
-        });
-      }
-    //  if (req.user.id === req.params.id) {
-      return user
+      user
         .update({
           userName: req.body.userName,
           firstName: req.body.firstName,
@@ -150,14 +124,18 @@ const usersController = {
           email: req.body.email,
           password: req.body.password
         })
-        .then(() => res.status(200)
-        .send({ message: 'User details updated',
-          user
-        }))
-    // }
-        .catch(error => res.status(400)
-        .send({ message: 'You have no rights to update this profile',
-          error }));
+        .then(() =>
+          res.status(200).send({
+            message: 'User details updated',
+            user
+          })
+        )
+        .catch(error =>
+          res.status(400).send({
+            message: 'You have no rights to update this profile',
+            error
+          })
+        );
     });
   },
 
@@ -176,13 +154,15 @@ const usersController = {
               message: 'User deleted successfully.'
             })
           )
-          .catch(error => res.status(409)
-          .send({ message: 'An error occured while attempting to delete user, Try again',
-            error }));
+          .catch(error =>
+            res.status(409).send({
+              message: 'An error occured while attempting to delete user, Try again',
+              error
+            })
+          );
       })
       .catch(error => res.status(400).send(error));
   },
-
 
   login(req, res) {
     if (req.body.email && req.body.password) {
@@ -190,11 +170,6 @@ const usersController = {
       const password = req.body.password;
       Users.findOne({ where: { email } })
         .then((user) => {
-          if (!user) {
-            return res.status(401).send({
-              message: 'User does not exist'
-            });
-          }
           if (Users.IsPassword(user.password, password)) {
             const payload = {
               id: user.id,
@@ -208,11 +183,10 @@ const usersController = {
               message: 'Successfully signed in',
               token
             });
-          } else {
-            return res.status(401).send({
-              message: 'Incorrect Password'
-            });
           }
+          return res.status(401).send({
+            message: 'Incorrect Password'
+          });
         })
         .catch((errors) => {
           res.status(401).send({
@@ -222,28 +196,23 @@ const usersController = {
         });
       return;
     }
-    return res.status(400)
-    .send({
-      message: 'Enter a valid email and password',
+    return res.status(400).send({
+      message: 'Enter a valid email and password'
     });
   },
 
   checkUsername(req, res) {
     const username = req.params.username;
-    Users.findOne({ where: { username }})
-    .then((user) => {
-      if(user) {
-        return res.status(400)
-        .send({
+    Users.findOne({ where: { username } }).then((user) => {
+      if (user) {
+        return res.status(400).send({
           message: 'username already exist'
-        })
+        });
       }
-      return res.status(200)
-      .send({
-        message:'successful'
-      })
-
-    })
+      return res.status(200).send({
+        message: 'successful'
+      });
+    });
   },
 
   logout(req, res) {

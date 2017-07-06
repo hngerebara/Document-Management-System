@@ -4,25 +4,13 @@ import jwt from 'jsonwebtoken';
 import cfg from '../../../../server/configs/config';
 import app from '../../../../server/app';
 import { Users, sequelize, Roles } from '../../../../server/models';
-// import Documents from '../models/documents';
 
 const expect = chai.expect;
 
 chai.use(chaiHttp);
-// Create update and delete works but I need to clear the db first.
 describe('Route: Documents', () => {
   let token;
-  let userId;
   const roles = [{ title: 'Admin' }, { title: 'Staff' }];
-  const user = {
-    id: 1,
-    username: 'Hopeaz',
-    firstName: 'Hope',
-    lastName: 'Ngerebara',
-    email: 'Hopeaz@gmail.com',
-    password: '12345'
-  };
-
   const admin = {
     username: 'HopeazAdmin',
     firstName: 'Hope',
@@ -45,7 +33,7 @@ describe('Route: Documents', () => {
           const payload = {
             id: adminUser.id,
             username: adminUser.username,
-            title: adminUser.roleTitle
+            roleId: adminUser.roleId
           };
           token = jwt.sign(payload, cfg.jwtSecret, {
             expiresIn: 60 * 60 * 24
@@ -57,7 +45,7 @@ describe('Route: Documents', () => {
   });
 
   describe('/POST Documents', () => {
-    it('should not allow cretion of document without login', (done) => {
+    it('should not allow creation of document without login', (done) => {
       chai
         .request(app)
         .post('/api/documents')
@@ -132,22 +120,6 @@ describe('Route: Documents', () => {
           done();
         });
     });
-
-    it('it should resturn SequelizeValidationError empty fields', (done) => {
-      chai
-        .request(app)
-        .post('/api/documents')
-        .set('Authorization', `JWT ${token}`)
-        .send({
-          documentName: 'role document test',
-          access: 'role'
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.name).to.equal('SequelizeValidationError');
-          done();
-        });
-    });
   });
 
   describe('/GET Documents', () => {
@@ -162,13 +134,91 @@ describe('Route: Documents', () => {
           expect(res.body.documents).to.be.a('array');
           expect(res.body).to.be.a('object');
           expect(res.body.pagination).to.include.keys(
-            'page_count',
+            'pageCount',
             'page',
-            'page_size',
-            'total_count'
+            'rowsPerPage',
+            'totalCount'
           );
           done();
         });
     });
   });
+  describe('/GET documet by id', () => {
+    it('it should retrieve a dcument based on its id ', (done) => {
+      chai
+     .request(app)
+        .get('/api/documents/1')
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.not.be.null;
+          expect(res.body).to.be.an.instanceof(Object);
+          expect(res.body.message).to.equal('Document successfully retrieved');
+          expect(res.body.document).to.property('documentName');
+          expect(res.body.document).to.have.property('description');
+          expect(res.body.document).to.have.property('content');
+          expect(res.body.document).to.have.property('access');
+          expect(res.body.document).to.have.property('id').eql(1);
+          done();
+        });
+    });
+  });
+
+  describe('/PUT updaate a document based on id', () => {
+    const document1 = {
+      documentName: 'updated document',
+      description: 'Description of test updated document',
+      content: 'hello content of test of updated document',
+    };
+
+    it('it should update the document with the given param', (done) => {
+      chai
+      .request(app)
+        .put('/api/documents/1')
+        .set('Authorization', `JWT ${token}`)
+        .send(document1)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal('You have succesfully updated this document');
+          expect(res.body.document.documentName).to.equal('updated document');
+          done();
+        });
+    });
+  });
+  
+  describe('/DELETE delete a document based on id', () => {
+    it('it should update the document with the given param', (done) => {
+      chai
+      .request(app)
+        .delete('/api/documents/1')
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal('Document deleted successfully.');
+          done();
+        });
+    });
+  });
+
+  describe('/GET user documents', () => {
+    it('it should retrieve documents belonging to a specific user', (done) => {
+      chai
+      .request(app)
+        .get('/api/users/1/documents')
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.not.be.null;
+          expect(res.body.message).to.eql('Found user and retrieved documents');
+          expect(res.body.user.allDocuments[0]).to.have.property('documentName');
+          expect(res.body.user.allDocuments[0]).to.have.property('documentName').eql('public documnet test');
+          expect(res.body.user.allDocuments[0]).to.have.property('description');
+          expect(res.body.user.allDocuments[0]).to.have.property('content');
+          expect(res.body.user.allDocuments[0]).to.have.property('content').eql('hello content of test of public document');
+          expect(res.body.user.allDocuments[0]).to.have.property('creatorId').eql(1);
+          done();
+        });
+    });
+  });
 });
+

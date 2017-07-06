@@ -3,15 +3,13 @@ import jwtDecode from 'jwt-decode';
 import * as types from './AuthActionTypes';
 import { setCurrentUser } from './AuthActions';
 
+
 /**
  *
- *
- * @export
- * @param {any} id
- * @returns
+ * @desc handles signup request and Stores token to local Storage.
+ * @param {object} input from form fields.
+ * @returns {object} returns success message, user, and token.
  */
-
-
 export const signupUser = ({
   username,
   firstName,
@@ -37,3 +35,4 @@ export const signupUser = ({
       });
       throw error;
     });
+

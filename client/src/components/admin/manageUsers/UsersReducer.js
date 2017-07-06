@@ -15,6 +15,13 @@ const initialState = {
   searchQuery: ''
 };
 
+
+/**
+ * @export
+ * @param [state=initialState]
+ * @param action
+ * @returns
+ */
 export default function UsersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_USERS_SUCCESS:

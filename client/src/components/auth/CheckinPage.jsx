@@ -5,18 +5,17 @@ import { checkinUserAction } from './AuthActions';
 import { browserHistory, Link } from 'react-router';
 import validateInput from '../../validations/login';
 
+
 /**
- *
- *
+ * @desc CheckinPage Component
  * @class CheckinPage
  * @extends {Component}
  */
 class CheckinPage extends Component {
   /**
    * Creates an instance of CheckinPage.
-   * @param {any} props
-   *
-   * @memberOf CheckinPage
+   * @param {object} props property of element
+   * @memberof CheckinPage
    */
   constructor(props) {
     super(props);
@@ -31,25 +30,22 @@ class CheckinPage extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckin = this.handleCheckin.bind(this);
     this.isValid = this.isValid.bind(this);
-  }
+  };
 
   /**
-   *
-   *
-   * @param {any} event
-   *
-   * @memberOf CheckinPage
+   * @desc handles change of form input
+   * @param {object} event  html event
+   * @returns {null} returns no value
+   * @memberof CheckinPage
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   /**
-   *
-   *
-   * @returns
-   *
-   * @memberOf CheckinPage
+   * @desc validates form fields
+   * @returns bool returns true or false
+   * @memberof CheckinPage
    */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -60,11 +56,10 @@ class CheckinPage extends Component {
   }
 
   /**
-   *
-   *
-   * @param {any} event
-   *
-   * @memberOf CheckinPage
+   * @desc handles checkin
+   * @param {object} event html event
+   * @returns {null} returns no value
+   * @memberof CheckinPage
    */
   handleCheckin(event) {
     event.preventDefault();
@@ -82,15 +77,12 @@ class CheckinPage extends Component {
   }
 
   /**
-   *
-   *
-   * @returns
-   *
-   * @memberOf CheckinPage
+   * @desc renders Html
+   * @returns {*} html
+   * @memberof CheckinPage
    */
   render() {
     const { errors, email, password } = this.state;
-
     return (
       <div className="row">
         <div className="col s12 m6 l3 offset-l3 offset-s1">

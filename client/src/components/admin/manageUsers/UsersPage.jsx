@@ -5,7 +5,6 @@ import SideBar from '../../common/SideBar';
 import UsersList from './UsersList';
 import Header from '../../common/Header';
 import Pagination from '../../common/Pagination';
-
 import {
   fetchAllUsers,
   deleteUser,
@@ -14,13 +13,16 @@ import {
 } from './UsersActions';
 
 /**
- *
- *
+ * @desc UsersPage Component
  * @class UsersPage
  * @extends {Component}
  */
-
 class UsersPage extends Component {
+  /**
+   * Creates an instance of UsersPage.
+   * @param {object} props property of element
+   * @memberof UsersPage
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -28,21 +30,18 @@ class UsersPage extends Component {
     };
   }
   /**
-   * call fetchAllUsers
-   * before component mounts
-   *
-   * @memberOf UsersPage
+   * @desc call fetchAllUsers before component mounts
+   * @memberof UsersPage
+   * @returns [array] returns all users
    */
-   
   componentDidMount() {
     this.props.fetchAllUsers();
   }
 
-  /**
-   *
-   * @returns [array]
-   *
-   * @memberOf UsersPage
+ /**
+   * @desc renders Html
+   * @returns {*} html
+   * @memberof UsersPage
    */
   render() {
     const { manageUsers } = this.props;

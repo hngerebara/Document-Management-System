@@ -4,7 +4,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { signupUser } from './SignupActions';
 
+
+/**
+ * @desc SignupPage Component
+ * @class SignupPage
+ * @extends {Component}
+ */
 class SignupPage extends Component {
+  /**
+   * @desc renders Html
+   * @returns {*} html
+   * @memberof SignupPage
+   */
   render() {
     return (
       <div className="row">

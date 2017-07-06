@@ -4,15 +4,12 @@ import jwt from 'jsonwebtoken';
 import cfg from '../../../../server/configs/config';
 import app from '../../../../server/app';
 import { Users, sequelize, Roles } from '../../../../server/models';
-// import db from '../../../models';
 
 const expect = chai.expect;
 
 chai.use(chaiHttp);
-// Create update and delete works but I need to clear the db first.
 describe('Route: Users', () => {
   let token;
-  let userId;
   const roles = [{ title: 'Admin' }, { title: 'Staff' }];
   const user = {
     id: 1,
@@ -53,9 +50,8 @@ describe('Route: Users', () => {
   after(() => Users.destroy({ where: {} }));
 
   describe('/POST Users', () => {
-    it('it should POST /Create a user with these fields', (done) => {
+    it('it should create a user with these fields', (done) => {
       chai.request(app).post('/api/users').send(user).end((err, res) => {
-        // console.log(res.body.id);
         expect(res).to.have.status(201);
         expect(res.text).to.include('"message":"User signed up succesfully"');
         done();
@@ -68,18 +64,19 @@ describe('Route: Users', () => {
       });
     });
 
-    it('it should resturn SequelizeValidationError if information is incomplete', (done) => {
+    it('it should not allow fields cannot be null', (done) => {
       chai
         .request(app)
         .post('/api/users/')
         .send({
-          username: 'hello',
-          email: 'hello@gmail.com',
+          username: 'hellodd',
+          email: 'hellddo@gmail.com',
           password: '12345'
         })
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.name).to.equal('SequelizeValidationError');
+          expect(res.body.errors.message).to.include('firstName cannot be null');
+          expect(res.body.errors.message).to.include('lastName cannot be null');
           done();
         });
     });
@@ -92,23 +89,26 @@ describe('Route: Users', () => {
         .get('/api/users')
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
-          console.log(res.body[0].id);
-          expect(res.body[0]).to.have.property('username');
-          expect(res.body[0]).to.have.property('firstName');
-          expect(res.body[0]).to.have.property('lastName');
-          expect(res.body[0]).to.have.property('email');
-          expect(res.body[0]).to.have.property('password');
-          expect(res.body[0].lastName).to.equal('Ngerebara');
-          expect(res.body[0]).to.include.keys(
+          expect(res.body.message).to.equal('users successfully retrieved');
+          expect(res.body.pagination).to.be.a('object');
+          expect(res.body.pagination).to.include.keys(
+            'pageCount',
+            'page',
+            'rowsPerPage',
+            'totalCount'
+          );
+          expect(res.body.users[0]).to.have.property('username');
+          expect(res.body.users[0]).to.have.property('firstName');
+          expect(res.body.users[0]).to.have.property('lastName');
+          expect(res.body.users[0]).to.have.property('email');
+          expect(res.body.users[0].lastName).to.equal('Ngerebara');
+          expect(res.body.users[0]).to.include.keys(
             'id',
             'username',
             'firstName',
             'lastName',
             'email',
-            'password',
-            'createdAt',
-            'roleId',
-            'updatedAt'
+            'roleId'
           );
           done();
         });
@@ -124,9 +124,7 @@ describe('Route: Users', () => {
         })
         .end((err, res) => {
           expect(res).to.have.status(401);
-          expect(res.text).to.equal(
-            '{"message":"email or password did not match"}'
-          );
+          expect(res.body.message).to.equal('User not found');
           done();
         });
     });
@@ -140,10 +138,10 @@ describe('Route: Users', () => {
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body[1].username).to.equal('Hopeaz');
-          expect(res.body[1].roleId).to.equal(2);
-          expect(res.body[1].email).to.equal('Hopeaz@gmail.com');
-          expect(res.body[1]).to.be.a('object');
+          expect(res.body.users[1].username).to.equal('Hopeaz');
+          expect(res.body.users[1].roleId).to.equal(2);
+          expect(res.body.users[1].email).to.equal('Hopeaz@gmail.com');
+          expect(res.body.users[1]).to.be.a('object');
           done();
         });
     });
@@ -156,7 +154,7 @@ describe('Route: Users', () => {
           email: 'Hopeaz@gmail.com',
           password: '12345'
         })
-        .end((err, res) => {
+        .end(() => {
           chai
             .request(app)
             .get('/api/users/89876')
@@ -164,7 +162,7 @@ describe('Route: Users', () => {
             .end((err, res) => {
               expect(res).to.have.status(404);
               expect(res.text).to.equal(
-                '{"message":"User with 89876 does not exist"}'
+                '{"message":"User with id 89876 does not exist"}'
               );
               done();
             });
@@ -187,7 +185,7 @@ describe('Route: Users', () => {
         })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.email).to.equal('Hopeazmodified@gmail.com');
+          expect(res.body.user.email).to.equal('Hopeazmodified@gmail.com');
           done();
         });
     });

@@ -10,18 +10,18 @@
     "start:server": "nodemon ./server/server.js --exec babel-node",
     "postinstall": "webpack && cp index.html dist/index.html && npm run migrate_test_db",
     "migrate_test_db": "sequelize db:migrate",
-    "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/*.spec.js tests/client/components/*.spec.js tests/client/reducers/*.spec.js",
-    "test:server": "NODE_ENV=test nyc babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.js"
+    "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/AuthActions.spec.js",
+    "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js"
   },
   "nyc": {
+    "require": [
+      "babel-register"
+    ],
     "sourceMap": false,
     "instrument": false,
     "exclude": [
-      "server/tests",
-      "client/tests"
-    ],
-    "require": [
-      "babel-register"
+      "build",
+      "src/utils"
     ]
   },
   "repository": {
@@ -101,10 +101,11 @@
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.4.1",
+    "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.24.1",
+    "babel-register": "^6.8.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "coveralls": "^2.13.0",
@@ -117,15 +118,16 @@
     "eslint-plugin-react": "^6.10.3",
     "expect": "^1.20.2",
     "file-loader": "^0.11.1",
+    "istanbul": "^0.4.5",
     "jest": "^20.0.4",
     "jsdom": "^9.12.0",
     "jsdom-global": "^3.0.2",
     "json-loader": "^0.5.4",
     "keymirror": "^0.1.1",
-    "mocha": "^3.3.0",
+    "mocha": "^2.4.5",
     "node-sass": "^4.5.2",
     "nodemon": "^1.11.0",
-    "nyc": "^10.2.0",
+    "nyc": "^10.3.2",
     "react-addons-test-utils": "^15.6.0",
     "react-cookie": "^2.0.7",
     "react-dom": "^15.6.1",

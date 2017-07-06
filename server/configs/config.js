@@ -6,20 +6,19 @@ const config = {
     session: false
   },
   development: {
-    username: 'hopeaz',
-    password: null,
-    database: 'dms_db',
-    host: '127.0.0.1',
-    port: 5432,
+    username: process.env.DEV_USERNAME,
+    password: process.env.DEV_PASSWORD,
+    database: process.env.DEV_DB,
+    host: process.env.HOST,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   },
   test: {
-    username: 'hopeaz',
-    password: null,
-    database: 'dms_test',
-    logging: false,
-    host: '127.0.0.1',
-    port: 5432,
+    username: process.env.TEST_USERNAME,
+    password: process.env.TEST_PASSWORD,
+    database: process.env.TEST_DB,
+    host: process.env.HOST,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   },
   production: {

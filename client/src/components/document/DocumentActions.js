@@ -116,10 +116,10 @@ export const deleteDocument = documentId => (dispatch) => {
   });
 };
 
-// export const updateDocument = (documentId, updatedDocument) => (dispatch) =>
-//   axios.put(`/documents/${documentId}`, updatedDocument)
-//     .then(() => {
-//       dispatch({ UPDATE_DOCUMENT_SUCCESS, updatedDocument });
-//     }).catch((error) => {
-//       dispatch({ UPDATE_DOCUMENT_ERROR, error });
-//     });
+export const updateDocument = updatedDocument => dispatch =>
+  axios.put(`/documents/${updatedDocument.id}`, updatedDocument)
+    .then(() => {
+      updateDocumentSuccess(updatedDocument);
+    }).catch((error) => {
+      dispatch({ type: types.UPDATE_DOCUMENT_ERROR, error });
+    });

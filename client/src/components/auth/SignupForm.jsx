@@ -3,17 +3,16 @@ import { browserHistory } from 'react-router';
 import axios from '../../utils/api';
 import validateInput from '../../validations/signup';
 import toastr from 'toastr';
+
 /**
- *
- *
+ * @desc SignupForm Component
  * @class SignupForm
  * @extends {Component}
  */
 class SignupForm extends Component {
   /**
    * Creates an instance of SignupForm.
-   * @param {any} props
-   *
+   * @param {object} props
    * @memberOf SignupForm
    */
   constructor(props) {
@@ -35,19 +34,19 @@ class SignupForm extends Component {
     this.checkUserExists = this.checkUserExists.bind(this);
   }
 
-  /**
-   * @param {any} event
-   *
-   * @memberOf SignupForm
+ /**
+   * @desc handles change of form input
+   * @param {object} event  html event
+   * @returns {null} returns no value
+   * @memberof SignupForm
    */
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-
-  /**
-   * @returns
-   *
-   * @memberOf SignupForm
+/**
+   * @desc validates form fields
+   * @returns {bool} returns true or false
+   * @memberof SignupForm
    */
   isValid() {
     const { errors, isValid } = validateInput(this.state);
@@ -57,13 +56,16 @@ class SignupForm extends Component {
     return isValid;
   }
 
-
+/**
+   * @desc checks the username if it exists
+   * @returns {object} empty or not
+   * @memberof SignupForm
+   */
   checkUserExists(event) {
     const username = event.target.value;
     if (username) {
       axios.get(`/check-username/${username}`)
-      .then((res) => {
-        console.log(res)
+      .then(() => {
         this.setState({
           errors: {
             ...this.state.errors,
@@ -71,7 +73,7 @@ class SignupForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(() => {
         this.setState({
           errors: {
             ...this.state.errors,
@@ -82,11 +84,12 @@ class SignupForm extends Component {
     }
   }
   /**
-   * @param {any} event
-   *
-   * @memberOf SignupForm
+   * @desc handles checkin
+   * @param {object} event html event
+   * @returns {null} returns no value
+   * @memberof SignupForm
    */
-  handleSubmit(event) {
+  handleSignup(event) {
     event.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
@@ -104,10 +107,10 @@ class SignupForm extends Component {
     }
   }
 
-  /**
-   * @returns
-   *
-   * @memberOf SignupForm
+   /**
+   * @desc renders Html form for signup
+   * @returns {*} html
+   * @memberof SignupForm
    */
   render() {
     const { errors } = this.state;
@@ -205,7 +208,7 @@ class SignupForm extends Component {
             className="btn waves-effect waves-light col s12"
             type="submit"
             disabled={this.state.isLoading}
-            onClick={this.handleSubmit}
+            onClick={this.handleSignup}
           >
             SIGN UP
           </button>

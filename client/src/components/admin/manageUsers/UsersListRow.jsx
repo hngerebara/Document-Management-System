@@ -2,6 +2,11 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
 
+
+/**
+ * @desc displays user in rows.
+ * @class UsersListRow
+ */
 const UsersListRow = ({ user, deleteUser }) => {
   const ondeleteUser = () => {
     deleteUser(user.id).catch(error => console.log(error));

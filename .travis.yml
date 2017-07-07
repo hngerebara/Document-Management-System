@@ -7,11 +7,11 @@ services:
 
 postgres:
   adapter: postgresql
-  database: travis
+  database: dms_test
   username: postgres
 before_script:
-  - psql -c 'create database travis;' -U postgres
-  - dropdb --if-exists travis && createdb travis
+  - psql -c 'create database dms_test;' -U postgres
+  - dropdb --if-exists dms_test && createdb dms_test
   - npm i -g sequelize-cli
   - NODE_ENV=test npm run migrate_test_db
 

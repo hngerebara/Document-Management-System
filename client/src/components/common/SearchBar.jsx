@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { clearSearch } from '../document/DocumentActions';
 
-class SearchBar extends Component {
+export class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,11 +33,12 @@ class SearchBar extends Component {
         <input
           ref={ref => this.search = ref}
           type="text"
+          id="search-input"
           placeholder="Search Here...."
           onChange={this.onSearch}
         />
         {isSearching &&
-          <button onClick={this.closeSearch}>Close search</button>}
+          <button id="search-btn" onClick={this.closeSearch}>Close search</button>}
       </div>
     );
   }

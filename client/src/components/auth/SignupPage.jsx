@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import SignupForm from './SignupForm';
+import { SignupForm } from './SignupForm';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { signupUser } from './SignupActions';
@@ -10,7 +10,7 @@ import { signupUser } from './SignupActions';
  * @class SignupPage
  * @extends {Component}
  */
-class SignupPage extends Component {
+export class SignupPage extends Component {
   /**
    * @desc renders Html
    * @returns {*} html

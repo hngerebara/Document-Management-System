@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SearchBar from '../../common/SearchBar';
 import SideBar from '../../common/SideBar';
 import UsersList from './UsersList';
-import Header from '../../common/Header';
+import { Header } from '../../common/Header';
 import Pagination from '../../common/Pagination';
 import {
   fetchAllUsers,
@@ -17,7 +17,7 @@ import {
  * @class UsersPage
  * @extends {Component}
  */
-class UsersPage extends Component {
+export class UsersPage extends Component {
   /**
    * Creates an instance of UsersPage.
    * @param {object} props property of element

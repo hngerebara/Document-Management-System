@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import ReactPaginate from "react-paginate";
 
-class Pagination extends Component {
+export class Pagination extends Component {
   constructor(props) {
     super(props);
 

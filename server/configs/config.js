@@ -14,12 +14,9 @@ const config = {
     dialect: 'postgres'
   },
   test: {
-    username: process.env.TEST_USERNAME,
-    password: process.env.TEST_PASSWORD,
-    database: process.env.TEST_DB,
-    host: process.env.HOST,
-    port: process.env.DB_PORT,
-    dialect: 'postgres'
+    url: process.env.TEST_DATABASE_URL,
+    dialect: 'postgres',
+    logging: false
   },
   production: {
     url: process.env.DATABASE_URL,

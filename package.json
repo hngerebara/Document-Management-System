@@ -10,7 +10,7 @@
     "start:server": "nodemon ./server/server.js --exec babel-node",
     "postinstall": "webpack && cp index.html dist/index.html && npm run migrate_test_db",
     "migrate_test_db": "sequelize db:migrate",
-    "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/AuthActions.spec.js",
+    "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/UsersActions.spec.js",
     "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js"
   },
   "nyc": {
@@ -50,6 +50,7 @@
     "cors": "^2.8.3",
     "css-loader": "^0.27.3",
     "dotenv": "^4.0.0",
+    "enzyme": "^2.9.1",
     "express": "^4.15.2",
     "faker": "^4.1.0",
     "file-loader": "^0.11.2",
@@ -125,6 +126,7 @@
     "json-loader": "^0.5.4",
     "keymirror": "^0.1.1",
     "mocha": "^2.4.5",
+    "nightwatch": "^0.9.16",
     "node-sass": "^4.5.2",
     "nodemon": "^1.11.0",
     "nyc": "^10.3.2",

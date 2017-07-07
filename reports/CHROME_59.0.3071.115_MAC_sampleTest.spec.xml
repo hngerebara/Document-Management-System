@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="1">
+
+  <testsuite name="sampleTest.spec"
+    errors="0" failures="1" hostname="" id="" package="sampleTest.spec" skipped="0"
+    tests="1" time="11.10" timestamp="Fri, 07 Jul 2017 15:35:03 GMT">
+  
+    <testcase name="Demo test Google" classname="sampleTest.spec" time="11.10" assertions="4">
+
+    
+
+    
+
+      <failure message="Timed out while waiting for element &lt;button[name=btnG]&gt; to be visible for 1000 milliseconds.">    at Object.Demo test Google (/Users/andeladeveloper/projects/Document-Management-System/tests/e2e/sampleTest.spec.js:9:8)
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

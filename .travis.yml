@@ -13,10 +13,10 @@ before_script:
   - psql -c 'create database travis;' -U postgres
   - dropdb --if-exists travis && createdb travis
   - npm i -g sequelize-cli
-  - npm run migrate_test_db
+  - NODE_ENV=test npm run migrate_test_db
 
 script:
-  - npm test
+  - NODE_ENV=test npm run test:server
 
 after_success:
   - npm run coveralls

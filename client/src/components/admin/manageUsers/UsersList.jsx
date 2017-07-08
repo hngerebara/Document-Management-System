@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import UsersListRow from './UsersListRow';
 
-
 /**
  * @desc displays all users Component.
  * @class UsersList

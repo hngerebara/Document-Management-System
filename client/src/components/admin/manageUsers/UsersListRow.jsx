@@ -19,7 +19,7 @@ const UsersListRow = ({ user, deleteUser }) => {
         <p>Name: {user.firstName} {user.lastName} </p>
         <p>Role: {user.Role.title} </p>
         <p>Date Joined: {moment(user.createdAt).format('L')} </p>
-        <a className="secondary-content" onClick={ondeleteUser}>
+        <a className="secondary-content">
           <i className="material-icons circle">perm_identity</i>
         </a>
         <a className="secondary-content" onClick={ondeleteUser}>

@@ -14,6 +14,34 @@ const user = {
   password: 'coolgirl'
 };
 
+let localStorage = {};
+
+export default {
+  setItem(key, value) {
+    return Object.assign(localStorage, { [key]: value });
+  },
+  getItem(key) {
+    return localStorage[key];
+  },
+  removeItem(key) {
+    localStorage = {};
+  },
+  clear() {
+    localStorage = {};
+  }
+};
+global.localStorage = localStorage;
+
+
+const mockFn = jest.fn();
+jest.mock('react-router', () => ({
+  browserHistory: {
+    push(url) {
+      mockFn(url);
+    }
+  }
+}));
+
 describe('Authentication actions', () => {
   beforeEach(() => {
     moxios.install();

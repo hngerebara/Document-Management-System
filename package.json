@@ -10,8 +10,9 @@
     "start:server": "nodemon ./server/server.js --exec babel-node",
     "postinstall": "webpack && cp index.html dist/index.html && npm run migrate_test_db",
     "migrate_test_db": "sequelize db:migrate",
-    "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/UsersActions.spec.js",
-    "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js"
+    "test:client": "jest --config ./jest.config.js --coverage tests/client/components/document/CreateDocument.spec.js",
+    "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js",
+    "test-e2e": "NODE_ENV=test nightwatch"
   },
   "nyc": {
     "require": [

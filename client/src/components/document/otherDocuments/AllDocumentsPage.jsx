@@ -15,7 +15,7 @@ import {
   clearSearch
 } from "../DocumentActions";
 
-class AllDocumentsPage extends Component {
+export class AllDocumentsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {

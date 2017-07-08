@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { signOutUser } from '../../components/auth/AuthActions';
 
-class SideBar extends Component {
+export class SideBar extends Component {
   constructor(props) {
     super(props);
     this.signOut = this.signOut.bind(this);
@@ -36,7 +36,10 @@ class SideBar extends Component {
           </li>
           <ul className="collapsible" data-collapsible="accordion">
             <li>
-              <Link to="/documents/new">
+              <Link
+                to="/documents/new"
+                id="createdocument"
+              >
                 <i className="waves-effect" />
                 Create Document
               </Link>
@@ -64,7 +67,7 @@ class SideBar extends Component {
                 </li>
               </div>}
             <li>
-              <Link to="/" onClick={this.signOut}>
+              <Link to="/" id="signout" onClick={this.signOut}>
                 <i className="mdi-action-dashboard left" />Signout
               </Link>
             </li>

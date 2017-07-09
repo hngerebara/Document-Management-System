@@ -37,10 +37,9 @@ const DocumentForm = ({
           <label htmlFor="icon_prefix">Description</label>
         </div>
 
-        <div className="input-field">
+        <div className="input-field access-dropdown">
           <select
             onChange={onChange}
-            style={{ display: 'block' }}
             name="access"
           >
             <option value="public">Public</option>

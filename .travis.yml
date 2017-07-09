@@ -15,6 +15,5 @@ before_install:
  - sudo apt-get install -y libappindicator1 fonts-liberation
  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
  - sudo dpkg -i google-chrome*.deb
- - psql -c 'create database dms_test;' -U postgres
 env:
   - JWT_SECRET=THISIS12345HARRYPOTTERSECRETCODE09876

@@ -6,6 +6,7 @@ services:
   - postgresql
 
 before_script:
+  - echo 'install postgres'
   - psql -c 'create database dms_test;' -U postgres
 
 script:

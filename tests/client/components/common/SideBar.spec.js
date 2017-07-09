@@ -29,10 +29,10 @@ describe('SideBar components', () => {
       expect(wrapper.find('ul').length).toEqual(2);
     });
     it('renders a li', () => {
-      expect(wrapper.find('li').length).toEqual(5);
+      expect(wrapper.find('li').length).toEqual(6);
     });
     it('renders a link', () => {
-      expect(wrapper.find('Link').length).toEqual(4);
+      expect(wrapper.find('Link').length).toEqual(5);
     });
 
     it('It calls signOutUser action when button clicked', () => {

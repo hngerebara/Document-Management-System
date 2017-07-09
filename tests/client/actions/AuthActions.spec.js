@@ -14,24 +14,6 @@ const user = {
   password: 'coolgirl'
 };
 
-let localStorage = {};
-
-export default {
-  setItem(key, value) {
-    return Object.assign(localStorage, { [key]: value });
-  },
-  getItem(key) {
-    return localStorage[key];
-  },
-  removeItem(key) {
-    localStorage = {};
-  },
-  clear() {
-    localStorage = {};
-  }
-};
-global.localStorage = localStorage;
-
 
 const mockFn = jest.fn();
 jest.mock('react-router', () => ({
@@ -51,46 +33,37 @@ describe('Authentication actions', () => {
     moxios.uninstall();
   });
 
-  it('should successful login a user', (done) => {
-    moxios.stubRequest('api/users/login', {
-      status: 200,
-      response: {
-        token,
-        message: 'Login successful',
+  it('should successfully login a user', (done) => {
+    const expectedActions = [
+      {
+        type: types.SET_CURRENT_USER,
+        user
       }
-    });
-    moxios.withMock(() => {
-      const expectedActions = [
-        {
-          type: types.SET_CURRENT_USER,
-          token: 'token'
-        }
-      ];
-      const store = mockStore({ users: {} });
-      store.dispatch(actions.checkinUserAction(user))
+    ];
+    const store = mockStore({ users: {} });
+    store.dispatch(actions.checkinUserAction(user))
       .then(() => {
-        moxios.wait(() => {
-          const request = moxios.requests.mostRecent();
-          request.respondWith({
-            status: 200,
-            response: {
-              data: {
-                token: 'token',
-                user
-              },
-            }
-          });
-        }).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-          done();
-        });
-      })
-      .catch(done);
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: {
+          data: {
+            token: 'token',
+            user
+          },
+        }
+      });
     });
   });
-    it('should have a type of "SET_CURRENT_USER"', () => {
-      expect(actions.setCurrentUser().type).toEqual('SET_CURRENT_USER');
-    });
+
+
+  it('should have a type of "SET_CURRENT_USER"', () => {
+    expect(actions.setCurrentUser().type).toEqual('SET_CURRENT_USER');
+  });
 
 
   // it('should successful login a user', (done) => {

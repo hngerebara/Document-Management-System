@@ -58,6 +58,11 @@ export default function UsersReducer(state = initialState, action) {
       ];
     }
 
+    // case UPDATE_USER_SUCCESS:
+      
+    //   };
+
+
     default:
       return state;
   }

@@ -1,20 +1,14 @@
 import axios from '../../../utils/api';
-
-export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
-export const DISPLAY_FAILURE_MESSAGE = 'DISPLAY_FAILURE_MESSAGE';
-export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
-export const SEARCH_USERS_SUCCESS = 'SEARCH_USERS_SUCCESS';
-export const CLEAR_SEARCH = 'CLEAR_SEARCH';
-export const SEARCH_FAILURE_MESSAGE = 'SEARCH_FAILURE_MESSAGE';
+import * as types from './UsersActionTypes';
 
 
 export const fetchUsersSuccess = data => ({
-  type: FETCH_USERS_SUCCESS,
+  type: types.FETCH_USERS_SUCCESS,
   data
 });
 
 export const displayFailureMessage = errorMessage => ({
-  type: DISPLAY_FAILURE_MESSAGE,
+  type: types.DISPLAY_FAILURE_MESSAGE,
   errorMessage
 });
 
@@ -37,7 +31,7 @@ export const fetchAllUsers = (offset = 0, limit = 4) => (dispatch) => {
 };
 
 export const deleteUserSuccess = userId => ({
-  type: DELETE_USER_SUCCESS,
+  type: types.DELETE_USER_SUCCESS,
   userId
 });
 
@@ -53,18 +47,18 @@ export const deleteUser = userId => dispatch =>
   });
 
 export const searchUserSuccess = (data, searchQuery) => ({
-  type: SEARCH_USERS_SUCCESS,
+  type: types.SEARCH_USERS_SUCCESS,
   data,
   searchQuery
 });
 
 export const searchFailureMessage = errorMessage => ({
-  type: SEARCH_FAILURE_MESSAGE,
+  type: types.SEARCH_FAILURE_MESSAGE,
   errorMessage
 });
 
 export const clearSearch = () => ({
-  type: CLEAR_SEARCH,
+  type: types.CLEAR_SEARCH,
 });
 /**
  *
@@ -80,3 +74,24 @@ export const searchAllUsers = (search, offset = 0, limit = 6) => dispatch =>
       dispatch(searchFailureMessage(error.response));
       throw error;
     });
+
+export const updateUserSuccess = data => ({
+  type: types.UPDATE_USER_SUCCESS,
+  data
+});
+
+export const updateUserFailure = errorMessage => ({
+  type: types.UPDATE_USER_FAILURE,
+  errorMessage
+});
+
+
+// export const updateUsersProfile = (userId) => dispatch =>
+// console.log("getting called in update user")
+//   axios.get(`/users/${userId}`)
+//     .then((response) => {
+//       dispatch(updateUserSuccess(response.data));
+//     }).catch((error) => {
+//       dispatch(updateUserFailure(error.response));
+//       throw error;
+//     });

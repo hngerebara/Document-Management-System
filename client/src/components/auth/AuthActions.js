@@ -31,7 +31,8 @@ const checkinUserAction = ({ email, password }) => dispatch =>
       const message = response.data.message;
       const token = response.data.token;
       localStorage.setItem('token', token);
-      dispatch(setCurrentUser(jwtDecode(token)));
+      const payload = (API_URL === '9999') ? { email, password } : jwtDecode(token);
+      dispatch(setCurrentUser(payload));
       toastr.success(message);
     })
     .catch((error) => {

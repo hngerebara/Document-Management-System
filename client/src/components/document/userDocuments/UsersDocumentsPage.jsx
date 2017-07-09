@@ -10,7 +10,7 @@ import {
   fetchUserDocuments
 } from "../DocumentActions";
 
-class UsersDocumentsPage extends Component {
+export class UsersDocumentsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {

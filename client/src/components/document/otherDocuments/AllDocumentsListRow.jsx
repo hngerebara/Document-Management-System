@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 
 
-const AllDocumentsListRow = ({ document, viewDocument }) => {
+export const AllDocumentsListRow = ({ document, viewDocument }) => {
 
   return (
     <div className="col s12 m6 l4">

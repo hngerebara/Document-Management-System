@@ -9,7 +9,8 @@ import AllDocumentsPage
   from './components/document/otherDocuments/AllDocumentsPage';
 import UsersDocumentsPage
   from './components/document/userDocuments/UsersDocumentsPage';
-import UsersPage from './components/admin/manageUsers/UsersPage';
+import UsersPage from './components/users/manageUsers/UsersPage';
+import UsersProfile from './components/users/manageUsers/UsersProfile';
 import NotFound from './components/NotFoundPage';
 
 const requireAuth = (nextState, replace) => {
@@ -54,6 +55,11 @@ export default (
     <Route
       path="/users/:creatorId/documents"
       component={UsersDocumentsPage}
+      onEnter={requireAuth}
+    />
+    <Route
+      path="/users/:creatorId"
+      component={UsersProfile}
       onEnter={requireAuth}
     />
     <Route path="/*" component={NotFound} />

@@ -15,7 +15,7 @@ import {
   clearSearch
 } from "../DocumentActions";
 
-class AllDocumentsPage extends Component {
+export class AllDocumentsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ class AllDocumentsPage extends Component {
   };
 
   render() {
-    const { manageDocuments, user } = this.props;
+    const { manageDocuments } = this.props;
     const documents = manageDocuments.isSearching
       ? manageDocuments.searchDocuments
       : manageDocuments.documents;
@@ -53,8 +53,6 @@ class AllDocumentsPage extends Component {
             <SearchBar searchFn={this.props.searchAllDocuments} />
             <AllDocumentsList
               documents={documents}
-              user={user}
-              deleteDocument={this.props.deleteDocument}
               viewDocument={this.viewDocument}
             />
             {documents.length > 0 &&
@@ -77,14 +75,12 @@ class AllDocumentsPage extends Component {
 
 AllDocumentsPage.propTypes = {
   manageDocuments: PropTypes.object.isRequired,
-  deleteDocument: PropTypes.func.isRequired,
   fetchAllDocuments: PropTypes.func.isRequired,
   searchAllDocuments: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  manageDocuments: state.DocumentReducer,
-  user: state.Auth.user
+  manageDocuments: state.DocumentReducer
 });
 
 export default connect(mapStateToProps, {

@@ -1,0 +1,50 @@
+16:35:03.499 INFO - Selenium build info: version: '3.3.1', revision: '5234b32'
+16:35:03.500 INFO - Launching a standalone Selenium Server
+2017-07-07 16:35:03.547:INFO::main: Logging initialized @549ms to org.seleniumhq.jetty9.util.log.StdErrLog
+16:35:03.648 INFO - Driver provider org.openqa.selenium.ie.InternetExplorerDriver registration is skipped:
+ registration capabilities Capabilities [{ensureCleanSession=true, browserName=internet explorer, version=, platform=WINDOWS}] does not match the current platform MAC
+16:35:03.648 INFO - Driver provider org.openqa.selenium.edge.EdgeDriver registration is skipped:
+ registration capabilities Capabilities [{browserName=MicrosoftEdge, version=, platform=WINDOWS}] does not match the current platform MAC
+16:35:03.648 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+16:35:03.649 INFO - Driver provider com.opera.core.systems.OperaDriver registration is skipped:
+Unable to create new instances on this machine.
+16:35:03.649 INFO - Driver class not found: com.opera.core.systems.OperaDriver
+16:35:03.649 INFO - Driver provider com.opera.core.systems.OperaDriver is not registered
+2017-07-07 16:35:03.731:INFO:osjs.Server:main: jetty-9.2.20.v20161216
+2017-07-07 16:35:03.798:INFO:osjsh.ContextHandler:main: Started o.s.j.s.ServletContextHandler@685cb137{/,null,AVAILABLE}
+2017-07-07 16:35:03.849:INFO:osjs.AbstractConnector:main: Started ServerConnector@5bcab519{HTTP/1.1,[http/1.1]}{0.0.0.0:4444}
+2017-07-07 16:35:03.850:INFO:osjs.Server:main: Started @852ms
+16:35:03.850 INFO - Selenium Server is up and running
+16:35:04.206 INFO - SessionCleaner initialized with insideBrowserTimeout 0 and clientGoneTimeout 1800000 polling every 180000
+16:35:04.252 INFO - Executing: [new session: Capabilities [{acceptSslCerts=true, name=Sample Test Spec, browserName=chrome, javascriptEnabled=true, platform=ANY}]])
+16:35:04.290 INFO - Creating a new session for Capabilities [{acceptSslCerts=true, name=Sample Test Spec, browserName=chrome, javascriptEnabled=true, platform=ANY}]
+Starting ChromeDriver 2.30.477690 (c53f4ad87510ee97b5c3425a14c0e79780cdf262) on port 8670
+Only local connections are allowed.
+16:35:06.172 INFO - Detected dialect: OSS
+16:35:06.208 INFO - Done: [new session: Capabilities [{acceptSslCerts=true, name=Sample Test Spec, browserName=chrome, javascriptEnabled=true, platform=ANY}]]
+16:35:06.234 INFO - Executing: [get: http://www.google.com])
+16:35:13.427 INFO - Done: [get: http://www.google.com]
+16:35:13.437 INFO - Executing: [find elements: By.cssSelector: body])
+16:35:13.484 INFO - Done: [find elements: By.cssSelector: body]
+16:35:13.492 INFO - Executing: [is displayed: 0 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: body]])
+16:35:13.519 INFO - Done: [is displayed: 0 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: body]]
+16:35:13.554 INFO - Executing: [get title])
+16:35:13.562 INFO - Done: [get title]
+16:35:13.570 INFO - Executing: [find element: By.cssSelector: input[type=text]])
+16:35:13.589 INFO - Done: [find element: By.cssSelector: input[type=text]]
+16:35:13.593 INFO - Executing: [is displayed: 1 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: input[type=text]]])
+16:35:13.614 INFO - Done: [is displayed: 1 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: input[type=text]]]
+16:35:13.620 INFO - Executing: [find element: By.cssSelector: input[type=text]])
+16:35:13.633 INFO - Done: [find element: By.cssSelector: input[type=text]]
+16:35:13.638 INFO - Executing: [send keys: 1 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: input[type=text]], [r, e, m, b, r, a, n, d, t,  , v, a, n,  , r, i, j, n]])
+16:35:13.796 INFO - Done: [send keys: 1 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: input[type=text]], [r, e, m, b, r, a, n, d, t,  , v, a, n,  , r, i, j, n]]
+16:35:13.805 INFO - Executing: [find elements: By.cssSelector: button[name=btnG]])
+16:35:13.825 INFO - Done: [find elements: By.cssSelector: button[name=btnG]]
+16:35:13.829 INFO - Executing: [is displayed: 2 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: button[name=btnG]]])
+16:35:13.851 INFO - Done: [is displayed: 2 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: button[name=btnG]]]
+16:35:14.360 INFO - Executing: [is displayed: 2 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: button[name=btnG]]])
+16:35:14.369 INFO - Done: [is displayed: 2 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: button[name=btnG]]]
+16:35:14.879 INFO - Executing: [is displayed: 2 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: button[name=btnG]]])
+16:35:14.892 INFO - Done: [is displayed: 2 [[ChromeDriver: chrome on MAC (7728e06197ab2b5ceef0b8cd4095fde4)] -> css selector: button[name=btnG]]]
+16:35:14.901 INFO - Executing: [delete session: dd1f17b0-71ff-428d-b151-70d8fa9dad63])
+16:35:15.056 INFO - Done: [delete session: dd1f17b0-71ff-428d-b151-70d8fa9dad63]

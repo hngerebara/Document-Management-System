@@ -3,7 +3,7 @@ import nock from 'nock';
 import expect from 'expect';
 import thunk from 'redux-thunk';
 import axios from '../../../client/src/utils/api';
-import * as actions from '../../../client/src/components/admin/manageUsers/UsersActions';
+import * as actions from '../../../client/src/components/users/manageUsers/UsersActions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

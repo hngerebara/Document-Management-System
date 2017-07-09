@@ -1,5 +1,5 @@
 import UsersReducer
-from '../../../client/src/components/admin/manageUsers/UsersReducer';
+from '../../../client/src/components/users/manageUsers/UsersReducer';
 
 const initialState = {
   users: [],

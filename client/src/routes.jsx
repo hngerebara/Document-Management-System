@@ -9,7 +9,7 @@ import AllDocumentsPage
   from './components/document/otherDocuments/AllDocumentsPage';
 import UsersDocumentsPage
   from './components/document/userDocuments/UsersDocumentsPage';
-import UsersPage from './components/admin/manageUsers/UsersPage';
+import UsersPage from './components/users/manageUsers/UsersPage';
 import NotFound from './components/NotFoundPage';
 
 const requireAuth = (nextState, replace) => {

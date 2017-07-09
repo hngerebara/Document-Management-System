@@ -9,7 +9,7 @@ import toastr from 'toastr';
  * @class SignupForm
  * @extends {Component}
  */
-class SignupForm extends Component {
+export class SignupForm extends Component {
   /**
    * Creates an instance of SignupForm.
    * @param {object} props
@@ -30,7 +30,7 @@ class SignupForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignup = this.handleSignup.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
   }
 
@@ -207,6 +207,7 @@ class SignupForm extends Component {
           <button
             className="btn waves-effect waves-light col s12"
             type="submit"
+            id="hopez-save"
             disabled={this.state.isLoading}
             onClick={this.handleSignup}
           >

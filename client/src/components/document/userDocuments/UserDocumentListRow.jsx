@@ -1,15 +1,17 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
-const UserDocumentListRow = ({
-  document,
-  user,
-  deleteDocument,
-  viewDocument
-}) => {
-  const isOwner = document.creatorId === user.id;
-  return (
-    <div className="col s12 m6 l4">
+class UserDocumentListRow extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { document, user, viewDocument, deleteDocument } = this.props;
+    const isOwner = document.creatorId === user.id;
+    
+    return (
+      <div className="col s12 m6 l4">
       <div className="card small">
         <div className="card-image">
           <span className="card-title">{document.documentName}</span>
@@ -18,6 +20,7 @@ const UserDocumentListRow = ({
         <span>Date Published:{moment(document.created_At).format('L')}</span>
         <div className="card-action">
           <a
+            id="view-link"
             className="waves-effect waves-light btn-small"
             onClick={() => viewDocument(document.id)}
           >
@@ -27,7 +30,11 @@ const UserDocumentListRow = ({
             <div>
               <a
                 className="waves-effect waves-light btn-small"
-                onClick={() => deleteDocument(document.id)}
+                 id="delete-link"
+                onClick={(e) => {
+                  e.preventDefault();
+                  deleteDocument(document.id);
+                }}
               >
                 <i className="material-icons">delete_forever</i>
               </a>
@@ -35,8 +42,9 @@ const UserDocumentListRow = ({
         </div>
       </div>
     </div>
-  );
-};
+    );
+  }
+  };
 
 UserDocumentListRow.propTypes = {
   document: PropTypes.object.isRequired,
@@ -44,5 +52,6 @@ UserDocumentListRow.propTypes = {
   deleteDocument: PropTypes.func.isRequired,
   viewDocument: PropTypes.func.isRequired
 };
+
 
 export default UserDocumentListRow;

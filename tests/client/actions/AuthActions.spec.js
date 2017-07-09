@@ -2,16 +2,45 @@ import configureMockStore from 'redux-mock-store';
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import expect from 'expect';
-import * as actions from '../../../client/src/components/admin/manageUsers/UsersActions';
+import * as types from '../../../client/src/components/auth/AuthActionTypes';
+import * as actions from '../../../client/src/components/auth/AuthActions';
+import setAuthorizationToken from '../../../client/src/utils/setAuthToken';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-
+const token = 'token';
 const user = {
   email: 'hopez@gmail.com',
-  password: 'coolgirl',
+  password: 'coolgirl'
 };
+
+let localStorage = {};
+
+export default {
+  setItem(key, value) {
+    return Object.assign(localStorage, { [key]: value });
+  },
+  getItem(key) {
+    return localStorage[key];
+  },
+  removeItem(key) {
+    localStorage = {};
+  },
+  clear() {
+    localStorage = {};
+  }
+};
+global.localStorage = localStorage;
+
+
+const mockFn = jest.fn();
+jest.mock('react-router', () => ({
+  browserHistory: {
+    push(url) {
+      mockFn(url);
+    }
+  }
+}));
 
 describe('Authentication actions', () => {
   beforeEach(() => {
@@ -22,38 +51,76 @@ describe('Authentication actions', () => {
     moxios.uninstall();
   });
 
-  it('should create action LOGIN_SUCCESS after successful login', () => {
-    const store = mockStore({ users: {} });
-    const token = 'authToken';
-
-    moxios.wait(() => {
-      const request = moxios.requests.mostRecent();
-      request.respondWith({
-        status: 200,
-        response: {
-          message: 'success',
-          status: '200',
-          token
-        },
-      });
-    });
-    const expectedActions = [
-      {
-        type: SET_CURRENT_USER,
-        token
+  it('should successful login a user', (done) => {
+    moxios.stubRequest('api/users/login', {
+      status: 200,
+      response: {
+        token,
+        message: 'Login successful',
       }
-    ];
-
-    return store.dispatch(actions.checkinUserAction(user))
-    .then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+    });
+    moxios.withMock(() => {
+      const expectedActions = [
+        {
+          type: types.SET_CURRENT_USER,
+          token: 'token'
+        }
+      ];
+      const store = mockStore({ users: {} });
+      store.dispatch(actions.checkinUserAction(user))
+      .then(() => {
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 200,
+            response: {
+              data: {
+                token: 'token',
+                user
+              },
+            }
+          });
+        }).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+          done();
+        });
+      })
+      .catch(done);
     });
   });
+    it('should have a type of "SET_CURRENT_USER"', () => {
+      expect(actions.setCurrentUser().type).toEqual('SET_CURRENT_USER');
+    });
 
-  it('should have a type of "FETCH_USERS_SUCCESS"', () => {
-    expect(actions.setCurrentUser().type).toEqual('SET_CURRENT_USER');
-  });
+
+  // it('should successful login a user', (done) => {
+  //   moxios.withMock(() => {
+  //     const expectedActions = [
+  //       {
+  //         type: types.SET_CURRENT_USER,
+  //         token: 'token'
+  //       }
+  //     ];
+  //     const store = mockStore({ users: {} });
+  //     store.dispatch(actions.checkinUserAction(user))
+  //     .then(() => {
+  //       moxios.wait(() => {
+  //         const request = moxios.requests.mostRecent();
+  //         request.respondWith({
+  //           status: 200,
+  //           response: {
+  //             data: {
+  //               token: 'token',
+  //               user
+  //             },
+  //           }
+  //         });
+  //       }).then(() => {
+  //         expect(store.getActions()).toEqual(expectedActions);
+  //         done();
+  //       });
+  //     })
+  //     .catch(done);
+  //   });
+  // });
 });
-
-
-

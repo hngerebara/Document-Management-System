@@ -3,7 +3,6 @@ import AllDocumentsListRow from './AllDocumentsListRow';
 
 const AllDocumentsList = ({
   documents,
-  user,
   viewDocument
 }) => (
   <div className="row">
@@ -11,7 +10,6 @@ const AllDocumentsList = ({
       <AllDocumentsListRow
         key={document.id}
         document={document}
-        user={user}
         viewDocument={viewDocument}
       />
     ))}
@@ -20,7 +18,6 @@ const AllDocumentsList = ({
 
 AllDocumentsList.propTypes = {
   documents: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
   viewDocument: PropTypes.func.isRequired
 };
 

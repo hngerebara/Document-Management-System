@@ -44,7 +44,12 @@ export class Header extends React.Component {
           </li>
           <li className="divider" />
           <li>
-            <Link to="/" onClick={this.signOut} className="indigo-text">
+            <Link
+              to="/"
+              onClick={this.signOut}
+              className="indigo-text"
+              id="signout"
+            >
               Signout
             </Link>
           </li>
@@ -59,9 +64,11 @@ Header.propTypes = {
   signOutUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  Auth: state.Auth
-});
+const mapStateToProps = (state) => {
+  return {
+    Auth: state.Auth
+  };
+};
 
 export default connect(mapStateToProps, { signOutUser })(
   Header

@@ -11,7 +11,7 @@ import validateInput from '../../validations/login';
  * @class CheckinPage
  * @extends {Component}
  */
-class CheckinPage extends Component {
+export class CheckinPage extends Component {
   /**
    * Creates an instance of CheckinPage.
    * @param {object} props property of element
@@ -30,7 +30,7 @@ class CheckinPage extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleCheckin = this.handleCheckin.bind(this);
     this.isValid = this.isValid.bind(this);
-  };
+  }
 
   /**
    * @desc handles change of form input
@@ -102,6 +102,7 @@ class CheckinPage extends Component {
                       type="text"
                       className="validate"
                       name="email"
+                      id="email"
                       value={email}
                       onChange={this.handleChange}
                     />
@@ -128,6 +129,7 @@ class CheckinPage extends Component {
                   <button
                     className="btn waves-effect waves-light col s12"
                     type="submit"
+                    id="hopez-save"
                     onClick={this.handleCheckin}
                   >
                     CHECKIN

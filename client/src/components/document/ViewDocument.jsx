@@ -3,7 +3,9 @@ import { Link } from 'react-router';
 
 class ViewDocument extends Component {
   componentDidMount() {
-    $('.doc-modal').modal();
+    if (!ENV) {
+      $('.doc-modal').modal();
+    }
   }
 
   render() {
@@ -41,7 +43,7 @@ class ViewDocument extends Component {
 }
 ViewDocument.propTypes = {
   document: PropTypes.object.isRequired,
-  edit: PropTypes.bool.isRequired
+  edit: PropTypes.bool.isRequired,
 };
 
 export default ViewDocument;

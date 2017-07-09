@@ -7,7 +7,11 @@ export default function CheckCurrentUser(store) {
     store.dispatch(setCurrentUser({
       id: decodedToken.id,
       username: decodedToken.username,
+      firstName: decodedToken.firstName,
+      lastName: decodedToken.lastName,
+      email: decodedToken.email,
       roleId: decodedToken.roleId
+
     }));
   }
 }

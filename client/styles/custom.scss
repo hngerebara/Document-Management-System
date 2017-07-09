@@ -177,3 +177,10 @@ footer {
 .auth-card {
   width: 700px;
 }
+
+.access-dropdown {
+  display: block !important;
+  select {
+    display: block !important;
+  }
+}

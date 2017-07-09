@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { Users, Documents, Roles } from '../models';
 import cfg from '../configs/config';
+import bcrypt from 'bcrypt';
+
+const salt = bcrypt.genSaltSync();
 
 const usersController = {
   createUser(req, res) {
@@ -114,15 +117,22 @@ const usersController = {
   },
 
   updateUser(req, res) {
-    return Users.findById(req.params.id)
+    const queryId = req.params.id;
+    const userId = req.user.id;
+    let encryptedPassword;
+    if (req.body.password) {
+      encryptedPassword = bcrypt.hashSync(req.body.password, salt);
+    } 
+    if (parseInt(userId, 10) === parseInt(queryId, 10)) {
+      return Users.findById(queryId)
     .then((user) => {
       user
         .update({
-          userName: req.body.userName,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          email: req.body.email,
-          password: req.body.password
+          userName: req.body.userName || user.username,
+          firstName: req.body.firstName || user.firstName,
+          lastName: req.body.lastName || user.lastName,
+          email: req.body.email || user.email,
+          password: encryptedPassword || user.password
         })
         .then(() =>
           res.status(200).send({
@@ -132,11 +142,16 @@ const usersController = {
         )
         .catch(error =>
           res.status(400).send({
-            message: 'You have no rights to update this profile',
+            message: 'You had some erros updating your profile',
             error
           })
         );
     });
+    }
+    return res.status(403)
+      .send({
+        message: 'RYou have no rights to update this profile'
+      });
   },
 
   destroyUser(req, res) {
@@ -174,6 +189,10 @@ const usersController = {
             const payload = {
               id: user.id,
               username: user.username,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              password: user.password,
+              email: user.email,
               roleId: user.id
             };
             const token = jwt.sign(payload, cfg.jwtSecret, {

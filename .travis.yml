@@ -5,10 +5,6 @@ node_js:
 services:
   - postgresql
 
-postgres:
-  adapter: postgresql
-  database: dms_test
-  username: postgres
 before_script:
   - psql -c 'create database dms_test;' -U postgres
 

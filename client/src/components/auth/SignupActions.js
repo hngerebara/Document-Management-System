@@ -25,8 +25,7 @@ export const signupUser = ({
       dispatch(setCurrentUser(jwtDecode(token)));
       dispatch({
         type: types.SIGNUP_SUCCESS,
-        token,
-        message: 'Sign Up successful'
+        token
       });
     })
     .catch((error) => {

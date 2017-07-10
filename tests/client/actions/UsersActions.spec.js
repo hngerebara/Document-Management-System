@@ -1,56 +1,168 @@
 import configureMockStore from 'redux-mock-store';
-import nock from 'nock';
-import expect from 'expect';
+import moxios from 'moxios';
 import thunk from 'redux-thunk';
-import axios from '../../../client/src/utils/api';
-import * as actions from '../../../client/src/components/users/manageUsers/UsersActions';
+import expect from 'expect';
+import * as actions
+from '../../../client/src/components/users/manageUsers/UsersActions';
+import * as types from
+'../../../client/src/components/users/manageUsers/UsersActionTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const users = [
-  {
-    username: 'hopez',
-    firstName: 'Hope',
-    lastName: 'Ngerebara',
-    email: 'hopez@gmail.com',
-    password: '12345',
-    roleId: 1
-  }
-];
+const initialState = {
+  users: [],
+  user: null,
+  isSearching: false,
+  pagination: {},
+  searchPagination: {},
+  searchUsers: [],
+  currentUser: {},
+  searchQuery: ''
+};
+const userId = 2;
 
-describe('Admin Manange User actions - async actions', () => {
-  afterEach(() => {
-    nock.cleanAll();
+
+describe('User actions', () => {
+  beforeEach(() => {
+    moxios.install();
   });
 
-  it('should fetch create an action to fetch users', () => {
-    nock(API_URL)
-      .get('/users')
-      .reply(200, {
-        body: {
-          users: [],
+  afterEach(() => {
+    moxios.uninstall();
+  });
+  describe('fetchUsers Action', () => {
+    const offset = 0;
+    const limit = 4;
+    it('Fetches all users', (done) => {
+      const expectedActions = [
+        {
+          type: types.FETCH_USERS_SUCCESS,
+          data: {
+            users: [],
+            pagination: {
+              pageCount: 0,
+              page: 1,
+              rowsPerPage: 6,
+              totalCount: 0
+            },
+          },
         }
+      ];
+      const store = mockStore(initialState);
+      store.dispatch(actions.fetchAllUsers(offset, limit))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
       });
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: {
+            users: [],
+            pagination: {
+              pageCount: 0,
+              page: 1,
+              rowsPerPage: 6,
+              totalCount: 0
+            },
+          }
+        });
+      });
+    });
+  });
 
-    const expectedActions = [
-      {
-        type: FETCH_USERS_SUCCESS,
-        users
-      },
-      {
-        type: FETCH_USERS_FAILURE,
-        users
-      }
-    ];
+  describe('deleteUser Action', () => {
+    it('delete single user', (done) => {
+      const expectedActions = [
+        {
+          type: types.DELETE_USER_SUCCESS,
+          userId
+        }
+      ];
+      const store = mockStore(initialState);
+      store.dispatch(actions.deleteUser(2))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200
+        });
+      });
+    });
+  });
 
-    const store = mockStore({ users: [] });
+  describe('SearchUser Action', () => {
+    const offset = 0;
+    const limit = 6;
+    const searchQuery = 'hope';
+    it('searches users', (done) => {
+      const expectedActions = [
+        {
+          type: types.SEARCH_USERS_SUCCESS,
+          data: {
+            searchUsers: [],
+            searchPagination: {
+              pageCount: 0,
+              page: 1,
+              rowsPerPage: 6,
+              totalCount: 0
+            }
+          },
+          searchQuery
+        }
+      ];
+      const store = mockStore(initialState);
+      store.dispatch(actions.searchAllUsers(searchQuery, offset, limit))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: {
+            searchUsers: [],
+            searchPagination: {
+              pageCount: 0,
+              page: 1,
+              rowsPerPage: 6,
+              totalCount: 0
+            }
+          }
+        });
+      });
+    });
+  });
 
-    return store.dispatch(actions.fetchAllUsers()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+  describe('getOneUser Action', () => {
+    it('retrieves one user', (done) => {
+      const expectedActions = [
+        {
+          type: types.GET_USER_SUCCESS,
+        }
+      ];
+      const store = mockStore(initialState);
+      store.dispatch(actions.getOneUser(userId))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200
+        });
+      });
     });
   });
 });
+
 
 describe('Actions', () => {
   it('should have a type of "FETCH_USERS_SUCCESS"', () => {

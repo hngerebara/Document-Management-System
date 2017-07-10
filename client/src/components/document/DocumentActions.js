@@ -1,17 +1,5 @@
 import axios from '../../utils/api';
-import toastr from 'toastr';
 import * as types from './DocumentActionTypes';
-
-export const displayDocumentFailureMessage = errorMessage => ({
-  type: types.DISPLAY_DOCUMENT_FAILURE_MESSAGE,
-  errorMessage
-});
-
-export const fetchSearchSuccess = (data, searchQuery) => ({
-  type: types.FETCH_SEARCH_SUCCESS,
-  data,
-  searchQuery
-});
 
 export const searchFailureMessage = errorMessage => ({
   type: types.SEARCH_FAILURE_MESSAGE,
@@ -23,38 +11,19 @@ export const fetchDocumentsSuccess = data => ({
   data
 });
 
-export const createDocumentSuccess = document => ({
-  type: types.CREATE_DOCUMENT_SUCCESS,
-  document,
-});
-
-export const updateDocumentSuccess = document => ({
-  type: types.UPDATE_DOCUMENT_SUCCESS,
-  document,
-});
-
-export const fetchDocumentSuccess = document => ({
-  type: types.FETCH_DOCUMENT_SUCCESS,
-  document
-});
 
 export const fetchUserDocumentFailed = userDocumentsError => ({
   type: types.DISPLAY_USER_FAILURE_MESSAGE,
   userDocumentsError
 });
 
-export const fetchUserDocumentSuccess = userDocuments => ({
-  type: types.FETCH_USER_DOCUMENTS_SUCCESS,
-  userDocuments
-});
-
-export const deleteDocumentSuccess = documentId => ({
-  type: types.DELETE_DOCUMENT_SUCCESS,
-  documentId,
-});
-
 export const clearSearch = () => ({
   type: types.CLEAR_SEARCH,
+});
+
+export const displayDocumentFailureMessage = errorMessage => ({
+  type: types.DISPLAY_DOCUMENT_FAILURE_MESSAGE,
+  errorMessage
 });
 
 export const fetchAllDocuments = (offset = 0, limit = 6) => dispatch =>
@@ -67,6 +36,11 @@ export const fetchAllDocuments = (offset = 0, limit = 6) => dispatch =>
     throw error;
   });
 
+export const fetchDocumentSuccess = document => ({
+  type: types.FETCH_DOCUMENT_SUCCESS,
+  document
+});
+
 export const fetchDocument = documentId => dispatch =>
   axios.get(`/documents/${documentId}/`)
     .then((response) => {
@@ -76,6 +50,11 @@ export const fetchDocument = documentId => dispatch =>
       dispatch(displayDocumentFailureMessage(error.response));
       throw error;
     });
+
+export const fetchUserDocumentSuccess = userDocuments => ({
+  type: types.FETCH_USER_DOCUMENTS_SUCCESS,
+  userDocuments
+});
 
 export const fetchUserDocuments = creatorId => dispatch =>
   axios.get(`/users/${creatorId}/documents`, creatorId)
@@ -87,6 +66,11 @@ export const fetchUserDocuments = creatorId => dispatch =>
     throw error;
   });
 
+export const createDocumentSuccess = document => ({
+  type: types.CREATE_DOCUMENT_SUCCESS,
+  document,
+});
+
 export const createDocument = document => dispatch =>
   axios.post('/documents', document)
     .then((res) => {
@@ -96,6 +80,12 @@ export const createDocument = document => dispatch =>
       throw error;
     });
 
+export const fetchSearchSuccess = (data, searchQuery) => ({
+  type: types.FETCH_SEARCH_SUCCESS,
+  data,
+  searchQuery
+});
+
 export const searchAllDocuments = (search, offset = 0, limit = 6) => dispatch =>
   axios.get(`/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
     .then((response) => {
@@ -104,6 +94,11 @@ export const searchAllDocuments = (search, offset = 0, limit = 6) => dispatch =>
       dispatch(searchFailureMessage(error.response));
       throw error;
     });
+  
+export const deleteDocumentSuccess = documentId => ({
+  type: types.DELETE_DOCUMENT_SUCCESS,
+  documentId,
+});
 
 export const deleteDocument = documentId => (dispatch) => {
   axios.delete(`/documents/${documentId}/`)
@@ -115,6 +110,11 @@ export const deleteDocument = documentId => (dispatch) => {
     throw error;
   });
 };
+
+export const updateDocumentSuccess = document => ({
+  type: types.UPDATE_DOCUMENT_SUCCESS,
+  document,
+});
 
 export const updateDocument = updatedDocument => dispatch =>
   axios.put(`/documents/${updatedDocument.id}`, updatedDocument)

@@ -10,7 +10,7 @@
     "start:server": "nodemon ./server/server.js --exec babel-node",
     "migrate_test_db": "sequelize db:migrate",
     "heroku-postbuild": "webpack && cp index.html dist/index.html && npm run migrate_test_db",
-    "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/AuthActions.spec.js",
+    "test:client": "jest --config ./jest.config.js --coverage tests/client/reducers/*.spec.js tests/client/actions/*.spec.js tests/client/components/**/*.spec.js",
     "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js",
     "test-e2e": "NODE_ENV=test nightwatch",
     "coverage": "nyc report --reporter=text-lcov | coveralls"

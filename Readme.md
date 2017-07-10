@@ -1,5 +1,5 @@
 ## HOPEAZ DMS
-[![Build Status](https://travis-ci.org/andela-hngerebara/Document-Management-System.svg?branch=master)](https://travis-ci.org/andela-hngerebara/Document-Management-System) [![Coverage Status](https://coveralls.io/repos/github/andela-hngerebara/Document-Management-System/badge.svg?branch=develop)](https://coveralls.io/github/andela-hngerebara/Document-Management-System?branch=develop)
+[![Build Status](https://travis-ci.org/andela-hngerebara/Document-Management-System.svg?branch=develop)](https://travis-ci.org/andela-hngerebara/Document-Management-System) [![Coverage Status](https://coveralls.io/repos/github/andela-hngerebara/Document-Management-System/badge.svg?branch=develop)](https://coveralls.io/github/andela-hngerebara/Document-Management-System?branch=develop)
 
 A document management system (DMS) is a system (based on computer programs in the case of the management of digital documents)used to track, manage and store documents and reduce paper. It provides a restful API for users to create and manage documents giving different privileges based on user roles.
 

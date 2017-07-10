@@ -27,7 +27,6 @@ const initialState = {
 export default function UsersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
-    console.log('fetch user', action);
     const { users, pagination } = action.data;
       return {
         ...state,

@@ -4,9 +4,6 @@ coverage
 .env
 npm-debug.log
 .vscode
-dist
 .nyc_output
 reports
 selenium-debug.log
-public/bundle.js
-public/bundle.js.map

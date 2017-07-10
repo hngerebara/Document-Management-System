@@ -191,7 +191,7 @@ Document Access Types Available:
 * role
 
 ### Some sample requests and responses from the API.
-### Create User
+#### Create User
 
 #### Request
 
@@ -230,7 +230,7 @@ Body (application/json)
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjE5LCJ1c2VybmFtZSI6IkhvcGVhYXoiLCJyb2xlSWQiOjIsImlhdCI6MTQ5OTY4NzMzMSwiZXhwIjoxNDk5NzczNzMxfQ.y3gXilf0kGxbP9pPV90MWdGQMmHHRKqn5nJd39WQXrk"
 }
 ```
-### Get Users
+#### Get Users
 
 #### Request
 
@@ -265,15 +265,15 @@ Body (application/json)
 }]
 ```
 
-### Documents
+#### Documents
 
 Endpoint for document API.
 
-### Get All Documents except private documents
+#### Get All Documents except private documents
 #### Request
 
 Endpoint: GET: /documents
-### Response
+#### Response
 
 Status: 200: OK
 Body (application/json)
@@ -297,7 +297,7 @@ Body (application/json)
 * Users can only create and retrieve textual documents.
 * Users cannot share documents with people.
 
-#### Please note that once an Admin deletes a user, the user's public documents still remain here for other to view
+### Please note that once an Admin deletes a user, the user's public documents still remain here for other to view
 
 ## Contribute
 ---------------------------------------------------------------------------------------------------------------------------

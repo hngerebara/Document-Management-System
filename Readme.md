@@ -120,9 +120,10 @@ Admin user can:
 
 The API has routes, each dedicated to a single task that uses HTTP response codes to indicate API status and errors.
 
-## API Features
 
-### Authentication
+### API Features
+
+#### Authentication
 
 * It uses JSON Web Token (JWT) for authentication.
 
@@ -130,7 +131,7 @@ The API has routes, each dedicated to a single task that uses HTTP response code
 
 * It verifies the token to ensures a user is authenticated to access protected endpoints.
 
-### Users
+#### Users
 Can:
 * Be Created.
 
@@ -138,7 +139,7 @@ Can:
 
 * Admin can manage users.
 
-### Documents
+#### Documents
 Users can: 
 * Create new documents.
 
@@ -149,7 +150,7 @@ Users can:
 * Only delete, edit and update documents that belong to them.
 
 
-### Search
+#### Search
 Users can: 
 * Search public, role and his/her private documents for based the search query.
 
@@ -157,10 +158,146 @@ Admin can:
 * Search public, role and his/her private documents based the search query.
 * Search users based on username, first last names
 
+| EndPoint | Functionality |
+| ------ | ------ |
+| POST /users/login | Logs a user in. |
+| POST /users/logout | Logs a user out. |
+| POST /users | Creates a new user. |
+| GET /users | Retrieves all users. |
+| GET /search/users?search=query | Search the users based on search query |
+| GET /users?limit=:num | Retrieves users based on the limit specified |
+| GET /users?limit=:num&offset=:num | Retrieves users based on the limit and offset specified |
+| GET /users/:id | Retrieves a single user |
+| PUT /users/:id | Update a user's profile |
+| DELETE /users/:id | Delete a single user |
+| POST /documents/new | Create a new document |
+| GET /documents | Retrieve all documents |
+| GET /search/documents?search=q | Search the documents based on search query |
+| GET /documents?limit=:num | Retrieves documents based on the limit specified |
+| GET /documents?limit=:num&offset=:num | Retrieves documents based on the limit and offset specified |
+| GET /documents/:id | Retrieves a single documents |
+| PUT /documents/:id | Update a document |
+| DELETE /documents/:id | Delete a single document |
+
+
+#### Keys to note
+Roles Available: 
+* roleId 1 is an admin role
+* roleId 2 is a regular user
+
+Document Access Types Available:
+* public
+* private
+* role
+
+### Some sample requests and responses from the API.
+### Create User
+
+#### Request
+
+Endpoint: POST: /users
+Body (application/json)
+```
+{
+  "username": "Hopeaaz",
+  "firstName": "Hopez",
+  "lastName": "Ngere",
+  "email": "hopeaaz@hopez.com",
+  "RoleId": 1,
+  "password": "password"
+}
+```
+
+#### Response
+
+Status: 201: Created
+Body (application/json)
+
+```
+{
+  "message": "User signed up succesfully",
+  "user": {
+    "id": 21,
+    "username": "Hopeaaz",
+    "firstName": "Hope",
+    "lastName": "Ngere",
+    "email": "hopeaaz@hopez.com",
+    "password": "$2a$10$GWViMTkdGxvHOD9OIRJbF.C1wTvU9MilbnMeeki0FRmUCzIPqCRqi",
+    "roleId": 1,
+    "updatedAt": "2017-07-10T11:48:51.610Z",
+    "createdAt": "2017-07-10T11:48:51.610Z"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjE5LCJ1c2VybmFtZSI6IkhvcGVhYXoiLCJyb2xlSWQiOjIsImlhdCI6MTQ5OTY4NzMzMSwiZXhwIjoxNDk5NzczNzMxfQ.y3gXilf0kGxbP9pPV90MWdGQMmHHRKqn5nJd39WQXrk"
+}
+```
+### Get Users
+
+#### Request
+
+Endpoint: GET: /users
+Requires: Authentication, Admin Role
+Response
+
+Status: 200: OK
+Body (application/json)
+```
+[{
+  "id": 22,
+  "username": "blessed",
+  "firstName": "blessed",
+  "lastName": "ngere",
+  "email": "blessed@hopez.com",
+  "RoleId": 2,
+  "password": "$2a$08$ErbiyXkXAXsGXLoG2KHVIIucUwzaCXGJz.d5YKkL/0SQIM3xhdbib2",
+  "createdAt": "2017-07-10T11:41:30.837Z",
+  "updatedAt": "2017-07-10T11:41:30.837Z"
+},
+{
+  "id": 124,
+  "username": "blessed2",
+  "firstName": "blessed2",
+  "lastName": "blessed2",
+  "email": "blessed2@hopez.com",
+  "RoleId": 2,
+  "password": "$2a$08$eggCuipNKnauhjdcxGVaUeEssqo5OjbQedfV1.gGNT2GNTyloD6MS",
+  "createdAt": "2017-07-10T11:34:19.992Z",
+  "updatedAt": "2017-07-10T11:34:19.992Z"
+}]
+```
+
+### Documents
+
+Endpoint for document API.
+
+### Get All Documents except private documents
+#### Request
+
+Endpoint: GET: /documents
+### Response
+
+Status: 200: OK
+Body (application/json)
+
+```
+[{
+    "id": 11,
+    "documentName": "Testing Postman",
+    "description": "Testing Postman description",
+    "content": "Blessed are you",
+    access: "public"
+    "creatorId": 1,
+    "createdAt": "2017-02-17T17:40:45.146Z",
+    "updatedAt": "2017-02-17T17:40:45.146Z"
+  }
+  ]
+```
+
+
 ## Limitations:
 * Users can only create and retrieve textual documents.
 * Users cannot share documents with people.
-* Users cannot update their profile(working on it)
+
+#### Please note that once an Admin deletes a user, the user's public documents still remain here for other to view
 
 ## Contribute
 ---------------------------------------------------------------------------------------------------------------------------
@@ -173,11 +310,19 @@ Follow the instructions below to contribute.
 
 * Make your change
 
+* Only ES6 sythax is allowed
+
+* Ensure you have extended airbnb eslint rules 
+
 * Commit your change to your forked repository
 
-* Provide a detailed commit description
+* Provide a detailed commit description stating the changes made
 
-* Create a pull request
+* Create a pull request having the following format
+```
+- What does this PR do?
+- Screenshots if available
+```
 
 ## FAQ
 ----------------------------------------------------------------------------------------------------------------------

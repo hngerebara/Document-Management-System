@@ -119,7 +119,7 @@ Admin user can:
 ## API Documentation
 
 The API has routes, each dedicated to a single task that uses HTTP response codes to indicate API status and errors.
- API documentation <a heref="https://hopeazdms.herokuapp.com/api-docs/"> here</a>
+ API documentation [here](https://hopeazdms.herokuapp.com/api-docs)
 
 ### API Features
 

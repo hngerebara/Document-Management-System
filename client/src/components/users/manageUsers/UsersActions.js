@@ -100,7 +100,7 @@ export const updateUserProfile = updatedUser => (dispatch) => {
       toastr.error('So sorry, Could not update your details');
       throw error;
     });
-}
+};
 
 export const getOneUser = (userId) => dispatch =>
    axios.get(`/users/${userId}`)

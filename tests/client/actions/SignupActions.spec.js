@@ -3,16 +3,20 @@ import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import expect from 'expect';
 import * as types from '../../../client/src/components/auth/AuthActionTypes';
-import * as actions from '../../../client/src/components/auth/AuthActions';
+import * as actions from '../../../client/src/components/auth/SignupActions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+const token = 'token';
 const user = {
+  username: 'hopez',
+  firstName: 'Hope',
+  lastName: 'Ngerebara',
   email: 'hopez@gmail.com',
-  password: 'coolgirl'
+  password: '12345'
 };
 
-describe('Authentication actions', () => {
+describe('Signup actions', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -21,15 +25,15 @@ describe('Authentication actions', () => {
     moxios.uninstall();
   });
 
-  it('should successfully login a user', (done) => {
+  it('should successfully signup a user', (done) => {
     const expectedActions = [
       {
-        type: types.SET_CURRENT_USER,
-        user
+        type: types.SIGNUP_SUCCESS,
+        token
       }
     ];
     const store = mockStore({ users: {} });
-    store.dispatch(actions.checkinUserAction(user))
+    store.dispatch(actions.signupUser(user))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
@@ -40,16 +44,10 @@ describe('Authentication actions', () => {
         status: 200,
         response: {
           data: {
-            token: 'token',
-            user
+            token: 'token'
           },
         }
       });
     });
-  });
-
-
-  it('should have a type of "SET_CURRENT_USER"', () => {
-    expect(actions.setCurrentUser().type).toEqual('SET_CURRENT_USER');
   });
 });

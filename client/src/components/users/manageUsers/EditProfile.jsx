@@ -1,9 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-// import UsersProfileForm from './UsersProfileForm';
+import { browserHistory } from 'react-router';
 import { updateUserProfile, getOneUser } from './UsersActions';
-import axios from '../../../utils/api';
-import toastr from 'toastr';
 
 /**
  * @desc Updates users Profile.
@@ -19,10 +17,11 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: this.props.user.id,
       firstName: this.props.user.firstName,
       lastName: this.props.user.lastName,
       email: this.props.user.email,
-      // password: ''
+      password: ''
     };
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -31,11 +30,6 @@ class EditProfile extends Component {
   componentDidMount() {
     this.props.getOneUser(this.props.params.creatorId);
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   // console.log('NEXT', nextProps);
-  //   // this.setState({ ...nextProps.user.user, password: '' });
-  // }
 
   /**
    *
@@ -46,7 +40,6 @@ class EditProfile extends Component {
    */
   handleChange(event) {
     event.preventDefault();
-    
     const name = event.target.name;
     const value = event.target.value;
     this.setState({ [name]: value });
@@ -61,21 +54,20 @@ class EditProfile extends Component {
    */
   handleUpdate(event) {
     event.preventDefault();
-    console.log('getting here');
-
+    this.props.updateUserProfile(this.state);
+    browserHistory.push('/documents');
   }
 
   render() {
-    const { user } = this.props;
-    return (   
-      <div className='container'>
+    return (
+      <div className="container">
         <div className="row">
           <div className="col-xs-12">
             <h3>My Profile</h3>
             <hr />
           </div>
         </div>
-          <div className="row">
+        <div className="row">
           <div className="col s12 editProfile-body">
             <div className="row">
               <div className="col m10  offset-m1 s12  ">
@@ -148,27 +140,22 @@ class EditProfile extends Component {
                       </div>
                       <div className="row">
 
-
                         <button
                           className="btn waves-effect waves-light col s6"
                           id="edit"
                           disabled={this.state.isLoading}
                           onClick={this.handleUpdate}
-                         >
-                            SAVE<i className="material-icons left">save</i>
-                         </button>
+                        >
+                          SAVE<i className="material-icons left">save</i>
+                        </button>
                       </div>
-
                     </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
-        }
-
-
+        </div>
       </div>
     );
   }
@@ -178,12 +165,10 @@ EditProfile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  // user: state.UsersReducer.user,
-  user: state.Auth.user,
-  
+  user: state.Auth.user
 });
 
-
 export default connect(mapStateToProps, {
-  getOneUser
+  getOneUser,
+  updateUserProfile
 })(EditProfile);

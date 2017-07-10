@@ -19,7 +19,7 @@ export const displayFailureMessage = errorMessage => ({
  * @returns {array} an array of users.
  */
 export const fetchAllUsers = (offset = 0, limit = 4) => (dispatch) => {
-  axios
+  return axios
     .get(`/users?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(fetchUsersSuccess(response.data));
@@ -80,18 +80,36 @@ export const updateUserSuccess = data => ({
   data
 });
 
+export const getUserSuccess = data => ({
+  type: types.GET_USER_SUCCESS,
+  data
+});
+
 export const updateUserFailure = errorMessage => ({
   type: types.UPDATE_USER_FAILURE,
   errorMessage
 });
 
 
-// export const updateUsersProfile = (userId) => dispatch =>
+export const updateUsersProfile = (userId) => dispatch =>
 // console.log("getting called in update user")
-//   axios.get(`/users/${userId}`)
-//     .then((response) => {
-//       dispatch(updateUserSuccess(response.data));
-//     }).catch((error) => {
-//       dispatch(updateUserFailure(error.response));
-//       throw error;
-//     });
+  axios.get(`/users/${userId}`)
+    .then((response) => {
+      dispatch(updateUserSuccess(response.data));
+    }).catch((error) => {
+      dispatch(updateUserFailure(error.response));
+      throw error;
+    });
+
+export const getOneUser = (userId) => dispatch => {
+console.log("getting called in update user", userId);
+  return axios.get(`/users/${userId}`)
+    .then((response) => {
+      console.log(response.data);
+      dispatch(getUserSuccess(response.data));
+    }).catch((error) => {
+      console.log(error);
+      dispatch(updateUserFailure(error.response));
+      throw error;
+    })
+};

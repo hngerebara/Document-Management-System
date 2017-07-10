@@ -22,11 +22,15 @@ const UsersListRow = ({ user, deleteUser }) => {
         <a className="secondary-content">
           <i className="material-icons circle">perm_identity</i>
         </a>
-        <a className="secondary-content" onClick={ondeleteUser}>
-          <i className="close waves-effect waves-light material-icons">
-            delete
-          </i>
-        </a>
+        {(user.Role.title !== 'Admin') ?
+          <a className="secondary-content" onClick={ondeleteUser}>
+            <i className="close waves-effect waves-light material-icons">
+              delete
+            </i>
+          </a>
+          :
+          ''
+        }
       </li>
     </ul>
   );

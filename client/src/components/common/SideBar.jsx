@@ -56,6 +56,12 @@ export class SideBar extends Component {
                 My Documents
               </Link>
             </li>
+            <li>
+              <Link to={`/users/${this.props.Auth.user.id}`}>
+                <i className="waves-effect" />
+                Edit Profile
+              </Link>
+            </li>
 
             {isAdmin &&
               <div>

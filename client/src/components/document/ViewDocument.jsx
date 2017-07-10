@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 class ViewDocument extends Component {
   componentDidMount() {
-    if (!ENV) {
+    if (API_URL !== '9999') {
       $('.doc-modal').modal();
     }
   }

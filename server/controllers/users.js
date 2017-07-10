@@ -150,7 +150,7 @@ const usersController = {
     }
     return res.status(403)
       .send({
-        message: 'RYou have no rights to update this profile'
+        message: 'You have no rights to update this profile'
       });
   },
 

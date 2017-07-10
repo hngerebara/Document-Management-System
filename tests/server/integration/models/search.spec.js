@@ -8,7 +8,7 @@ import { Users, sequelize, Roles } from '../../../../server/models';
 const expect = chai.expect;
 
 chai.use(chaiHttp);
-describe('Route: Documents', () => {
+describe('Search Users and Documents', () => {
   let token;
   const roles = [{ title: 'Admin' }, { title: 'Staff' }];
   const admin = {
@@ -64,7 +64,7 @@ describe('Route: Documents', () => {
       });
     });
   });
-
+ describe('Route: Users', () => {
   describe('/GET search for a user', () => {
     it('it should return unauthorized if not an admin ', (done) => {
       chai
@@ -92,6 +92,20 @@ describe('Route: Documents', () => {
         });
     });
 
+    it('it should retrieve all matching instances of the search query', (done) => {
+      chai
+      .request(app)
+        .get('/api/search/users?search=user')
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.not.be.null;
+          expect(res.body.searchUsers[0]).to.have.property('firstName')
+          .to.equal('Blessed');
+          done();
+        });
+    });
+
     it('it should return the searched user ', (done) => {
       chai
       .request(app)
@@ -110,5 +124,19 @@ describe('Route: Documents', () => {
           done();
         });
     });
+  });
+ });
+  describe('Route: Documents', () => {
+    it('it should return a document matching the search query', (done) => {
+      chai
+      .request(app)
+        .get('/api/search/documents?search=Tes')
+        .set('Authorization', `JWT ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+
   });
 });

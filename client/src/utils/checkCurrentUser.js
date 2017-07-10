@@ -9,6 +9,7 @@ export default function CheckCurrentUser(store) {
       username: decodedToken.username,
       firstName: decodedToken.firstName,
       lastName: decodedToken.lastName,
+      password: decodedToken.password,
       email: decodedToken.email,
       roleId: decodedToken.roleId
 

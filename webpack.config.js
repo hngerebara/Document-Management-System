@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 require('dotenv').config();
 
-const DIST_DIR = path.resolve(__dirname, 'dist');
+const DIST_DIR = path.resolve(__dirname, 'public');
 const SRC_DIR = path.resolve(__dirname, 'client/src/');
 
 const globalconstiables = {

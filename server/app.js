@@ -19,7 +19,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Describing RESTful API endpoints with Swagger'
   },
-  host: 'localhost:8090',
+  host: 'https://hopeazdms.herokuapp.com/',
   basePath: '/'
 };
 
@@ -52,7 +52,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '../', '/dist')));
+app.use(express.static(path.join(__dirname, '../', '/public')));
 app.use(authMiddleware.initialize());
 
 allRoutes(router);

@@ -17,3 +17,4 @@ before_install:
  - sudo dpkg -i google-chrome*.deb
 env:
   - JWT_SECRET=THISIS12345HARRYPOTTERSECRETCODE09876
+after_success: npm run coverage

@@ -11,7 +11,8 @@
     "migrate_test_db": "sequelize db:migrate",
     "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/AuthActions.spec.js",
     "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js",
-    "test-e2e": "NODE_ENV=test nightwatch"
+    "test-e2e": "NODE_ENV=test nightwatch",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
     "require": [

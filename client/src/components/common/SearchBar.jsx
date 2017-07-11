@@ -2,7 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { clearSearch } from '../document/DocumentActions';
 
+/**
+ * @desc SearchBar Component
+ * @class SearchBar
+ * @extends {Component}
+ */
 export class SearchBar extends Component {
+/**
+ * Creates an instance of SearchBar.
+ * @param {object} props property of element
+ * @memberof SearchBar
+ */
   constructor(props) {
     super(props);
     this.state = {
@@ -10,6 +20,10 @@ export class SearchBar extends Component {
     };
   }
 
+/**
+ * handle searching
+ * @param {SytheticEvent} event
+ */
   onSearch = event => {
     const searchQuery = event.target.value;
     this.setState({
@@ -18,6 +32,10 @@ export class SearchBar extends Component {
     this.props.searchFn(searchQuery);
   };
 
+/**
+ * handle close search when done searching
+ * @param {SytheticEvent} event
+ */
   closeSearch = () => {
     this.setState({
       isSearching: false
@@ -25,6 +43,12 @@ export class SearchBar extends Component {
     this.search.value = '';
     this.props.clearSearch();
   };
+
+/**
+ * @desc renders Html
+ * @returns {*} html
+ * @memberof SearchBar
+ */
   render() {
     const { user } = this.props;
     const isSearching = this.state.isSearching;

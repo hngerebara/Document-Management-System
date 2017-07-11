@@ -1,20 +1,26 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { signOutUser } from '../../components/auth/AuthActions';
 
-export class Header extends React.Component {
-
+/**
+ * @desc Header Component
+ * @class Header
+ * @extends {Component}
+ */
+export class Header extends Component {
+/**
+ * Creates an instance of Header.
+ * @param {object} props property of element
+ * @memberof Header
+ */
   constructor(props) {
     super();
-    this.signOut = this.signOut.bind(this);
   }
 
-  signOut(event) {
-    event.preventDefault();
-    this.props.signOutUser();
-  }
-
+/**
+ * render
+ * @return {ReactElement} markup
+ */
   render() {
     const { user } = this.props.Auth;
     return (
@@ -41,8 +47,7 @@ export class Header extends React.Component {
 }
 
 Header.propTypes = {
-  Auth: PropTypes.object.isRequired,
-  signOutUser: PropTypes.func.isRequired
+  Auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -51,6 +56,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { signOutUser })(
+export default connect(mapStateToProps, null)(
   Header
 );

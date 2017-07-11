@@ -1,7 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
+/**
+ * @desc UserDocumentListRow Component
+ * @class UserDocumentListRow
+ * @extends {Component}
+ */
 class UserDocumentListRow extends Component {
+  /**
+ * Creates an instance of UserDocumentListRow.
+ * @param {object} props property of element
+ * @memberof UserDocumentListRow
+ */
   constructor(props) {
     super(props);
   }

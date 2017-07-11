@@ -34,7 +34,7 @@ export class SignupForm extends Component {
     this.checkUserExists = this.checkUserExists.bind(this);
   }
 
- /**
+  /**
    * @desc handles change of form input
    * @param {object} event  html event
    * @returns {null} returns no value
@@ -43,7 +43,7 @@ export class SignupForm extends Component {
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-/**
+  /**
    * @desc validates form fields
    * @returns {bool} returns true or false
    * @memberof SignupForm
@@ -56,7 +56,7 @@ export class SignupForm extends Component {
     return isValid;
   }
 
-/**
+  /**
    * @desc checks the username if it exists
    * @returns {object} empty or not
    * @memberof SignupForm
@@ -64,23 +64,24 @@ export class SignupForm extends Component {
   checkUserExists(event) {
     const username = event.target.value;
     if (username) {
-      axios.get(`/check-username/${username}`)
-      .then(() => {
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            username: '',
-          },
+      axios
+        .get(`/check-username/${username}`)
+        .then(() => {
+          this.setState({
+            errors: {
+              ...this.state.errors,
+              username: ''
+            }
+          });
+        })
+        .catch(() => {
+          this.setState({
+            errors: {
+              ...this.state.errors,
+              username: 'Username already exist'
+            }
+          });
         });
-      })
-      .catch(() => {
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            username: 'Username already exist',
-          }
-        });
-      });
     }
   }
   /**
@@ -93,7 +94,8 @@ export class SignupForm extends Component {
     event.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.signupUser(this.state)
+      this.props
+        .signupUser(this.state)
         .then(() => {
           toastr.success('Signed up succesfully');
           browserHistory.push('/documents');
@@ -107,7 +109,7 @@ export class SignupForm extends Component {
     }
   }
 
-   /**
+  /**
    * @desc renders Html form for signup
    * @returns {*} html
    * @memberof SignupForm
@@ -198,8 +200,7 @@ export class SignupForm extends Component {
             />
             <label htmlFor="icon_prefix">Confirm Password</label>
             {errors.passwordConfirmation &&
-              <span>{errors.passwordConfirmation}</span>
-            }
+              <span>{errors.passwordConfirmation}</span>}
           </div>
         </div>
 

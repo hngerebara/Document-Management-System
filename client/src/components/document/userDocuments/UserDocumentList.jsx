@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
 import UserDocumentListRow from './UserDocumentListRow';
 
-const UserDocumentList = ({ userDocuments, user, deleteDocument, viewDocument }) => {
+const UserDocumentList = ({
+  userDocuments,
+  user,
+  deleteDocument,
+  viewDocument }) => {
   return (
     <div className="row">
       {userDocuments.map(document =>

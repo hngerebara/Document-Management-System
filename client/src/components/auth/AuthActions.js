@@ -9,7 +9,7 @@ import axios from '../../utils/api';
  *
  * @desc save user success action creator.
  * @param {object} user
- * @returns {object} actiontype, and user Object
+ * @returns {object} actiontype and user Object
  */
 const setCurrentUser = user => ({
   type: types.SET_CURRENT_USER,

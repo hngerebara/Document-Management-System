@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 import * as types from './AuthActionTypes';
 import axios from '../../utils/api';
 
-
 /**
  *
  * @desc save user success action creator.
@@ -16,7 +15,6 @@ const setCurrentUser = user => ({
   type: types.SET_CURRENT_USER,
   user
 });
-
 
 /**
  *
@@ -31,7 +29,9 @@ const checkinUserAction = ({ email, password }) => dispatch =>
       const message = response.data.message;
       const token = response.data.token;
       localStorage.setItem('token', token);
-      const payload = (API_URL === '9999') ? { email, password } : jwtDecode(token);
+      const payload = API_URL === '9999'
+        ? { email, password }
+        : jwtDecode(token);
       dispatch(setCurrentUser(payload));
       toastr.success(message);
     })
@@ -41,7 +41,6 @@ const checkinUserAction = ({ email, password }) => dispatch =>
         error
       });
     });
-
 
 /**
  *

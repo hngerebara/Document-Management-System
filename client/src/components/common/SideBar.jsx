@@ -3,17 +3,37 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { signOutUser } from '../../components/auth/AuthActions';
 
+/**
+ * @desc SideBar Component
+ * @class SideBar
+ * @extends {Component}
+ */
 export class SideBar extends Component {
+  /**
+ * Creates an instance of SideBar.
+ * @param {object} props property of element
+ * @memberof SideBar
+ */
   constructor(props) {
     super(props);
     this.signOut = this.signOut.bind(this);
   }
 
+/** handles user signout
+ * @param {SytheticEvent} event
+ * @returns {null} returns no value
+ * @memberof SideBar
+ */
   signOut(event) {
     event.preventDefault();
     this.props.signOutUser();
   }
 
+  /**
+ * @desc renders Html
+ * @returns {*} html
+ * @memberof SideBar
+ */
   render() {
     const { user } = this.props.Auth;
     const isAdmin = this.props.Auth.user.id === 1;
@@ -40,25 +60,25 @@ export class SideBar extends Component {
                 to="/documents/new"
                 id="createdocument"
               >
-                <i className="waves-effect" />
+                <i className="waves-effect material-icons side-nav-link-av">note_add</i>
                 Create Document
               </Link>
             </li>
             <li>
               <Link to="/documents">
-                <i className="waves-effect" />
+                <i className="waves-effect material-icons side-nav-link-av">folder</i>
                 Other Documents
               </Link>
             </li>
             <li>
               <Link to={`/users/${this.props.Auth.user.id}/documents`}>
-                <i className="waves-effect" />
+                <i className="waves-effect material-icons side-nav-link-av">shop_two</i>
                 My Documents
               </Link>
             </li>
             <li>
               <Link to={`/users/${this.props.Auth.user.id}`}>
-                <i className="waves-effect" />
+                <i className="waves-effect material-icons side-nav-link-av">edit_mode</i>
                 Edit Profile
               </Link>
             </li>
@@ -67,14 +87,15 @@ export class SideBar extends Component {
               <div>
                 <li>
                   <Link to="/users">
-                    <i className="waves-effect" />
+                    <i className="waves-effect material-icons side-nav-link-av">people</i>
                     Users
                   </Link>
                 </li>
               </div>}
             <li>
               <Link to="/" id="signout" onClick={this.signOut}>
-                <i className="mdi-action-dashboard left" />Signout
+                <i className="waves-effect material-icons side-nav-link-av">exit_to_app</i>
+                Signout
               </Link>
             </li>
           </ul>

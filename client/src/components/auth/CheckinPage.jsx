@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import toastr from 'toastr';
 import { connect } from 'react-redux';
 import { checkinUserAction } from './AuthActions';
 import { browserHistory, Link } from 'react-router';
 import validateInput from '../../validations/login';
-
 
 /**
  * @desc CheckinPage Component
@@ -64,14 +62,16 @@ export class CheckinPage extends Component {
   handleCheckin(event) {
     event.preventDefault();
     if (this.isValid()) {
-      this.props.checkinUserAction(this.state)
+      this.props
+        .checkinUserAction(this.state)
         .then(() => {
           browserHistory.push('/documents');
         })
         .catch(() =>
           this.setState({
             errors: { email: 'in correct' },
-            isLoading: false })
+            isLoading: false
+          })
         );
     }
   }
@@ -90,11 +90,12 @@ export class CheckinPage extends Component {
             <div className="card-header">
               <img
                 src="https://res.cloudinary.com/dwrl3tf6j/image/upload/v1499075232/hopeazdms_logo_d3cirn.png"
-                alt="hopez" className="circle responsive-img"
-                />
+                alt="hopez"
+                className="circle responsive-img"
+              />
             </div>
             <div className="card-content">
-              <form>
+              <form className="col-12 form-padding">
                 <div className="row">
                   <div className="input-field">
                     <i className="material-icons prefix">account_circle</i>

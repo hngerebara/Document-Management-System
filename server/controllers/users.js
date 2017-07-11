@@ -19,7 +19,11 @@ const usersController = {
         const payload = {
           id: user.id,
           username: user.username,
-          roleId: user.roleId
+          firstName: user.firstName,
+          lastName: user.lastName,
+          password: user.password,
+          email: user.email,
+          roleId: user.id
         };
         const token = jwt.sign(payload, cfg.jwtSecret, {
           expiresIn: 60 * 60 * 24

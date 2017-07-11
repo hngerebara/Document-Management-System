@@ -3,7 +3,6 @@ import jwtDecode from 'jwt-decode';
 import * as types from './AuthActionTypes';
 import { setCurrentUser } from './AuthActions';
 
-
 /**
  *
  * @desc handles signup request and Stores token to local Storage.
@@ -34,4 +33,3 @@ export const signupUser = ({
       });
       throw error;
     });
-

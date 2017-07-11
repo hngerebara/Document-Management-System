@@ -37,6 +37,11 @@ export class AllDocumentsPage extends Component {
     }
   };
 
+/**
+ * @desc renders Html
+ * @returns {*} html
+ * @memberof AllDocumentsPage
+ */
   render() {
     const { manageDocuments } = this.props;
     const documents = manageDocuments.isSearching

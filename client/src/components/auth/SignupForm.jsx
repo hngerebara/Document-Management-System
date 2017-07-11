@@ -115,7 +115,7 @@ export class SignupForm extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <form className="col-12">
+      <form className="col-12 form-padding">
         <div className="row">
           <div className="input-field col s6">
             <i className="material-icons prefix">account_circle</i>

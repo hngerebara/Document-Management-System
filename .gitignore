@@ -7,3 +7,6 @@ npm-debug.log
 .nyc_output
 reports
 selenium-debug.log
+dist
+public/bundle.js
+public/bundle.js.map

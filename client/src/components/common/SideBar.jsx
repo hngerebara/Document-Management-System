@@ -40,25 +40,25 @@ export class SideBar extends Component {
                 to="/documents/new"
                 id="createdocument"
               >
-                <i className="waves-effect" />
+                <i className="waves-effect material-icons side-nav-link-av">note_add</i>
                 Create Document
               </Link>
             </li>
             <li>
               <Link to="/documents">
-                <i className="waves-effect" />
+               <i className="waves-effect material-icons side-nav-link-av">folder</i>
                 Other Documents
               </Link>
             </li>
             <li>
               <Link to={`/users/${this.props.Auth.user.id}/documents`}>
-                <i className="waves-effect" />
+                <i className="waves-effect material-icons side-nav-link-av">shop_two</i>
                 My Documents
               </Link>
             </li>
             <li>
               <Link to={`/users/${this.props.Auth.user.id}`}>
-                <i className="waves-effect" />
+                <i className="waves-effect material-icons side-nav-link-av">edit_mode</i>
                 Edit Profile
               </Link>
             </li>
@@ -67,14 +67,15 @@ export class SideBar extends Component {
               <div>
                 <li>
                   <Link to="/users">
-                    <i className="waves-effect" />
+                   <i className="waves-effect material-icons side-nav-link-av">people</i>
                     Users
                   </Link>
                 </li>
               </div>}
             <li>
               <Link to="/" id="signout" onClick={this.signOut}>
-                <i className="mdi-action-dashboard left" />Signout
+              <i className="waves-effect material-icons side-nav-link-av">exit_to_app</i>
+                Signout
               </Link>
             </li>
           </ul>

@@ -10,9 +10,8 @@ const DocumentForm = ({
   errors
 }) => (
   <form>
-    <h1>Manage Documents</h1>
+    <h1>Create document</h1>
     <div className="row col s12">
-      <div className="row col s6">
         <div className="input-field">
           <input
             type="text"
@@ -49,9 +48,8 @@ const DocumentForm = ({
 
         </div>
 
-      </div>
 
-      <div className="row col s6">
+      <div className="row tiny-mce">
         <TinyMCE
           content={document.content}
           config={{

@@ -3,6 +3,9 @@ main,
 footer {
   padding-left: 240px;
 }
+button a {
+  color: white;
+}
 
 @media only screen and (max-width: 992px) {
   header,
@@ -40,13 +43,17 @@ footer {
 .card .card-image .card-title {
   text-transform: capitalize;
   font-weight: 500;
+  text-align: center;
 }
 
 .card-image {
-  height: 185px;
+  height: 45%;
   width: 250px;
   background-color: #6E7587;
   position: relative;
+}
+.center {
+    text-align: center;
 }
 
 //Homepage
@@ -177,10 +184,24 @@ footer {
 .auth-card {
   width: 700px;
 }
+.form-padding {
+  padding: 20px;
+}
+.card-action {
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
 
 .access-dropdown {
   display: block !important;
   select {
     display: block !important;
   }
+}
+.tiny-mce {
+  padding-top: 15px;
+}
+
+.btn {
+  background-color:#710909;
 }

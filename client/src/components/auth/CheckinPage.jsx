@@ -94,7 +94,7 @@ export class CheckinPage extends Component {
                 />
             </div>
             <div className="card-content">
-              <form>
+              <form className="col-12 form-padding">
                 <div className="row">
                   <div className="input-field">
                     <i className="material-icons prefix">account_circle</i>

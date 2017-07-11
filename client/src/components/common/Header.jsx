@@ -35,25 +35,6 @@ export class Header extends React.Component {
             </ul>
           </div>
         </nav>
-
-        <ul className="dropdown-content" id="user_dropdown">
-          <li>
-            <Link to="/accountProfile" className="indigo-text">
-            My Profile
-            </Link>
-          </li>
-          <li className="divider" />
-          <li>
-            <Link
-              to="/"
-              onClick={this.signOut}
-              className="indigo-text"
-              id="signout"
-            >
-              Signout
-            </Link>
-          </li>
-        </ul>
       </header>
     );
   }

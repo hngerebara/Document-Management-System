@@ -21,7 +21,9 @@ export const signupUser = ({
     .then((response) => {
       const token = response.data.token;
       localStorage.setItem('token', token);
-      dispatch(setCurrentUser(jwtDecode(token)));
+      if (API_URL !== '9999') {
+        dispatch(setCurrentUser(jwtDecode(token)));
+      }
       dispatch({
         type: types.SIGNUP_SUCCESS,
         token

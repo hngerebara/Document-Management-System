@@ -1,14 +1,22 @@
 import UsersReducer
 from '../../../client/src/components/users/manageUsers/UsersReducer';
+import * as types from '../../../client/src/components/users/manageUsers/UsersActionTypes';
 
 const initialState = {
   users: [],
+  user: null,
   isSearching: false,
   pagination: {},
   searchPagination: {},
   searchUsers: [],
   currentUser: {},
   searchQuery: ''
+};
+const pagination = {
+  pageCount: 0,
+  page: 1,
+  rowsPerPage: 6,
+  totalCount: 2
 };
 
 const users = [
@@ -33,6 +41,7 @@ describe('Manage Users reducer', () => {
   it('should return the initial state', () => {
     expect(UsersReducer(undefined, {})).toEqual({
       users: [],
+      user: null,
       isSearching: false,
       pagination: {},
       searchPagination: {},
@@ -43,17 +52,25 @@ describe('Manage Users reducer', () => {
   });
 
   it('should fetch users and change the initial state', () => {
-    expect(UsersReducer(undefined, {
-      type: 'FETCH_USERS_SUCCESS',
-      users: [users]
-    })).toEqual({
-      users: [users],
+    const action = {
+      type: types.FETCH_USERS_SUCCESS,
+      data: {
+        users,
+        pagination
+      }
+    };
+
+    const expected = {
+      user: null,
       isSearching: false,
-      pagination: {},
       searchPagination: {},
       searchUsers: [],
       currentUser: {},
-      searchQuery: ''
-    });
+      searchQuery: '',
+      users,
+      pagination
+    };
+
+    expect(UsersReducer(initialState, action)).toEqual(expected);
   });
 });

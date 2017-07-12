@@ -1,28 +1,29 @@
 import React from 'react';
-import { mount, shallow} from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import UsersListRow from '../../../../client/src/components/users/manageUsers/UsersListRow';
 
-const setup = () => {
-  const props = {
-    deleteUser: jest.fn(),
-    users: {
-      id: 1
+const user = {
+    id: 3,
+    firstName: 'Hope',
+    lastName: 'Ngere',
+    Role: {
+      title: 'Staff'
     }
-  };
+  } 
 
-  const wrapper = shallow(<UsersListRow
-    deleteUser={props.deleteUser}
-  />);
-
-  return {
-    props,
-    wrapper
-  };
+const props = {
+ mockDeleteUser: jest.fn(),
 };
 
+
+const wrapper = shallow(<UsersListRow
+  deleteUser={props.mockDeleteUser}
+  user={user}
+/>);
+
+
 describe('UsersListRow Component', () => {
-  const { wrapper, props } = setup();
   describe('UsersListRow', () => {
     it('renders a ul', () => {
       expect(wrapper.find('ul').length).toEqual(1);
@@ -33,11 +34,6 @@ describe('UsersListRow Component', () => {
     });
     it('renders a p', () => {
       expect(wrapper.find('p').length).toEqual(3);
-    });
-
-    it('It calls deleteUser action when delete button is clicked', () => {
-      wrapper.find('delete').simulate('click');
-      expect(props.deleteUser(user.id)).toHaveBeenCalled();
     });
   });
 });

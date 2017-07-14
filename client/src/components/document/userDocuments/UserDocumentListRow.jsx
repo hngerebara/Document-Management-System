@@ -7,7 +7,7 @@ import moment from 'moment';
  * @extends {Component}
  */
 class UserDocumentListRow extends Component {
-  /**
+/**
  * Creates an instance of UserDocumentListRow.
  * @param {object} props property of element
  * @memberof UserDocumentListRow

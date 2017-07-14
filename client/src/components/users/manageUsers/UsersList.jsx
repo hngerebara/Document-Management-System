@@ -6,7 +6,7 @@ import UsersListRow from './UsersListRow';
  * @class UsersList
  */
 const UsersList = ({ users, deleteUser }) => (
-  <div className="row">
+  <div className="row" id="users-list">
     {users.map(user => (
       <UsersListRow
         key={user.id}

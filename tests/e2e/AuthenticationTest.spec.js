@@ -18,9 +18,9 @@ module.exports = {
       .setValue('input[name=password]', '')
       .setValue('input[name=passwordConfirmation]', '')
       .click('button[type=submit]')
-      .pause(1000);
+      .pause(3000);
   },
-  'User can succesfully signed up with correct details': (browser) => {
+  'User can succesfully sign up with correct details': (browser) => {
     browser
       .url('http://localhost:8080/signup')
       .waitForElementVisible('body', 5000)
@@ -31,7 +31,7 @@ module.exports = {
       .setValue('input[name=password]', 'password')
       .setValue('input[name=passwordConfirmation]', 'password')
       .click('button[id="hopez-save"]')
-      .pause(1000);
+      .pause(3000);
   },
   'User cannot checkin with incorrect details': (browser) => {
     browser
@@ -50,7 +50,7 @@ module.exports = {
       .click('button[id="hopez-save"]')
       .pause(5000)
       .assert.urlEquals('http://localhost:8080/documents')
-      .pause(1000);
+      .pause(3000);
   },
   'User can sign out of application': (browser) => {
     browser
@@ -60,7 +60,7 @@ module.exports = {
       .assert.containsText('nav', 'Hello hello2')
       .assert.attributeEquals('nav', 'className', 'indigo lighten-2')
       .assert.urlEquals(`${'http://localhost:8080/documents'}`)
-      // .click('header Link[id="signout"]')
+      .click('a#signout')
       .pause(2000)
       .end();
   }

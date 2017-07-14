@@ -71,14 +71,14 @@ export class SideBar extends Component {
               </Link>
             </li>
             <li>
-              <Link to={`/users/${this.props.Auth.user.id}/documents`}>
+              <Link to={`/users/${this.props.Auth.user.id}/documents`} id="user-document">
                 <i className="waves-effect material-icons side-nav-link-av">shop_two</i>
                 My Documents
               </Link>
             </li>
             <li>
-              <Link to={`/users/${this.props.Auth.user.id}`}>
-                <i className="waves-effect material-icons side-nav-link-av">edit_mode</i>
+              <Link to={`/users/${this.props.Auth.user.id}`} id="edit-profile">
+                <i className="waves-effect material-icons side-nav-link-av" id="edite-profile">edit_mode</i>
                 Edit Profile
               </Link>
             </li>
@@ -86,7 +86,7 @@ export class SideBar extends Component {
             {isAdmin &&
               <div>
                 <li>
-                  <Link to="/users">
+                  <Link to="/users" id="view-users">
                     <i className="waves-effect material-icons side-nav-link-av">people</i>
                     Users
                   </Link>

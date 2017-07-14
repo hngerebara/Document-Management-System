@@ -30,7 +30,7 @@ class ViewDocument extends Component {
           </a>
           {edit &&
             <Link
-              to={`/editDocument/${document.id}`}
+              to={`/editDocument/${document.id}`} id="view-edit"
               className="modal-action waves-effect waves-light btn modal-close"
             >
               {' '}<i className="material-icons left">mode_edit</i>

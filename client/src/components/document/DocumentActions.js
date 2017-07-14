@@ -1,4 +1,5 @@
 import axios from '../../utils/api';
+import toastr from 'toastr';
 import * as types from './DocumentActionTypes';
 
 export const searchFailureMessage = errorMessage => ({
@@ -104,6 +105,7 @@ export const deleteDocument = documentId => (dispatch) => {
   axios.delete(`/documents/${documentId}/`)
     .then(() => {
       dispatch(deleteDocumentSuccess(documentId));
+      toastr.success('You have succesfully deleted this document');
     })
   .catch((error) => {
     dispatch(displayDocumentFailureMessage(error.response));

@@ -40,6 +40,7 @@ const checkinUserAction = ({ email, password }) => dispatch =>
         type: types.CHECKIN_ERROR,
         error
       });
+      throw error;
     });
 
 /**

@@ -1,25 +1,25 @@
-import React, { Component, PropTypes } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   fetchDocument,
   createDocument,
   updateDocument
-} from "./DocumentActions";
-import DocumentForm from "./DocumentForm";
-import SideBar from "../common/SideBar";
-import toastr from "toastr";
-import Header from "../common/Header";
+} from './DocumentActions';
+import DocumentForm from './DocumentForm';
+import SideBar from '../common/SideBar';
+import toastr from 'toastr';
+import Header from '../common/Header';
 
 class CreateDocumentPage extends Component {
   constructor(props, context) {
     super(props, context);
     const document = {
       id: null,
-      documentName: "",
-      description: "",
-      access: "public",
-      content: ""
+      documentName: '',
+      description: '',
+      access: 'public',
+      content: ''
     };
     this.state = {
       document: this.props.document || document,
@@ -33,8 +33,8 @@ class CreateDocumentPage extends Component {
   componentDidMount() {
     const { params: { id } } = this.props;
     const documentId = this.props.document.id;
-    if (id && id !== "new" && !documentId) {
-      this.props.fetchDocument(id).catch(error => {
+    if (id && id !== 'new' && !documentId) {
+      this.props.fetchDocument(id).catch((error) => {
         toastr.error(error);
       });
     }
@@ -64,7 +64,7 @@ class CreateDocumentPage extends Component {
       : this.props.createDocument;
     handleSubmit(this.state.document)
       .then(() => this.redirect())
-      .catch(error => {
+      .catch((error) => {
         toastr.error(error);
         this.setState({ saving: false });
       });
@@ -72,18 +72,18 @@ class CreateDocumentPage extends Component {
 
   redirect() {
     this.setState({ saving: false });
-    toastr.success("Document saved");
+    toastr.success('Document saved');
     this.context.router.goBack();
   }
 
-  handleEditorChange = e => {
+  handleEditorChange(e) {
     const content = e.target.getContent();
     const document = {
       ...this.state.document,
       content
     };
     this.setState({ document });
-  };
+  }
 
   render() {
     return (
@@ -125,10 +125,10 @@ function mapStateToProps({ DocumentReducer }, ownProps) {
 
   let document = {
     id: null,
-    documentName: "",
-    description: "",
-    access: "public",
-    content: ""
+    documentName: '',
+    description: '',
+    access: 'public',
+    content: ''
   };
 
   if (documentId && DocumentReducer.documents) {

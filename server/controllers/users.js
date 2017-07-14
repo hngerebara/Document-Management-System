@@ -213,7 +213,7 @@ const usersController = {
         })
         .catch((errors) => {
           res.status(401).send({
-            message: 'User not found',
+            message: 'Your details are incorrect..Try again',
             errors
           });
         });

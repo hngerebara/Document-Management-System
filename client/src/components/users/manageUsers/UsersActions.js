@@ -45,6 +45,7 @@ export const deleteUserSuccess = userId => ({
 export const deleteUser = userId => dispatch =>
   axios.delete(`/users/${userId}/`).then(() => {
     dispatch(deleteUserSuccess(userId));
+    toastr.succes('User deleted succesfully');
   });
 
 export const searchUserSuccess = (data, searchQuery) => ({

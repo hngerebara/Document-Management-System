@@ -48,7 +48,7 @@ export class Pagination extends Component {
   render() {
     const { isSearching, searchPagination, pagination } = this.props;
     return (
-      <div className="pagination">
+      <div className="pagination" id="pagination">
         <ReactPaginate
           previousLabel={"<"}
           nextLabel={">"}

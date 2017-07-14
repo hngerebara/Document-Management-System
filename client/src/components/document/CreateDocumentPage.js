@@ -76,7 +76,7 @@ class CreateDocumentPage extends Component {
     this.context.router.goBack();
   }
 
-  handleEditorChange(e) {
+  handleEditorChange = (e) => {
     const content = e.target.getContent();
     const document = {
       ...this.state.document,

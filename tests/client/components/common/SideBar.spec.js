@@ -1,25 +1,20 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { shallow } from 'enzyme';
 import { SideBar } from '../../../../client/src/components/common/SideBar';
 
-const setup = () => {
   const props = {
     signOutUser: jest.fn(),
     Auth: {
-      user: {}
+      user: {
+        id: 2,
+        username: 'blessed'
+      }
     }
   };
 
-  const wrapper = mount(<SideBar {...props} />);
-  return {
-    props,
-    wrapper
-  };
-};
+  const wrapper = shallow(<SideBar {...props} />);
 
 describe('SideBar components', () => {
-  const { wrapper, props } = setup();
   describe('SideBar', () => {
     it('renders a div', () => {
       expect(wrapper.find('div').length).toEqual(3);

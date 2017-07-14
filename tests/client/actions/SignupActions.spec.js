@@ -43,9 +43,7 @@ describe('Signup actions', () => {
       request.respondWith({
         status: 200,
         response: {
-          data: {
-            token: 'token'
-          },
+          token: 'token'
         }
       });
     });

@@ -36,23 +36,12 @@ describe('components', () => {
       expect(wrapper.find('nav')).to.have.length(1);
     });
 
-    it('renders Links', () => {
-      expect(wrapper.find('Link')).to.have.length(2);
-    });
-
     it('renders a ul', () => {
-      expect(wrapper.find('ul')).to.have.length(2);
+      expect(wrapper.find('ul')).to.have.length(1);
     });
 
     it('renders li', () => {
-      expect(wrapper.find('li')).to.have.length(5);
-    });
-
-    it('should simulate signOutUser when clicked', () => {
-      expect(wrapper.find('.clicks-0').length).to.equal(1);
-      const link = wrapper.find({ to: '/' });
-      link.simulate('click');
-      expect(wrapper.find('.clicks-1').length).to.equal(1);
+      expect(wrapper.find('li')).to.have.length(2);
     });
   });
 });

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
 import { checkinUserAction } from './AuthActions';
 import { browserHistory, Link } from 'react-router';
 import validateInput from '../../validations/login';
@@ -67,11 +68,10 @@ export class CheckinPage extends Component {
         .then(() => {
           browserHistory.push('/documents');
         })
-        .catch(() =>
-          this.setState({
-            errors: { email: 'in correct' },
-            isLoading: false
-          })
+        .catch((error) =>{
+          toastr.info(error.response.data.message);         
+        }
+        
         );
     }
   }

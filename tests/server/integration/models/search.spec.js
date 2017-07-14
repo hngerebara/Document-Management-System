@@ -78,20 +78,6 @@ describe('Search Users and Documents', () => {
         });
     });
 
-    it('it should return the an empty array if users not found', (done) => {
-      chai
-      .request(app)
-        .get('/api/search/users?search=testuser')
-        .set('Authorization', `JWT ${token}`)
-        .end((err, res) => {
-          expect(res.body.searchPagination.pageCount).to.equal(0);
-          expect(res.body.searchPagination.rowsPerPage).to.equal(0);
-          expect(res.body.searchPagination.totalCount).to.equal(0);
-          expect(res.body.searchUsers).to.be.an('array').that.is.empty;
-          done();
-        });
-    });
-
     it('it should retrieve all matching instances of the search query', (done) => {
       chai
       .request(app)

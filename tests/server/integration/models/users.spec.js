@@ -152,7 +152,7 @@ describe('Route: Users', () => {
         })
         .end((err, res) => {
           expect(res).to.have.status(401);
-          expect(res.body.message).to.equal('User not found');
+          expect(res.body.message).to.equal('Your details are incorrect..Try again');
           done();
         });
     });

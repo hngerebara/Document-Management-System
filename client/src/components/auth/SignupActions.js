@@ -1,5 +1,5 @@
-import axios from '../../utils/api';
 import jwtDecode from 'jwt-decode';
+import axios from '../../utils/api';
 import * as types from './AuthActionTypes';
 import { setCurrentUser } from './AuthActions';
 

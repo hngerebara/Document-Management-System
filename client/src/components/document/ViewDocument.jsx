@@ -1,13 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
+/**
+ * @desc ViewDocument Component
+ * @class ViewDocument
+ * @extends {Component}
+ */
 class ViewDocument extends Component {
+  /**
+ * @desc call ViewDocument modal before component mounts
+ * @memberof ViewDocument
+ * @returns {null} returns null
+ */
   componentDidMount() {
     if (API_URL !== '9999') {
       $('.doc-modal').modal();
     }
   }
 
+  /**
+   * @desc renders Html
+   * @returns {*} html
+   * @memberof ViewDocument
+   */
   render() {
     const { edit, document } = this.props;
     return (

@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { signOutUser } from '../../components/auth/AuthActions';
 
 /**
  * @desc Header Component

@@ -11,6 +11,11 @@ import SideBar from '../common/SideBar';
 import toastr from 'toastr';
 import Header from '../common/Header';
 
+/**
+ * @desc CreateDocumentPage Component
+ * @class CreateDocumentPage
+ * @extends {Component}
+ */
 class CreateDocumentPage extends Component {
   constructor(props, context) {
     super(props, context);
@@ -30,6 +35,7 @@ class CreateDocumentPage extends Component {
     this.saveDocument = this.saveDocument.bind(this);
   }
 
+  
   componentDidMount() {
     const { params: { id } } = this.props;
     const documentId = this.props.document.id;

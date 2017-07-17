@@ -13,11 +13,11 @@ export default (state = initialState, action = {}) => {
         isAuthenticated: !isEmpty(action.user),
         user: action.user
       };
-      case CHECKIN_ERROR:
+    case CHECKIN_ERROR:
       return {
         isAuthenticated: false,
         user: {}
-      }; 
+      };
     default:
       return state;
   }

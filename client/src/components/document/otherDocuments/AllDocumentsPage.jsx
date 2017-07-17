@@ -7,7 +7,6 @@ import SideBar from "../../common/SideBar";
 import ViewDocument from "../ViewDocument";
 import Header from "../../common/Header";
 import Pagination from "../../common/Pagination";
-
 import {
   deleteDocument,
   fetchAllDocuments,
@@ -15,6 +14,11 @@ import {
   clearSearch
 } from "../DocumentActions";
 
+/**
+ * @desc AllDocumentsPage Component
+ * @class AllDocumentsPage
+ * @extends {Component}
+ */
 export class AllDocumentsPage extends Component {
   constructor(props) {
     super(props);

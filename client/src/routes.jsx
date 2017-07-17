@@ -6,9 +6,9 @@ import CheckinPage from './components/auth/CheckinPage';
 import SignupPage from './components/auth/SignupPage';
 import CreateDocumentPage from './components/document/CreateDocumentPage';
 import AllDocumentsPage
-  from './components/document/otherDocuments/AllDocumentsPage';
+from './components/document/otherDocuments/AllDocumentsPage';
 import UsersDocumentsPage
-  from './components/document/userDocuments/UsersDocumentsPage';
+from './components/document/userDocuments/UsersDocumentsPage';
 import UsersPage from './components/users/manageUsers/UsersPage';
 import EditProfile from './components/users/manageUsers/EditProfile';
 import NotFound from './components/NotFoundPage';
@@ -57,7 +57,7 @@ export default (
       component={UsersDocumentsPage}
       onEnter={requireAuth}
     />
-     <Route
+    <Route
       path="/users/:creatorId"
       component={EditProfile}
       onEnter={requireAuth}

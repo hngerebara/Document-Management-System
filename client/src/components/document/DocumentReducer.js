@@ -21,6 +21,7 @@ const initialState = {
   currentDocument: {},
   searchQuery: ''
 };
+
 export default function DocumentsReducer(state = initialState, action) {
   let indexOfDocument = 0;
   switch (action.type) {

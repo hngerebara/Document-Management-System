@@ -21,7 +21,7 @@ export const AllDocumentsListRow = ({ document, viewDocument }) => (
       </div>
     </div>
   </div>
-  );
+);
 
 AllDocumentsListRow.propTypes = {
   document: PropTypes.object.isRequired,

@@ -25,7 +25,7 @@ const userRoute = (router) => {
     .route('/users')
     /**
      * @swagger
-     * /api/Users:
+     * /api/users:
      *   post:
      *     tags:
      *       - Users
@@ -36,10 +36,6 @@ const userRoute = (router) => {
      *     produces:
      *       - application/json
      *     parameters:
-     *       - name: Authorization
-     *         description: JWT Token to authorize users
-     *         in: header
-     *         required: true
      *       - name: username
      *         description: username
      *         in: formData
@@ -129,13 +125,26 @@ const userRoute = (router) => {
   /**
      * @swagger
      * /api/users/logout:
-     *   get:
+     *   post:
      *     tags:
      *       - Users
      *     description: Logs a user out
      *     summary: Logs out a user
      *     produces:
      *       - application/json
+     *     parameters:
+     *       - name: Authorization
+     *         description: JWT Token to authorize users
+     *         in: header
+     *         required: true
+     *       - name: email
+     *         description: user email
+     *         in: formData
+     *         required: true
+     *       - name: password
+     *         description: user password
+     *         in: formData
+     *         required: true
      *     responses:
      *       200:
      *         description: logout Successful

@@ -70,7 +70,7 @@ const searchRoute = (router) => {
     .route('/search/users')
     /**
      * @swagger
-     * /api/search/users:
+     * /api/search/users/?search={query}:
      *   get:
      *     tags:
      *       - Search

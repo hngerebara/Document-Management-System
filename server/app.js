@@ -5,6 +5,7 @@ import path from 'path';
 import allRoutes from './routes';
 import auth from './configs/middlewares/auth';
 import cors from 'cors';
+require('dotenv').config();
 
 const pathurl = path.join(__dirname, '/routes/*.js');
 
@@ -19,7 +20,9 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Describing RESTful API endpoints with Swagger'
   },
-  host: 'https://hopeazdms.herokuapp.com/',
+  host: process.env.NODE_EVN === 'development'
+  ? 'localhost:8090'
+  : 'hopeazdms.herokuapp.com',
   basePath: '/'
 };
 

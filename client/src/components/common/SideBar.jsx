@@ -19,7 +19,7 @@ export class SideBar extends Component {
     this.signOut = this.signOut.bind(this);
   }
 
-/** handles user signout
+  /** handles user signout
  * @param {SytheticEvent} event
  * @returns {null} returns no value
  * @memberof SideBar
@@ -56,12 +56,9 @@ export class SideBar extends Component {
           </li>
           <ul className="collapsible" data-collapsible="accordion">
             <li>
-              <Link
-                to="/documents/new"
-                id="createdocument"
-              >
+              <Link to="/documents/new" id="createdocument">
                 <i className="waves-effect material-icons side-nav-link-av">
-                note_add
+                  note_add
                 </i>
                 Create Document
               </Link>
@@ -69,20 +66,30 @@ export class SideBar extends Component {
             <li>
               <Link to="/documents">
                 <i className="waves-effect material-icons side-nav-link-av">
-                folder
+                  folder
                 </i>
                 Other Documents
               </Link>
             </li>
             <li>
-              <Link to={`/users/${this.props.Auth.user.id}/documents`} id="user-document">
-                <i className="waves-effect material-icons side-nav-link-av">shop_two</i>
+              <Link
+                to={`/users/${this.props.Auth.user.id}/documents`}
+                id="user-document"
+              >
+                <i className="waves-effect material-icons side-nav-link-av">
+                  shop_two
+                </i>
                 My Documents
               </Link>
             </li>
             <li>
               <Link to={`/users/${this.props.Auth.user.id}`} id="edit-profile">
-                <i className="waves-effect material-icons side-nav-link-av" id="edite-profile">edit_mode</i>
+                <i
+                  className="waves-effect material-icons side-nav-link-av"
+                  id="edite-profile"
+                >
+                  edit_mode
+                </i>
                 Edit Profile
               </Link>
             </li>
@@ -91,14 +98,18 @@ export class SideBar extends Component {
               <div>
                 <li>
                   <Link to="/users" id="view-users">
-                    <i className="waves-effect material-icons side-nav-link-av">people</i>
+                    <i className="waves-effect material-icons side-nav-link-av">
+                      people
+                    </i>
                     Users
                   </Link>
                 </li>
               </div>}
             <li>
               <Link to="/" id="signout" onClick={this.signOut}>
-                <i className="waves-effect material-icons side-nav-link-av">exit_to_app</i>
+                <i className="waves-effect material-icons side-nav-link-av">
+                  exit_to_app
+                </i>
                 Signout
               </Link>
             </li>

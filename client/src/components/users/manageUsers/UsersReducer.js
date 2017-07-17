@@ -27,7 +27,7 @@ const initialState = {
 export default function UsersReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
-    const { users, pagination } = action.data;
+      const { users, pagination } = action.data;
       return {
         ...state,
         users,

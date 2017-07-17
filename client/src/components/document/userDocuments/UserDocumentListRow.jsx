@@ -46,18 +46,17 @@ class UserDocumentListRow extends Component {
               <i className="material-icons">visibility</i>
             </a>
             {isOwner &&
-              <div>
-                <a
-                  className="waves-effect waves-light btn-small"
-                  id="delete-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    deleteDocument(document.id);
-                  }}
-                >
-                  <i className="material-icons">delete_forever</i>
-                </a>
-              </div>}
+            <a
+              className="waves-effect waves-light btn-small"
+              id="delete-link"
+              onClick={(e) => {
+                e.preventDefault();
+                deleteDocument(document.id);
+              }}
+            >
+              <i className="material-icons">delete_forever</i>
+            </a>
+              }
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
-import setAuthToken from '../../utils/setAuthToken';
 import toastr from 'toastr';
-import jwtDecode from 'jwt-decode';
 import { browserHistory } from 'react-router';
+import jwtDecode from 'jwt-decode';
+import setAuthToken from '../../utils/setAuthToken';
 import * as types from './AuthActionTypes';
 import axios from '../../utils/api';
 

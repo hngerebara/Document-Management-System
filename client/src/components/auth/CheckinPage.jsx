@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
-import { checkinUserAction } from './AuthActions';
 import { browserHistory, Link } from 'react-router';
+import { checkinUserAction } from './AuthActions';
 import validateInput from '../../validations/login';
 
 /**
@@ -43,7 +43,7 @@ export class CheckinPage extends Component {
 
   /**
    * @desc validates form fields
-   * @returns bool returns true or false
+   * @returns {bool} returns true or false
    * @memberof CheckinPage
    */
   isValid() {
@@ -68,10 +68,9 @@ export class CheckinPage extends Component {
         .then(() => {
           browserHistory.push('/documents');
         })
-        .catch((error) =>{
-          toastr.info(error.response.data.message);         
+        .catch((error) => {
+          toastr.info(error.response.data.message);
         }
-        
         );
     }
   }

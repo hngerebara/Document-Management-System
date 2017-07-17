@@ -1,5 +1,5 @@
-import axios from '../../utils/api';
 import toastr from 'toastr';
+import axios from '../../utils/api';
 import * as types from './DocumentActionTypes';
 
 export const searchFailureMessage = errorMessage => ({
@@ -27,6 +27,13 @@ export const displayDocumentFailureMessage = errorMessage => ({
   errorMessage
 });
 
+/**
+ *
+ * @desc calls the documents endpoint
+ * @param {number} offset
+ * @param {number} limit
+ * @returns {array} document details.
+ */
 export const fetchAllDocuments = (offset = 0, limit = 6) => dispatch =>
   axios.get(`/documents?limit=${limit}&offset=${offset}`)
   .then((response) => {
@@ -42,6 +49,12 @@ export const fetchDocumentSuccess = document => ({
   document
 });
 
+/**
+ *
+ * @desc calls the single document endpoint
+ * @param {number} documentId
+ * @returns {object} document details.
+ */
 export const fetchDocument = documentId => dispatch =>
   axios.get(`/documents/${documentId}/`)
     .then((response) => {
@@ -52,11 +65,18 @@ export const fetchDocument = documentId => dispatch =>
       throw error;
     });
 
+
 export const fetchUserDocumentSuccess = userDocuments => ({
   type: types.FETCH_USER_DOCUMENTS_SUCCESS,
   userDocuments
 });
 
+/**
+ *
+ * @desc users documents endpoint
+ * @param {number} creatorId
+ * @returns {object} document details for that particular user.
+ */
 export const fetchUserDocuments = creatorId => dispatch =>
   axios.get(`/users/${creatorId}/documents`, creatorId)
   .then((response) => {
@@ -72,6 +92,12 @@ export const createDocumentSuccess = document => ({
   document,
 });
 
+/**
+ *
+ * @desc documents endpoint
+ * @param {object} document details
+ * @returns {object} document details and success or error message.
+ */
 export const createDocument = document => dispatch =>
   axios.post('/documents', document)
     .then((res) => {
@@ -87,6 +113,14 @@ export const fetchSearchSuccess = (data, searchQuery) => ({
   searchQuery
 });
 
+/**
+ *
+ * @desc search documents endpoint
+ * @param {object} search query
+ * @param {number}  offset
+ * @param {number} limit
+ * @return {array} documents details
+ */
 export const searchAllDocuments = (search, offset = 0, limit = 6) => dispatch =>
   axios.get(`/search/documents?search=${search}&limit=${limit}&offset=${offset}`)
     .then((response) => {
@@ -95,12 +129,18 @@ export const searchAllDocuments = (search, offset = 0, limit = 6) => dispatch =>
       dispatch(searchFailureMessage(error.response));
       throw error;
     });
-  
+
 export const deleteDocumentSuccess = documentId => ({
   type: types.DELETE_DOCUMENT_SUCCESS,
   documentId,
 });
 
+/**
+ *
+ * @desc deletes a document based on the id
+ * @param {number} documentId
+ * @return {null} returns null
+ */
 export const deleteDocument = documentId => (dispatch) => {
   axios.delete(`/documents/${documentId}/`)
     .then(() => {
@@ -118,6 +158,12 @@ export const updateDocumentSuccess = document => ({
   document,
 });
 
+/**
+ *
+ * @desc updates a document based on the id
+ * @param {number} updatedDocument
+ * @return {object} documents details
+ */
 export const updateDocument = updatedDocument => dispatch =>
   axios.put(`/documents/${updatedDocument.id}`, updatedDocument)
     .then(() => {

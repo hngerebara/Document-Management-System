@@ -16,6 +16,11 @@ class UserDocumentListRow extends Component {
     super(props);
   }
 
+  /**
+ * @desc renders Html
+ * @returns {*} html
+ * @memberof UserDocumentListRow
+ */
   render() {
     const { document, user, viewDocument, deleteDocument } = this.props;
     const isOwner = document.creatorId === user.id;

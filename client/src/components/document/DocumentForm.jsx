@@ -12,41 +12,41 @@ const DocumentForm = ({
   <form>
     <h1>Create document</h1>
     <div className="row col s12">
-        <div className="input-field">
-          <input
-            type="text"
-            className="validate"
-            name="documentName"
-            value={document.documentName}
-            onChange={onChange}
-            error={errors.documentName}
-          />
-          <label htmlFor="icon_prefix">Doocument Name</label>
-        </div>
+      <div className="input-field">
+        <input
+          type="text"
+          className="validate"
+          name="documentName"
+          value={document.documentName}
+          onChange={onChange}
+          error={errors.documentName}
+        />
+        <label htmlFor="icon_prefix">Doocument Name</label>
+      </div>
 
-        <div className="input-field">
-          <input
-            type="text"
-            className="validate"
-            name="description"
-            value={document.description}
-            onChange={onChange}
-            error={errors.description}
-          />
-          <label htmlFor="icon_prefix">Description</label>
-        </div>
+      <div className="input-field">
+        <input
+          type="text"
+          className="validate"
+          name="description"
+          value={document.description}
+          onChange={onChange}
+          error={errors.description}
+        />
+        <label htmlFor="icon_prefix">Description</label>
+      </div>
 
-        <div className="input-field access-dropdown">
-          <select
-            onChange={onChange}
-            name="access"
-          >
-            <option value="public">Public</option>
-            <option value="private">Private</option>
-            <option value="role">Role</option>
-          </select>
+      <div className="input-field access-dropdown">
+        <select
+          onChange={onChange}
+          name="access"
+        >
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+          <option value="role">Role</option>
+        </select>
 
-        </div>
+      </div>
 
 
       <div className="row tiny-mce">

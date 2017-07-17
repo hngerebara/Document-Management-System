@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import SignupForm from './SignupForm';
 import { signupUser } from './SignupActions';
 
 /**

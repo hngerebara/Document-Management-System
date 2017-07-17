@@ -59,7 +59,11 @@ export class EditProfile extends Component {
     this.props.updateUserProfile(this.state);
     browserHistory.push('/documents');
   }
-
+  /**
+   * @desc renders Html
+   * @returns {*} html
+   * @memberof UsersProfile
+   */
   render() {
     return (
       <div>
@@ -175,7 +179,9 @@ export class EditProfile extends Component {
   }
 }
 EditProfile.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object.isRequired,
+  updateUserProfile: PropTypes.func.isRequired,
+  getOneUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -1,8 +1,8 @@
+import toastr from 'toastr';
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import axios from '../../utils/api';
 import validateInput from '../../validations/signup';
-import toastr from 'toastr';
 
 /**
  * @desc SignupForm Component

@@ -4,12 +4,16 @@ import UserDocumentList from "./UserDocumentList";
 import SideBar from "../../common/SideBar";
 import ViewDocument from "../ViewDocument";
 import Header from "../../common/Header";
-
 import {
   deleteDocument,
   fetchUserDocuments
 } from "../DocumentActions";
 
+/**
+ * @desc UsersDocumentsPage Component
+ * @class UsersDocumentsPage
+ * @extends {Component}
+ */
 export class UsersDocumentsPage extends Component {
   constructor(props) {
     super(props);
@@ -31,8 +35,12 @@ export class UsersDocumentsPage extends Component {
     }
   };
 
-  render() {
-     
+  /**
+ * @desc renders Html
+ * @returns {*} html
+ * @memberof UsersDocumentsPage
+ */
+  render() {  
     const { manageDocuments, user } = this.props;
     const creatorId = this.props.params.creatorId;
     return (

@@ -60,13 +60,17 @@ export class SideBar extends Component {
                 to="/documents/new"
                 id="createdocument"
               >
-                <i className="waves-effect material-icons side-nav-link-av">note_add</i>
+                <i className="waves-effect material-icons side-nav-link-av">
+                note_add
+                </i>
                 Create Document
               </Link>
             </li>
             <li>
               <Link to="/documents">
-                <i className="waves-effect material-icons side-nav-link-av">folder</i>
+                <i className="waves-effect material-icons side-nav-link-av">
+                folder
+                </i>
                 Other Documents
               </Link>
             </li>

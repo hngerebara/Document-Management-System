@@ -42,7 +42,7 @@ describe('UserDocumentListRow components', () => {
   const { wrapper, props } = setup();
   describe('SideBar', () => {
     it('renders html elements', () => {
-      expect(wrapper.find('div').length).toBe(7);
+      expect(wrapper.find('div').length).toBe(6);
       expect(wrapper.find('span').length).toBe(3);
     });
     it('simulates button click for view document', () => {

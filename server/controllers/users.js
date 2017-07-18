@@ -40,10 +40,9 @@ const usersController = {
           token
         });
       })
-      .catch(errors =>
+      .catch(() =>
         res.status(400).send({
           message: 'User email or password already exists',
-          errors
         })
       );
   },
@@ -64,10 +63,9 @@ const usersController = {
     })
       .then((users) => {
         const next = Math.ceil(users.count / limit);
-        const currentPage = Math.floor(offset / limit + 1);
+        const currentPage = Math.floor(offset / (limit + 1));
         const pageSize = limit > users.count ? users.count : limit;
         res.status(200).send({
-          message: 'users successfully retrieved',
           pagination: {
             pageCount: next,
             page: currentPage,
@@ -87,6 +85,7 @@ const usersController = {
 
   retrieveUser(req, res) {
     Users.findOne({
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
       where: {
         $or: [{ id: req.params.id }]
       }
@@ -97,7 +96,6 @@ const usersController = {
           .send({ message: `User with id ${req.params.id} does not exist` });
       }
       res.status(200).send({
-        message: `User Found with id ${req.params.id} was found`,
         user
       });
     });
@@ -105,10 +103,12 @@ const usersController = {
 
   retrieveAll(req, res) {
     return Users.findById(req.params.creatorId, {
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
       include: [
         {
           model: Documents,
-          as: 'allDocuments'
+          as: 'allDocuments',
+          attributes: { exclude: ['updatedAt'] }
         }
       ]
     })
@@ -119,7 +119,6 @@ const usersController = {
           });
         }
         return res.status(200).send({
-          message: 'Found user and retrieved documents',
           user
         });
       })
@@ -134,30 +133,41 @@ const usersController = {
       encryptedPassword = bcrypt.hashSync(req.body.password, salt);
     }
     if (parseInt(userId, 10) === parseInt(queryId, 10)) {
-      return Users.findById(queryId).then((user) => {
-        user
-          .update({
-            userName: req.body.userName || user.username,
-            firstName: req.body.firstName || user.firstName,
-            lastName: req.body.lastName || user.lastName,
-            email: req.body.email || user.email,
-            password: encryptedPassword || user.password
-          })
+      return Users.findById(queryId, {
+        attributes: { exclude: ['createdAt'] }
+      })
+      .then((user) => {
+        // if (
+        //     req.body.userName &&
+        //     req.body.firstName &&
+        //     req.body.lastName &&
+        //     req.body.email &&
+        //     req.body.password
+        //     === '') {
+        //   return res.status(404).send({
+        //     message: 'You have to edit at least one field'
+        //   });
+        // }
+        user.update({
+          userName: req.body.userName || user.username,
+          firstName: req.body.firstName || user.firstName,
+          lastName: req.body.lastName || user.lastName,
+          email: req.body.email || user.email,
+          password: encryptedPassword || user.password,
+        })
           .then(() =>
-            res.status(200).send({
-              message: 'User details updated',
+            res.status(202).send({
               user
             })
-          )
-          .catch(error =>
+        )
+          .catch(() =>
             res.status(400).send({
-              message: 'You had some erros updating your profile',
-              error
+              message: 'You had some errors updating your profile. Please check details entered'
             })
           );
       });
     }
-    return res.status(403).send({
+    return res.status(404).send({
       message: 'You have no rights to update this profile'
     });
   },
@@ -177,10 +187,9 @@ const usersController = {
               message: 'User deleted successfully.'
             })
           )
-          .catch(error =>
+          .catch(() =>
             res.status(409).send({
-              message: 'An error occured while attempting to delete user, Try again',
-              error
+              message: 'An error occured while attempting to delete user'
             })
           );
       })
@@ -195,7 +204,7 @@ const usersController = {
         where: { email }
       })
         .then((user) => {
-          if (Users.IsPassword(user.password, password)) {
+          if (Users.comparePassword(user.password, password)) {
             const payload = {
               id: user.id,
               username: user.username,
@@ -208,8 +217,7 @@ const usersController = {
             const token = jwt.sign(payload, cfg.jwtSecret, {
               expiresIn: 60 * 60 * 24
             });
-            return res.send({
-              message: 'Successfully signed in',
+            return res.status(202).send({
               token
             });
           }
@@ -217,10 +225,9 @@ const usersController = {
             message: 'Incorrect Password'
           });
         })
-        .catch((errors) => {
+        .catch(() => {
           res.status(401).send({
-            message: 'Your details are incorrect..Try again',
-            errors
+            message: 'Your details are incorrect..Try again'
           });
         });
       return;
@@ -245,7 +252,7 @@ const usersController = {
   },
 
   logout(req, res) {
-    return res.send({ message: 'You have succesfully logged out' });
+    return res.status(200).send({ message: 'You have succesfully logged out' });
   }
 };
 

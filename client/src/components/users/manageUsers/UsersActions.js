@@ -1,6 +1,6 @@
+import toastr from 'toastr';
 import axios from '../../../utils/api';
 import * as types from './UsersActionTypes';
-import toastr from 'toastr';
 
 
 export const fetchUsersSuccess = data => ({
@@ -45,7 +45,11 @@ export const deleteUserSuccess = userId => ({
 export const deleteUser = userId => dispatch =>
   axios.delete(`/users/${userId}/`).then(() => {
     dispatch(deleteUserSuccess(userId));
-    toastr.succes('User deleted succesfully');
+    toastr.success('User deleted succesfully');
+  })
+  .catch((error) => {
+    dispatch(displayFailureMessage(error.response));
+    throw error;
   });
 
 export const searchUserSuccess = (data, searchQuery) => ({

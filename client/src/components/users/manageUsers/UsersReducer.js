@@ -25,6 +25,7 @@ const initialState = {
  * @returns
  */
 export default function UsersReducer(state = initialState, action) {
+  let indexOfUser = 0;
   switch (action.type) {
     case FETCH_USERS_SUCCESS:
       const { users, pagination } = action.data;
@@ -53,11 +54,15 @@ export default function UsersReducer(state = initialState, action) {
       };
 
     case DELETE_USER_SUCCESS: {
-      const indexOfUserToDelete = state.find(user => user.id === action.userId);
-      return [
-        ...state.slice(0, indexOfUserToDelete),
-        ...state.slice(indexOfUserToDelete + 1)
-      ];
+      indexOfUser = state.users.findIndex(user =>
+        user.id === action.userId);
+      return {
+        user: undefined,
+        users: [
+          ...state.users.slice(0, indexOfUser),
+          ...state.users.slice(indexOfUser + 1)
+        ]
+      };
     }
 
     case GET_USER_SUCCESS: {

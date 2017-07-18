@@ -14,13 +14,13 @@ const userSchema = user => ({
 
 const usersController = {
   createUser(req, res) {
-    const request = req.body;
+    const { username, firstName, lastName, email, password } = req.body;
     return Users.create({
-      username: request.username,
-      firstName: request.firstName,
-      lastName: request.lastName,
-      email: request.email,
-      password: request.password,
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
       roleId: 2
     })
       .then((user) => {

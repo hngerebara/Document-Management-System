@@ -14,12 +14,13 @@ const userSchema = user => ({
 
 const usersController = {
   createUser(req, res) {
+    const request = req.body;
     return Users.create({
-      username: req.body.username,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
+      username: request.username,
+      firstName: request.firstName,
+      lastName: request.lastName,
+      email: request.email,
+      password: request.password,
       roleId: 2
     })
       .then((user) => {
@@ -129,8 +130,9 @@ const usersController = {
     const queryId = req.params.id;
     const userId = req.user.id;
     let encryptedPassword;
-    if (req.body.password) {
-      encryptedPassword = bcrypt.hashSync(req.body.password, salt);
+    const request = req.body;
+    if (request.password) {
+      encryptedPassword = bcrypt.hashSync(request.password, salt);
     }
     if (parseInt(userId, 10) === parseInt(queryId, 10)) {
       return Users.findById(queryId, {
@@ -149,10 +151,10 @@ const usersController = {
         //   });
         // }
         user.update({
-          userName: req.body.userName || user.username,
-          firstName: req.body.firstName || user.firstName,
-          lastName: req.body.lastName || user.lastName,
-          email: req.body.email || user.email,
+          userName: request.userName || user.username,
+          firstName: request.firstName || user.firstName,
+          lastName: request.lastName || user.lastName,
+          email: request.email || user.email,
           password: encryptedPassword || user.password,
         })
           .then(() =>

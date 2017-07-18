@@ -76,10 +76,9 @@ const usersController = {
           users: users.rows
         });
       })
-      .catch(error =>
+      .catch(() =>
         res.status(400).send({
           message: 'Users could not be retrieved',
-          error
         })
       );
   },

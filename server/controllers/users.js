@@ -42,7 +42,7 @@ const usersController = {
         });
       })
       .catch(() =>
-        res.status(400).send({
+        res.status(409).send({
           message: 'User email or password already exists',
         })
       );

@@ -95,7 +95,7 @@ const searchController = {
       })
       .catch(() =>
         res.status(400).send({
-          message: 'Error occurred while retrieving documents'
+          message: 'Error occurred while searching for documents'
         })
       );
   },
@@ -138,7 +138,7 @@ const searchController = {
       })
       .catch(() =>
         res.status(409).send({
-          message: 'Error occurred while retrieving User'
+          message: 'Error occurred while searching for users'
         })
       );
   }

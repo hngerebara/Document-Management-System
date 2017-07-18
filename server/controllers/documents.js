@@ -53,7 +53,9 @@ const documentsController = {
         documents: documents.rows
       });
     })
-    .catch(error => res.status(400).send(error));
+    .catch(() => res.status(409).send({
+      message: 'Documents could not be retrieved'
+    }));
   },
 
   retrieveDocument(req, res) {
@@ -64,7 +66,9 @@ const documentsController = {
           document
         })
       )
-      .catch(error => res.status(400).send(error));
+      .catch(() => res.status(409).send({
+        message: 'Document could not be retrieved'
+      }));
   },
 
   updateDocument(req, res) {
@@ -115,7 +119,9 @@ const documentsController = {
           .then(() => res.status(200).send({
             message: 'Document deleted successfully.'
           }))
-          .catch(error => res.status(409).send(error));
+          .catch(() => res.status(409).send({
+            message: 'Could not delete document'
+          }));
       })
       .catch(error => res.status(400).send(error));
   }

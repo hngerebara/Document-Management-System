@@ -60,7 +60,9 @@ const searchRoute = (router) => {
          *       - application/json
          *     responses:
          *       200:
-         *         description: An array of documents
+         *         description: search succesful
+         *       409:
+         *         description: Error occurred while searching for documents
          *         schema:
          *           $ref: '#/definitions/Documents'
          */
@@ -89,7 +91,9 @@ const searchRoute = (router) => {
      *       - application/json
      *     responses:
      *       200:
-     *         description: An array of Users
+     *         description: users retrieved
+     *       409:
+     *         description: Error occurred while searching for users
      *         schema:
      *           $ref: '#/definitions/Users'
      */

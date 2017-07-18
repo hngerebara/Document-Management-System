@@ -20,15 +20,16 @@ const searchController = {
           model: Users,
           attributes: ['firstName', 'lastName']
         },
+        attributes: { exclude: ['updatedAt', 'createdAt'] },
         limit,
         offset
       })
         .then((documents) => {
           const next = Math.ceil(documents.count / limit);
-          const currentPage = Math.floor(offset / limit + 1);
+          const currentPage = Math.floor(offset / (limit + 1));
           const pageSize = limit > documents.count ? documents.count : limit;
           if (documents.length <= 0) {
-            return res.status(200).send({
+            return res.status(404).send({
               documents: [],
               message: `no results found for ${req.query.search}`
             });
@@ -44,8 +45,8 @@ const searchController = {
           });
         })
         .catch(() =>
-          res.status(400).send({
-            message: 'Error occurred while retrieving documents'
+          res.status(409).send({
+            message: 'Error occurred while searching for documents'
           })
         );
     }
@@ -73,12 +74,13 @@ const searchController = {
         model: Users,
         attributes: ['firstName', 'lastName']
       },
+      attributes: { exclude: ['updatedAt', 'createdAt'] },
       limit,
       offset
     })
       .then((documents) => {
         const next = Math.ceil(documents.count / limit);
-        const currentPage = Math.floor(offset / limit + 1);
+        const currentPage = Math.floor(offset / (limit + 1));
         const pageSize = limit > documents.count ? documents.count : limit;
 
         return res.status(200).send({
@@ -116,6 +118,7 @@ const searchController = {
         attributes: ['title']
       },
       order: [['updatedAt', 'DESC']],
+      attributes: { exclude: ['password', 'updatedAt', 'createdAt'] },
       limit,
       offset
     })
@@ -133,9 +136,8 @@ const searchController = {
           searchUsers: users.rows
         });
       })
-      .catch(error =>
-        res.status(400).send({
-          error,
+      .catch(() =>
+        res.status(409).send({
           message: 'Error occurred while retrieving User'
         })
       );

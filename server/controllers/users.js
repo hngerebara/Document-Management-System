@@ -1,9 +1,16 @@
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Users, Documents, Roles } from '../models';
 import cfg from '../configs/config';
-import bcrypt from 'bcrypt';
 
 const salt = bcrypt.genSaltSync();
+const userSchema = user => ({
+  firstName: user.firstName,
+  lastName: user.lastName,
+  username: user.username,
+  email: user.email,
+  roleId: user.roleId,
+});
 
 const usersController = {
   createUser(req, res) {
@@ -29,8 +36,7 @@ const usersController = {
           expiresIn: 60 * 60 * 24
         });
         return res.status(201).send({
-          message: 'User signed up succesfully',
-          user,
+          user: userSchema(user),
           token
         });
       })
@@ -58,7 +64,7 @@ const usersController = {
     })
       .then((users) => {
         const next = Math.ceil(users.count / limit);
-        const currentPage = Math.floor((offset / limit) + 1);
+        const currentPage = Math.floor(offset / limit + 1);
         const pageSize = limit > users.count ? users.count : limit;
         res.status(200).send({
           message: 'users successfully retrieved',
@@ -126,36 +132,34 @@ const usersController = {
     let encryptedPassword;
     if (req.body.password) {
       encryptedPassword = bcrypt.hashSync(req.body.password, salt);
-    } 
-    if (parseInt(userId, 10) === parseInt(queryId, 10)) {
-      return Users.findById(queryId)
-    .then((user) => {
-      user
-        .update({
-          userName: req.body.userName || user.username,
-          firstName: req.body.firstName || user.firstName,
-          lastName: req.body.lastName || user.lastName,
-          email: req.body.email || user.email,
-          password: encryptedPassword || user.password
-        })
-        .then(() =>
-          res.status(200).send({
-            message: 'User details updated',
-            user
-          })
-        )
-        .catch(error =>
-          res.status(400).send({
-            message: 'You had some erros updating your profile',
-            error
-          })
-        );
-    });
     }
-    return res.status(403)
-      .send({
-        message: 'You have no rights to update this profile'
+    if (parseInt(userId, 10) === parseInt(queryId, 10)) {
+      return Users.findById(queryId).then((user) => {
+        user
+          .update({
+            userName: req.body.userName || user.username,
+            firstName: req.body.firstName || user.firstName,
+            lastName: req.body.lastName || user.lastName,
+            email: req.body.email || user.email,
+            password: encryptedPassword || user.password
+          })
+          .then(() =>
+            res.status(200).send({
+              message: 'User details updated',
+              user
+            })
+          )
+          .catch(error =>
+            res.status(400).send({
+              message: 'You had some erros updating your profile',
+              error
+            })
+          );
       });
+    }
+    return res.status(403).send({
+      message: 'You have no rights to update this profile'
+    });
   },
 
   destroyUser(req, res) {
@@ -187,7 +191,9 @@ const usersController = {
     if (req.body.email && req.body.password) {
       const email = req.body.email;
       const password = req.body.password;
-      Users.findOne({ where: { email } })
+      Users.findOne({
+        where: { email }
+      })
         .then((user) => {
           if (Users.IsPassword(user.password, password)) {
             const payload = {

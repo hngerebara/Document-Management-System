@@ -62,6 +62,7 @@ export class UsersPage extends Component {
               </ul>
             </div>
 
+            {users.length > 0 &&
             <Pagination
               searchQuery={manageUsers.searchQuery}
               fetchFn={this.props.fetchAllUsers}
@@ -70,6 +71,7 @@ export class UsersPage extends Component {
               pagination={manageUsers.pagination}
               searchPagination={manageUsers.searchPagination}
             />
+            }
 
           </div>
         </main>

@@ -64,7 +64,7 @@ const usersController = {
     })
       .then((users) => {
         const next = Math.ceil(users.count / limit);
-        const currentPage = Math.floor(offset / (limit + 1));
+        const currentPage = Math.floor((offset / limit) + 1);
         const pageSize = limit > users.count ? users.count : limit;
         res.status(200).send({
           pagination: {

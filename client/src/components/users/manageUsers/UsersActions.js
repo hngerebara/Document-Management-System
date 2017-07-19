@@ -86,8 +86,9 @@ export const updateUserSuccess = data => ({
   data
 });
 
-export const getUserSuccess = () => ({
-  type: types.GET_USER_SUCCESS
+export const getUserSuccess = data => ({
+  type: types.GET_USER_SUCCESS,
+  data
 });
 
 export const updateFailureMessage = errorMessage => ({
@@ -95,19 +96,17 @@ export const updateFailureMessage = errorMessage => ({
   errorMessage
 });
 
-export const updateUserProfile = updatedUser => (dispatch) => {
-  return axios.put(`/users/${updatedUser.id}`, updatedUser)
-    .then((response) => {
+export const updateUserProfile = updatedUser => (dispatch) => axios.put(`/users/${updatedUser.id}`, updatedUser)
+    .then(() => {
       dispatch(updateUserSuccess(updatedUser));
-      toastr.success(response.data.message);
+      toastr.success('Profile updated successfully');
     }).catch((error) => {
       dispatch(updateFailureMessage(error.response));
       toastr.error('So sorry, Could not update your details');
       throw error;
     });
-};
 
-export const getOneUser = (userId) => dispatch =>
+export const getOneUser = userId => dispatch =>
    axios.get(`/users/${userId}`)
     .then((response) => {
       dispatch(getUserSuccess(response.data));

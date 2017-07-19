@@ -215,17 +215,13 @@ Body (application/json)
 
 ```
 {
-  "message": "User signed up succesfully",
   "user": {
     "id": 21,
     "username": "Hopeaaz",
     "firstName": "Hope",
     "lastName": "Ngere",
     "email": "hopeaaz@hopez.com",
-    "password": "$2a$10$GWViMTkdGxvHOD9OIRJbF.C1wTvU9MilbnMeeki0FRmUCzIPqCRqi",
     "roleId": 1,
-    "updatedAt": "2017-07-10T11:48:51.610Z",
-    "createdAt": "2017-07-10T11:48:51.610Z"
   },
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjE5LCJ1c2VybmFtZSI6IkhvcGVhYXoiLCJyb2xlSWQiOjIsImlhdCI6MTQ5OTY4NzMzMSwiZXhwIjoxNDk5NzczNzMxfQ.y3gXilf0kGxbP9pPV90MWdGQMmHHRKqn5nJd39WQXrk"
 }
@@ -248,9 +244,6 @@ Body (application/json)
   "lastName": "ngere",
   "email": "blessed@hopez.com",
   "RoleId": 2,
-  "password": "$2a$08$ErbiyXkXAXsGXLoG2KHVIIucUwzaCXGJz.d5YKkL/0SQIM3xhdbib2",
-  "createdAt": "2017-07-10T11:41:30.837Z",
-  "updatedAt": "2017-07-10T11:41:30.837Z"
 },
 {
   "id": 124,
@@ -259,9 +252,6 @@ Body (application/json)
   "lastName": "blessed2",
   "email": "blessed2@hopez.com",
   "RoleId": 2,
-  "password": "$2a$08$eggCuipNKnauhjdcxGVaUeEssqo5OjbQedfV1.gGNT2GNTyloD6MS",
-  "createdAt": "2017-07-10T11:34:19.992Z",
-  "updatedAt": "2017-07-10T11:34:19.992Z"
 }]
 ```
 
@@ -287,7 +277,6 @@ Body (application/json)
     access: "public"
     "creatorId": 1,
     "createdAt": "2017-02-17T17:40:45.146Z",
-    "updatedAt": "2017-02-17T17:40:45.146Z"
   }
   ]
 ```
@@ -305,23 +294,35 @@ Body (application/json)
 If you are interested in contributing to development of Hopeaz DMS, that's really great!
 
 Follow the instructions below to contribute.
+please note that: 
+
+* All Javascript MUST be written in >= ES6 and should use Babel to transpile down to ES5
+
+* Classes/modules MUST use the >=ES6 methods of module imports and exports.
+
+* Ensure you have extended airbnb eslint rules 
+
+To proceed: 
 
 * Fork the repository
 
+* Create a branch using the following format
+```
+feature/branchName 
+```
 * Make your change
-
-* Only ES6 sythax is allowed
-
-* Ensure you have extended airbnb eslint rules 
 
 * Commit your change to your forked repository
 
 * Provide a detailed commit description stating the changes made
 
-* Create a pull request having the following format
+* Approach to writing a Pull Request
 ```
-- What does this PR do?
-- Screenshots if available
+- Include the purpose of this Pull Request. For example:
+   This is to add roles…
+- Provide an overview of why the work is taking place (with any relevant links)
+- Provide an overview of what you have done (with screenshots if available)
+- If the Pull Request is work in progress, say so. A prefix of “[WIP]” in the title. 
 ```
 
 ## FAQ

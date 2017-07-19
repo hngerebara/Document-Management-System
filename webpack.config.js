@@ -16,7 +16,7 @@ const config = {
     path: DIST_DIR,
     filename: 'bundle.js'
   },
-  devtool: '#cheap-module-source-map',
+  devtool: 'cheap-module-source-map',
   module: {
     loaders: [
       {

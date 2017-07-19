@@ -43,7 +43,7 @@ const usersController = {
       })
       .catch(() =>
         res.status(409).send({
-          message: 'User email or password already exists',
+          message: 'User email or password already exists'
         })
       );
   },
@@ -138,17 +138,6 @@ const usersController = {
         attributes: { exclude: ['createdAt'] }
       })
       .then((user) => {
-        // if (
-        //     req.body.userName &&
-        //     req.body.firstName &&
-        //     req.body.lastName &&
-        //     req.body.email &&
-        //     req.body.password
-        //     === '') {
-        //   return res.status(404).send({
-        //     message: 'You have to edit at least one field'
-        //   });
-        // }
         user.update({
           userName: request.userName || user.username,
           firstName: request.firstName || user.firstName,
@@ -162,13 +151,13 @@ const usersController = {
             })
         )
           .catch(() =>
-            res.status(400).send({
+            res.status(409).send({
               message: 'You had some errors updating your profile. Please check details entered'
             })
           );
       });
     }
-    return res.status(404).send({
+    return res.status(401).send({
       message: 'You have no rights to update this profile'
     });
   },

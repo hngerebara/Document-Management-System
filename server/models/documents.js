@@ -4,10 +4,11 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      msg: 'Document with this title already exist',
       validate: {
         len: {
-          args: [3, 100],
-          msg: 'Documents name or title must be at least 3 characters in length'
+          args: [3, 50],
+          msg: 'Documents name must be between 3 and 50 characters in length'
         }
       },
     },
@@ -16,20 +17,14 @@ export default(sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: {
-          args: [3, 100],
-          msg: 'Documents description must be at least 3 characters in length'
+          args: [3, 200],
+          msg: 'Documents description must be between 3 and 200 characters in length'
         }
       },
     },
     content: {
       type: DataTypes.TEXT,
-      allowNull: false,
-      validate: {
-        len: {
-          args: [3, 100],
-          msg: 'Doument content must be at least 3 characters in length'
-        },
-      }
+      allowNull: false
     },
     access: {
       defaultValue: 'private',
@@ -46,7 +41,7 @@ export default(sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         Documents.belongsTo(models.Users, {
-          onDelete: 'CASCADE',
+          onDelete: 'SET NULL',
           foreignKey: 'creatorId'
         });
       }

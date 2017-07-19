@@ -25,6 +25,11 @@ describe('Route: Documents', () => {
     description: 'Description of testdocument',
     content: 'hello content of test document'
   };
+  const emptyDocument = {
+    documentName: '',
+    description: '',
+    content: ''
+  };
 
   before((done) => {
     sequelize.sync({ force: true }).done(() => {
@@ -49,39 +54,52 @@ describe('Route: Documents', () => {
       chai
         .request(app)
         .post('/api/documents')
-        .send(document)
+        .send(emptyDocument)
         .end((err, res) => {
           expect(res).to.have.status(401);
-          expect(res.text).to.equal('Unauthorized');
+          expect(res.unauthorized).to.equal(true);
           done();
         });
     });
 
-    it('it should succesfully post only if user is loggedin', (done) => {
+    it('should not allow creation of document with empty fields', (done) => {
+      chai
+        .request(app)
+        .post('/api/documents')
+        .set('Authorization', `JWT ${token}`)
+        .send(emptyDocument)
+        .end((err, res) => {
+          expect(res).to.have.status(403);
+          expect(res.body.message).to.eql('No field can be empty');
+          done();
+        });
+    });
+
+    it('should succesfully create a new document', (done) => {
       chai
         .request(app)
         .post('/api/documents')
         .set('Authorization', `JWT ${token}`)
         .send(document)
         .end((err, res) => {
-          expect(res.body.document).to.be.a('object');
-          expect(res.body.message).to.equal(
-            'Yay!! you have successfully created a new document'
-          );
-          expect(res.body.document).to.include.keys(
+          const response = res.body.document;
+          expect(response).to.be.a('object');
+          expect(response).to.include.keys(
             'access',
             'id',
             'documentName',
             'description',
-            'content',
-            'createdAt',
-            'updatedAt'
+            'content'
           );
+          expect(response).to.have.property('id').eql(1);
+          expect(response).to.have.property('access').eql('private');
+          expect(response.creatorId).to.eql(1);
+          expect(response).to.have.property('description').eql('Description of testdocument');
           done();
         });
     });
 
-    it('it should create documents with public access', (done) => {
+    it('should create a document with public access', (done) => {
       chai
         .request(app)
         .post('/api/documents')
@@ -93,15 +111,14 @@ describe('Route: Documents', () => {
           access: 'public'
         })
         .end((err, res) => {
+          const response = res.body.document;
           expect(res).to.have.status(201);
-          expect(res.body.message).to.equal(
-            'Yay!! you have successfully created a new document'
-          );
+          expect(response.access).to.eql('public');
           done();
         });
     });
 
-    it('it should create documents with role access', (done) => {
+    it('should create a document with role access', (done) => {
       chai
         .request(app)
         .post('/api/documents')
@@ -113,81 +130,89 @@ describe('Route: Documents', () => {
           access: 'role'
         })
         .end((err, res) => {
+          const response = res.body.document;
           expect(res).to.have.status(201);
-          expect(res.body.message).to.equal(
-            'Yay!! you have successfully created a new document'
-          );
+          expect(response.access).to.eql('role');
           done();
         });
     });
   });
 
   describe('/GET Documents', () => {
-    it('should allow Admin succesfully GET all the Documents', (done) => {
+    it('should allow Admin succesfully retrieve all Documents', (done) => {
       chai
         .request(app)
         .get('/api/documents/')
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
+          const response = res.body;
           expect(res).to.have.status(200);
-          expect(res.body).to.be.a('object');
-          expect(res.body.documents).to.be.a('array');
-          expect(res.body).to.be.a('object');
-          expect(res.body.pagination).to.include.keys(
+          expect(response).to.be.a('object');
+          expect(response.documents).to.be.a('array');
+          expect(response.pagination).to.be.a('object');
+          expect(response.pagination).to.include.keys(
             'pageCount',
             'page',
             'rowsPerPage',
             'totalCount'
           );
+          expect(response.documents).to.have.length(3);
+          expect(response.documents[0].id).to.eql(1);
+          expect(response.documents[2].access).to.eql('role');
           done();
         });
     });
   });
-  describe('/GET documet by id', () => {
-    it('it should retrieve a dcument based on its id ', (done) => {
+
+  describe('/GET document by id', () => {
+    it('should retrieve a document based the id ', (done) => {
       chai
      .request(app)
         .get('/api/documents/1')
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
+          const response = res.body.document;
           expect(res.status).to.equal(200);
           expect(res.body).to.not.be.null;
           expect(res.body).to.be.an.instanceof(Object);
-          expect(res.body.message).to.equal('Document successfully retrieved');
-          expect(res.body.document).to.property('documentName');
-          expect(res.body.document).to.have.property('description');
-          expect(res.body.document).to.have.property('content');
-          expect(res.body.document).to.have.property('access');
-          expect(res.body.document).to.have.property('id').eql(1);
+          expect(response).to.property('documentName').eql('TestDocument1');
+          expect(response).to.have.property('description')
+          .eql('Description of testdocument');
+          expect(response).to.have.property('content')
+          .eql('hello content of test document');
+          expect(response).to.have.property('access').eql('private');
+          expect(response).to.have.property('id').eql(1);
           done();
         });
     });
   });
 
-  describe('/PUT updaate a document based on id', () => {
+  describe('/PUT update a document based on the id', () => {
     const document1 = {
       documentName: 'updated document',
       description: 'Description of test updated document',
       content: 'hello content of test of updated document',
+      access: 'public'
     };
 
-    it('it should update the document with the given param', (done) => {
+    it('should update the document with the given param', (done) => {
       chai
       .request(app)
         .put('/api/documents/1')
         .set('Authorization', `JWT ${token}`)
         .send(document1)
         .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.message).to.equal('You have succesfully updated this document');
-          expect(res.body.document.documentName).to.equal('updated document');
+          const response = res.body.document;
+          expect(res.status).to.eql(202);
+          expect(response.documentName).to.eql('updated document');
+          expect(response.access).to.eql('public');
           done();
         });
     });
   });
   
-  describe('/DELETE delete a document based on id', () => {
-    it('it should update the document with the given param', (done) => {
+  describe('/DELETE delete a document based on the id', () => {
+    it('should delete the document with the given param', (done) => {
       chai
       .request(app)
         .delete('/api/documents/1')
@@ -201,21 +226,27 @@ describe('Route: Documents', () => {
   });
 
   describe('/GET user documents', () => {
-    it('it should retrieve documents belonging to a specific user', (done) => {
+    it('should retrieve documents belonging to the loggedin user', (done) => {
       chai
       .request(app)
         .get('/api/users/1/documents')
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
+          const response = res.body.user;
           expect(res.status).to.equal(200);
-          expect(res.body).to.not.be.null;
-          expect(res.body.message).to.eql('Found user and retrieved documents');
-          expect(res.body.user.allDocuments[0]).to.have.property('documentName');
-          expect(res.body.user.allDocuments[0]).to.have.property('documentName').eql('public documnet test');
-          expect(res.body.user.allDocuments[0]).to.have.property('description');
-          expect(res.body.user.allDocuments[0]).to.have.property('content');
-          expect(res.body.user.allDocuments[0]).to.have.property('content').eql('hello content of test of public document');
-          expect(res.body.user.allDocuments[0]).to.have.property('creatorId').eql(1);
+          expect(response).to.not.be.null;
+          expect(response).to.be.a('object');
+          expect(response).to.have.property('roleId')
+          .to.eql(1);
+          expect(response).to.have.property('username')
+          .to.eql('HopeazAdmin');
+          expect(response.allDocuments).to.be.a('array');
+          expect(response.allDocuments).to.have.length(2);
+          expect(response.allDocuments[0]).to.have.property('documentName')
+          .to.eql('public documnet test');
+          expect(response.allDocuments[1]).to.have.property('documentName')
+          .eql('role document test');
+          expect(response.allDocuments[0]).to.have.property('creatorId').eql(1);
           done();
         });
     });

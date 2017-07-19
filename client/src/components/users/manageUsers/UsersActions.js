@@ -19,7 +19,7 @@ export const displayFailureMessage = errorMessage => ({
  * @param {object} offset, limit for pagination
  * @returns {array} an array of users.
  */
-export const fetchAllUsers = (offset = 0, limit = 4) => (dispatch) => {
+export const fetchAllUsers = (offset = 0, limit = 6) => (dispatch) => {
   return axios
     .get(`/users?limit=${limit}&offset=${offset}`)
     .then((response) => {

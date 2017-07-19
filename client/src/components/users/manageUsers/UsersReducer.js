@@ -57,6 +57,7 @@ export default function UsersReducer(state = initialState, action) {
       indexOfUser = state.users.findIndex(user =>
         user.id === action.userId);
       return {
+        ...state,
         user: undefined,
         users: [
           ...state.users.slice(0, indexOfUser),

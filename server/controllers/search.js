@@ -26,7 +26,7 @@ const searchController = {
       })
         .then((documents) => {
           const next = Math.ceil(documents.count / limit);
-          const currentPage = Math.floor(offset / (limit + 1));
+          const currentPage = Math.floor((offset / limit) + 1);
           const pageSize = limit > documents.count ? documents.count : limit;
           if (documents.length <= 0) {
             return res.status(404).send({
@@ -80,7 +80,7 @@ const searchController = {
     })
       .then((documents) => {
         const next = Math.ceil(documents.count / limit);
-        const currentPage = Math.floor(offset / (limit + 1));
+        const currentPage = Math.floor((offset / limit) + 1);
         const pageSize = limit > documents.count ? documents.count : limit;
 
         return res.status(200).send({

@@ -55,7 +55,7 @@ describe('Userpage Component', () => {
   const { wrapper, props, manageUsers } = setup();
   describe('UsersPage', () => {
     it('renders the UsersPage component', () => {
-      expect(wrapper.find('div').length).toEqual(10);
+      expect(wrapper.find('div').length).toEqual(9);
     });
 
     it('renders a main', () => {

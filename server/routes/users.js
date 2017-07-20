@@ -88,6 +88,14 @@ const userRoute = (router) => {
      *         description: Users could not be retrieved
      *         schema:
      *           $ref: '#/definitions/Users'
+     *         examples:
+     *           application/json: [
+     *              { username: "hope",
+     *                firstName: "Hope",
+     *                lastName: "Hope",
+     *                email: "hope@gmail.com",
+     *                password: 1234556
+     *              }]
      */
     .get(
       authMiddleware.authenticate(),

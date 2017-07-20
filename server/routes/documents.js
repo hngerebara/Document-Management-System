@@ -88,6 +88,13 @@ const documentRoute = (router) => {
      *         description: Documents could not be retrieved
      *         schema:
      *           $ref: '#/definitions/Documents'
+     *         examples:
+     *           application/json: [
+     *              { documentName: "hope",
+     *                description: "Hope",
+     *                access: "private",
+     *                content: "blessed document"
+     *              }]
      */
     .get(authMiddleware.authenticate(), documentsController.listDocuments);
 

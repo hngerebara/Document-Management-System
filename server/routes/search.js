@@ -65,6 +65,13 @@ const searchRoute = (router) => {
          *         description: Error occurred while searching for documents
          *         schema:
          *           $ref: '#/definitions/Documents'
+         *         examples:
+         *            application/json: [
+         *              { documentName: "hope",
+         *                description: "Hope",
+         *                access: "private",
+         *                content: "blessed document"
+         *              }]
          */
     .get(authMiddleware.authenticate(), searchController.searchDocuments);
 
@@ -96,6 +103,13 @@ const searchRoute = (router) => {
      *         description: Error occurred while searching for users
      *         schema:
      *           $ref: '#/definitions/Users'
+     *         application/json: [
+     *              { username: "hope",
+     *                firstName: "Hope",
+     *                lastName: "Hope",
+     *                email: "hope@gmail.com",
+     *                password: 1234556
+     *              }]
      */
     .get(authMiddleware.authenticate(), searchController.searchUsers);
 };

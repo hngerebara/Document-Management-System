@@ -11,11 +11,11 @@
     "migrate_test_db": "sequelize db:migrate",
     "heroku-postbuild": "webpack && cp index.html dist/index.html && npm run migrate_test_db",
     "test:all": "npm run test:client && npm run test:server",
-    "test:client": "jest --config ./jest.config.js --coverage tests/client/reducers/*.spec.js tests/client/actions/*.spec.js tests/client/components/**/*.spec.js",
+    "test:client": "jest --config ./jest.config.js --coverage tests/client/actions/*.spec.js",
     "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js",
     "test-e2e": "NODE_ENV=test nightwatch",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "serve": "webpack -p && babel-node ./server/server.js"
+    "serve": "webpack —config webpack.production.config.js -p && babel-node ./server/server.js"
   },
   "nyc": {
     "require": [
@@ -60,6 +60,7 @@
     "express": "^4.15.2",
     "faker": "^4.1.0",
     "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.28.0",
     "immutable": "^3.8.1",
     "jquery": "^3.2.1",
     "jsdom": "^10.0.0",
@@ -105,6 +106,7 @@
     "toastr": "^2.1.2",
     "url-loader": "^0.5.9",
     "validator": "^7.0.0",
+    "compression-webpack-plugin": "^1.0.0",
     "webpack": "^2.6.1"
   },
   "devDependencies": {

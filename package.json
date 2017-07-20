@@ -15,7 +15,7 @@
     "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text babel-node ./node_modules/mocha/bin/_mocha ./tests/server/integration/**/*.spec.js",
     "test-e2e": "NODE_ENV=test nightwatch",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "serve": "webpack —config webpack.production.config.js -p && babel-node ./server/server.js"
+    "serve": "webpack --config webpack.production.config.js && babel-node ./server/server.js"
   },
   "nyc": {
     "require": [

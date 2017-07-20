@@ -35,3 +35,5 @@ export const signupUser = ({
       });
       throw error;
     });
+
+export default signupUser;

@@ -17,6 +17,11 @@ const config = {
     url: process.env.TEST_DATABASE_URL,
     dialect: 'postgres'
   },
+  staging: {
+    url: process.env.DATABASE_URL,
+    logging: false,
+    dialect: 'postgres'
+  },
   production: {
     url: process.env.DATABASE_URL,
     logging: false,

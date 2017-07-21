@@ -79,7 +79,7 @@ export default(sequelize, DataTypes) => {
           as: 'allDocuments'
         });
       },
-      IsPassword: (encodedPassword, password) =>
+      comparePassword: (encodedPassword, password) =>
       bcrypt.compareSync(password, encodedPassword)
     }
   });

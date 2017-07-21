@@ -103,8 +103,8 @@ export const createDocument = document => dispatch =>
     .then((res) => {
       dispatch(createDocumentSuccess(res.data));
     }).catch((error) => {
-      dispatch(displayDocumentFailureMessage(error.response.statusText));
-      throw error;
+      dispatch(displayDocumentFailureMessage(error.response.data));
+      throw error.response.data.message;
     });
 
 export const fetchSearchSuccess = (data, searchQuery) => ({

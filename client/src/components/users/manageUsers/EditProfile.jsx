@@ -19,20 +19,38 @@ export class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.user.id,
-      firstName: this.props.user.firstName,
-      lastName: this.props.user.lastName,
-      email: this.props.user.email,
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
       password: ''
     };
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getOneUser(this.props.params.creatorId);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user) {
+      const {
+        firstName,
+        lastName,
+        email,
+        password,
+        id
+      } = nextProps.user;
+      this.setState({
+        firstName,
+        lastName,
+        email,
+        password,
+        id
+      });
+    }
+  }
   /**
    *
    * @desc handles changes from the form.
@@ -179,14 +197,19 @@ export class EditProfile extends Component {
   }
 }
 EditProfile.propTypes = {
-  user: PropTypes.object.isRequired,
   updateUserProfile: PropTypes.func.isRequired,
   getOneUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  user: state.Auth.user
-});
+const mapStateToProps = (state) => {
+  let user;
+  if (state.UsersReducer.user) {
+    user = state.UsersReducer.user.user;
+  }
+  return {
+    user
+  };
+};
 
 export default connect(mapStateToProps, {
   getOneUser,

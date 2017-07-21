@@ -7,9 +7,6 @@ import moment from 'moment';
  * @class UsersListRow
  */
 const UsersListRow = ({ user, deleteUser }) => {
-  const ondeleteUser = () => {
-    deleteUser(user.id).catch(error => console.log(error));
-  };
 
   return (
     <ul className="collection" id="single-user">
@@ -22,7 +19,13 @@ const UsersListRow = ({ user, deleteUser }) => {
           <i className="material-icons circle">perm_identity</i>
         </a>
         {(user.Role.title !== 'Admin') ?
-          <a className="secondary-content" id="delete-user" onClick={ondeleteUser}>
+          <a
+            className="secondary-content" id="delete-user"
+            onClick={(event) => {
+              event.preventDefault();
+              deleteUser(user.id);
+            }}
+          >
             <i className="close waves-effect waves-light material-icons">
               delete
             </i>

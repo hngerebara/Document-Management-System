@@ -20,7 +20,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Describing RESTful API endpoints with Swagger'
   },
-  host: process.env.NODE_EVN === 'development'
+  host: process.env.NODE_ENV === 'development'
   ? 'localhost:8090'
   : 'hopeazdms.herokuapp.com',
   basePath: '/'

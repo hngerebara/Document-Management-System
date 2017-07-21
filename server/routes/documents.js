@@ -61,9 +61,9 @@ const documentRoute = (router) => {
      *           $ref: '#/definitions/Documents'
      *     responses:
      *       200:
-     *         description: 'Yay!! you have successfully created a new document'
-     *       409:
-     *         description: 'So sorry, your document could not be created'
+     *         description: 'Document created'
+     *       403:
+     *         description: 'No field can be empty'
      */
     .post(authMiddleware.authenticate(), documentsController.createDocument)
     /**
@@ -83,13 +83,21 @@ const documentRoute = (router) => {
      *         required: true
      *     responses:
      *       200:
-     *         description: An array of documents
+     *         description: Documents retrieved succesfully
+     *       409:
+     *         description: Documents could not be retrieved
      *         schema:
      *           $ref: '#/definitions/Documents'
+     *         examples:
+     *           application/json: [
+     *              { documentName: "hope",
+     *                description: "Hope",
+     *                access: "private",
+     *                content: "blessed document"
+     *              }]
      */
     .get(authMiddleware.authenticate(), documentsController.listDocuments);
 
-  // retrieve, update and delete documents by id endpoints
   router
     .route('/documents/:id')
     /**
@@ -115,6 +123,8 @@ const documentRoute = (router) => {
      *     responses:
      *       200:
      *         description: Document successfully retrieved
+     *       409:
+     *         description: Document could not be retrieved
      *         schema:
      *           $ref: '#/definitions/Documents'
      */
@@ -160,6 +170,10 @@ const documentRoute = (router) => {
      *     responses:
      *       200:
      *         description: Successfully updated
+     *       409:
+     *         description: Fields cannot be left empty
+     *       400:
+     *         description: Document does not exist
      */
     .put(authMiddleware.authenticate(), documentsController.updateDocument)
     /**
@@ -185,6 +199,8 @@ const documentRoute = (router) => {
      *     responses:
      *       200:
      *         description: Successfully deleted
+     *       409:
+     *         description: Could not delete document
      *       schema:
      *           $ref: '#/definitions/Documents'
      */

@@ -1,6 +1,6 @@
+import toastr from 'toastr';
 import axios from '../../../utils/api';
 import * as types from './UsersActionTypes';
-import toastr from 'toastr';
 
 
 export const fetchUsersSuccess = data => ({
@@ -19,7 +19,7 @@ export const displayFailureMessage = errorMessage => ({
  * @param {object} offset, limit for pagination
  * @returns {array} an array of users.
  */
-export const fetchAllUsers = (offset = 0, limit = 4) => (dispatch) => {
+export const fetchAllUsers = (offset = 0, limit = 6) => (dispatch) => {
   return axios
     .get(`/users?limit=${limit}&offset=${offset}`)
     .then((response) => {
@@ -45,7 +45,11 @@ export const deleteUserSuccess = userId => ({
 export const deleteUser = userId => dispatch =>
   axios.delete(`/users/${userId}/`).then(() => {
     dispatch(deleteUserSuccess(userId));
-    toastr.succes('User deleted succesfully');
+    toastr.success('User deleted succesfully');
+  })
+  .catch((error) => {
+    dispatch(displayFailureMessage(error.response));
+    throw error;
   });
 
 export const searchUserSuccess = (data, searchQuery) => ({
@@ -82,8 +86,9 @@ export const updateUserSuccess = data => ({
   data
 });
 
-export const getUserSuccess = () => ({
-  type: types.GET_USER_SUCCESS
+export const getUserSuccess = data => ({
+  type: types.GET_USER_SUCCESS,
+  data
 });
 
 export const updateFailureMessage = errorMessage => ({
@@ -91,19 +96,17 @@ export const updateFailureMessage = errorMessage => ({
   errorMessage
 });
 
-export const updateUserProfile = updatedUser => (dispatch) => {
-  return axios.put(`/users/${updatedUser.id}`, updatedUser)
-    .then((response) => {
+export const updateUserProfile = updatedUser => (dispatch) => axios.put(`/users/${updatedUser.id}`, updatedUser)
+    .then(() => {
       dispatch(updateUserSuccess(updatedUser));
-      toastr.success(response.data.message);
+      toastr.success('Profile updated successfully');
     }).catch((error) => {
       dispatch(updateFailureMessage(error.response));
       toastr.error('So sorry, Could not update your details');
       throw error;
     });
-};
 
-export const getOneUser = (userId) => dispatch =>
+export const getOneUser = userId => dispatch =>
    axios.get(`/users/${userId}`)
     .then((response) => {
       dispatch(getUserSuccess(response.data));

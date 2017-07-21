@@ -26,14 +26,13 @@ const checkinUserAction = ({ email, password }) => dispatch =>
   axios
     .post('/users/login', { email, password })
     .then((response) => {
-      const message = response.data.message;
       const token = response.data.token;
       localStorage.setItem('token', token);
       const payload = API_URL === '9999'
         ? { email, password }
         : jwtDecode(token);
       dispatch(setCurrentUser(payload));
-      toastr.success(message);
+      toastr.success('Successfully logged in');
     })
     .catch((error) => {
       dispatch({
@@ -53,7 +52,7 @@ const signOutUser = () => (dispatch) => {
   localStorage.removeItem('token');
   setAuthToken(false);
   dispatch(setCurrentUser({}));
-  toastr.info('You have succssfully logged out');
+  toastr.info('You have successfully logged out');
   browserHistory.push('/');
 };
 

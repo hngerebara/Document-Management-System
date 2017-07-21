@@ -145,6 +145,16 @@ describe('User actions', () => {
       const expectedActions = [
         {
           type: types.GET_USER_SUCCESS,
+          data: {
+            user: {
+              id: 2,
+              username: 'hopez',
+              firstName: 'Hope',
+              lastName: 'Ngerebara',
+              email: 'hopez@gmail.com',
+              roleId: 2
+            }
+          }
         }
       ];
       const store = mockStore(initialState);
@@ -156,7 +166,17 @@ describe('User actions', () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
-          status: 200
+          status: 200,
+          response: {
+            user: {
+              id: 2,
+              username: 'hopez',
+              firstName: 'Hope',
+              lastName: 'Ngerebara',
+              email: 'hopez@gmail.com',
+              roleId: 2
+            }
+          }
         });
       });
     });

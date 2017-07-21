@@ -31,7 +31,7 @@ const userRoute = (router) => {
      *       - Users
      *     description: Creates a new User
      *     summary: create new user
-    *     consumes:
+     *     consumes:
      *       - application/x-www-form-urlencoded
      *     produces:
      *       - application/json
@@ -57,10 +57,10 @@ const userRoute = (router) => {
      *         schema:
      *           $ref: '#/definitions/Users'
      *     responses:
-     *       200:
+     *       201:
      *         description: Successfully created
-     *       400:
-     *         description: cannot create user
+     *       409:
+     *         description: User email or password already exists
      */
     .post(usersController.createUser)
 
@@ -83,9 +83,19 @@ const userRoute = (router) => {
      *           $ref: '#/definitions/Users'
      *     responses:
      *       200:
-     *         description: An array of Users
+     *         description: users retrieved
+     *       400:
+     *         description: Users could not be retrieved
      *         schema:
      *           $ref: '#/definitions/Users'
+     *         examples:
+     *           application/json: [
+     *              { username: "hope",
+     *                firstName: "Hope",
+     *                lastName: "Hope",
+     *                email: "hope@gmail.com",
+     *                password: 1234556
+     *              }]
      */
     .get(
       authMiddleware.authenticate(),
@@ -117,8 +127,10 @@ const userRoute = (router) => {
      *         schema:
      *           $ref: '#/definitions/Users'
      *     responses:
-     *       200:
+     *       202:
      *         description: login Successful
+     *       401:
+     *         description: Your details are incorrect..Try again
      */
   router.route('/users/login').post(usersController.login);
 
@@ -177,7 +189,7 @@ const userRoute = (router) => {
      *         type: integer
      *     responses:
      *       200:
-     *         description: A single User
+     *         description: user retrieved
      *         schema:
      *           $ref: '#/definitions/Users'
      */
@@ -225,8 +237,10 @@ const userRoute = (router) => {
      *           type: array
      *           $ref: '#/definitions/Users'
      *     responses:
-     *       200:
+     *       202:
      *         description: Successfully updated
+     *       400:
+     *         description: You had some errors updating your profile
      */
     .put(authMiddleware.authenticate(), usersController.updateUser)
     /**
@@ -250,7 +264,9 @@ const userRoute = (router) => {
      *         type: integer
      *     responses:
      *       200:
-     *         description: Successfully deleted
+     *         description: User deleted successfully
+     *       400:
+     *         description: An error occured while attempting to delete user
      */
     .delete(authMiddleware.authenticate(), usersController.destroyUser);
 

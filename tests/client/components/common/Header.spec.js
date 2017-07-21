@@ -21,9 +21,9 @@ const setup = () => {
   };
 };
 
-describe('components', () => {
+describe('Header component', () => {
   const { wrapper, props } = setup();
-  describe('Header', () => {
+  describe('Html components', () => {
     it('renders the header', () => {
       expect(wrapper.find(Header)).to.have.length(1);
     });

@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AllDocumentsPage } from '../../../../client/src/components/document/otherDocuments/AllDocumentsPage';
-import AllDocumentsList from '../../../../client/src/components/document/otherDocuments/AllDocumentsList';
 
 const setup = () => {
   const manageDocuments = {
@@ -46,12 +45,6 @@ describe('AllDocumentsPage components', () => {
       expect(wrapper.find('div').length).toBe(2);
       expect(wrapper.find('h1').length).toBe(1);
     });
-
-    // it('should render subcomponent AllDocumentsList', () => {
-    //   const AllDocumentsListProps = wrapper.find('AllDocumentsList').props();
-    //   // expect(AllDocumentsListProps.viewDocument).toEqual(props.viewDocument);
-    // });
-
   });
 });
 

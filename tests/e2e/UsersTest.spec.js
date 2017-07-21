@@ -10,28 +10,26 @@ module.exports = {
       .setValue('input[name=email]', process.env.ADMIN_EMAIL)
       .setValue('input[name=password]', process.env.ADMIN_PASSWORD)
       .click('button[id="hopez-save"]')
-      .pause(5000)
-      .assert.urlEquals('http://localhost:8080/documents')
-      .pause(2000);
+      .waitForElementVisible('.toast', 3000)
+      .assert.containsText('.toast', 'Successfully logged in')
+      .assert.urlEquals('http://localhost:8080/documents');
   },
-  'User should be able to view all users': (browser) => {
+  'Admin should be able to view all users': (browser) => {
     browser
     .resizeWindow(1280, 800)
     .click('#view-users')
       .waitForElementVisible('#users-list', 3000)
-      .assert.urlEquals('http://localhost:8080/users')
-      .pause(2000);
+      .assert.elementPresent('ul #single-user')
+      .assert.urlEquals('http://localhost:8080/users');
   },
-  'User should be able to search for users': (browser) => {
+  'Admin should be able to search for users': (browser) => {
     browser
     .resizeWindow(1280, 800)
       .waitForElementVisible('#search-input', 3000)
       .click('#search-input')
       .setValue('input[id=search-input]', 'hope')
-      .pause(2000)
-      .waitForElementVisible('#search-btn', 1000)
+      .waitForElementVisible('#search-btn', 5000)
       .click('#search-btn')
-      .pause(1000)
       .end();
   },
 };

@@ -10,7 +10,6 @@ from '../../../client/src/components/document/DocumentActionTypes';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const documentId = 1;
 const initialState = {
   documents: [],
   pagination: {},
@@ -21,34 +20,6 @@ const initialState = {
   currentDocument: {},
   searchQuery: ''
 };
-
-// const data = {
-//   documents: [
-//     {
-//       id: 1,
-//       documentName: 'TestDocument1',
-//       description: 'Description of testdocument',
-//       access: 'private',
-//       content: 'hello content of test document',
-//       userId: 3
-//     },
-//     {
-//       id: 3,
-//       documentName: 'english',
-//       description: 'For primary 2',
-//       access: 'role',
-//       content: 'children who learn english early are intelligent',
-//       userId: 2
-//     }
-//   ],
-
-//   pagination: {
-//     page_count: 1,
-//     page: 1,
-//     page_size: 1,
-//     total_count: 2
-//   }
-// };
 
 describe('Actions', () => {
   it('should have a type of "FETCH_DOCUMENTS_SUCCESS"', () => {

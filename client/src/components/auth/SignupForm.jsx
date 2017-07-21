@@ -119,7 +119,7 @@ export class SignupForm extends Component {
     return (
       <form className="col-12 form-padding">
         <div className="row">
-          <div className="input-field col s6">
+          <div className="input-field col s6" id="signupusername">
             <i className="material-icons prefix">account_circle</i>
             <input
               type="text"
@@ -133,7 +133,7 @@ export class SignupForm extends Component {
             {errors.username && <span>{errors.username}</span>}
           </div>
 
-          <div className="input-field col s6">
+          <div className="input-field col s6" id="signupemail">
             <i className="material-icons prefix">account_circle</i>
             <input
               type="text"
@@ -176,7 +176,7 @@ export class SignupForm extends Component {
         </div>
 
         <div className="row">
-          <div className="input-field col s6">
+          <div className="input-field col s6" id="signuppswd">
             <i className="material-icons prefix">lock_outline</i>
             <input
               type="password"
@@ -189,7 +189,7 @@ export class SignupForm extends Component {
             {errors.password && <span>{errors.password}</span>}
           </div>
 
-          <div className="input-field col s6">
+          <div className="input-field col s6" id="signupcfpswd">
             <i className="material-icons prefix">lock_outline</i>
             <input
               type="password"

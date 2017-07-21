@@ -35,7 +35,8 @@ const documentsController = {
             $not: 'private'
           }
         }, { creatorId: req.user.id }]
-      }
+      },
+      order: [['updatedAt', 'DESC']]
     });
     return queryDocs.then((documents) => {
       const next = Math.ceil(documents.count / limit);

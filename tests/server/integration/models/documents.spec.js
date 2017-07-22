@@ -145,7 +145,6 @@ describe('Route: Documents', () => {
         .get('/api/documents/')
         .set('Authorization', `JWT ${token}`)
         .end((err, res) => {
-          console.log(res)
           const response = res.body;
           expect(res).to.have.status(200);
           expect(response).to.be.a('object');
@@ -159,7 +158,7 @@ describe('Route: Documents', () => {
           );
           expect(response.documents).to.have.length(3);
           expect(response.documents[2].id).to.eql(1);
-          expect(response.documents[2].access).to.eql('role');
+          expect(response.documents[2].access).to.eql('private');
           done();
         });
     });

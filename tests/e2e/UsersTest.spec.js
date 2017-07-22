@@ -28,6 +28,8 @@ module.exports = {
       .waitForElementVisible('#search-input', 3000)
       .click('#search-input')
       .setValue('input[id=search-input]', 'hope')
+      .waitForElementVisible('#users-list', 2000)
+      .assert.containsText('#users-list ul li p', 'Name: hope')
       .waitForElementVisible('#search-btn', 5000)
       .click('#search-btn')
       .end();

@@ -7,7 +7,7 @@ const UserDocumentList = ({
   deleteDocument,
   viewDocument }) => {
   return (
-    <div className="row">
+    <div className="row" id="userdocument-list">
       {userDocuments.map(document =>
         <UserDocumentListRow
           key={document.id}

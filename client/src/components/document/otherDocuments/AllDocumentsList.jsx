@@ -5,7 +5,7 @@ const AllDocumentsList = ({
   documents,
   viewDocument
 }) => (
-  <div className="row">
+  <div className="row" id="document-list">
     {documents.map(document => (
       <AllDocumentsListRow
         key={document.id}

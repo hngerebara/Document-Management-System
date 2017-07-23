@@ -22,7 +22,11 @@ module.exports = {
       .click('button[id=edit]')
       .waitForElementVisible('.toast', 3000)
       .assert.containsText('.toast', 'Profile updated successfully')
-      .pause(2000)
+      .waitForElementVisible('#edit-profile', 3000)
+      .assert.urlEquals('http://localhost:8080/documents')
+      .click('#edit-profile')
+      .assert.value('input[id="first_name"]', 'admin2 Editted')
+      .assert.value('input[id="last_name"]', 'admin Editted')
       .end();
   },
 };

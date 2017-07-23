@@ -26,14 +26,14 @@ const isLogin = (nextState, replace) => {
   const token = localStorage.getItem('token');
   if (token) {
     replace({
-      pathname: '/'
+      pathname: '/documents'
     });
   }
 };
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={HomePage} />
+    <IndexRoute component={HomePage} onEnter={isLogin} />
     <Route path="/users" component={UsersPage} onEnter={requireAuth} />
     <Route path="/checkin" component={CheckinPage} onEnter={isLogin} />
     <Route path="/signup" component={SignupPage} onEnter={isLogin} />

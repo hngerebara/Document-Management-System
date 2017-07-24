@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
-import { signOutUser } from '../components/auth/AuthActions';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 /**
  * @desc HomePage Component
@@ -8,26 +7,6 @@ import { signOutUser } from '../components/auth/AuthActions';
  * @extends {Component}
  */
 class HomePage extends Component {
-  /**
-   * Creates an instance of HomePage.
-   * @param {object} props property of element
-   * @memberof HomePage
-   */
-  constructor(props) {
-    super(props);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-   /**
-   * @desc handles user logout
-   * @returns {null} returns no value
-   * @memberof HomePage
-   */
-  handleLogout() {
-    this.props.signOutUser();
-    browserHistory.push('/');
-  }
-
   /**
    * @desc renders Html
    * @returns {*} html
@@ -72,9 +51,5 @@ class HomePage extends Component {
     );
   }
 }
-
-HomePage.propTypes = {
-  signOutUser: PropTypes.func.isRequired,
-};
 
 export default HomePage;

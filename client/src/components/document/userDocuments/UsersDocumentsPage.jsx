@@ -31,7 +31,7 @@ export class UsersDocumentsPage extends Component {
  * @returns {null} returns no value
  * @memberof UsersDocumentsPage
  */
-  viewDocument(documentId) {
+  viewDocument = (documentId) => {
     const { manageDocuments: { userDocuments } } = this.props;
     const document = userDocuments.find(doc => doc.id === documentId);
     if (document) {

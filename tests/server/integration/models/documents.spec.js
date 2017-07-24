@@ -203,7 +203,7 @@ describe('Route: Documents', () => {
         .send(document1)
         .end((err, res) => {
           const response = res.body.document;
-          expect(res.status).to.eql(202);
+          expect(res.status).to.eql(200);
           expect(response.documentName).to.eql('updated document');
           expect(response.access).to.eql('public');
           done();

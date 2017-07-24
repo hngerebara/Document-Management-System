@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Users, Documents, Roles } from '../models';
 import cfg from '../configs/config';
+import Helpers from '../helpers';
 
 const salt = bcrypt.genSaltSync();
 const userSchema = user => ({
@@ -63,16 +64,9 @@ const usersController = {
       ]
     })
       .then((users) => {
-        const next = Math.ceil(users.count / limit);
-        const currentPage = Math.floor((offset / limit) + 1);
-        const pageSize = limit > users.count ? users.count : limit;
+        const pagination = Helpers.paginate(limit, offset, users);
         res.status(200).send({
-          pagination: {
-            pageCount: next,
-            page: currentPage,
-            rowsPerPage: Number(pageSize),
-            totalCount: users.count
-          },
+          pagination,
           users: users.rows
         });
       })

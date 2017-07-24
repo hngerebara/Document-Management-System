@@ -1,3 +1,4 @@
+/* global API_URL */
 import toastr from 'toastr';
 import { browserHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';

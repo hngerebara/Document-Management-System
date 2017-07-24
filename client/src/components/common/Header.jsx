@@ -17,7 +17,10 @@ export const Header = (props) => {
           <ul className="right hide-on-med-and-down">
             <li>Hello {user.username}</li>
             <li>
-              <a className="right dropdown-button" data-activates="user_dropdown">
+              <a
+                className="right dropdown-button"
+                data-activates="user_dropdown"
+              >
                 <i className=" material-icons">account_circle</i>
               </a>
             </li>
@@ -36,11 +39,9 @@ Header.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    Auth: state.Auth,
-  };
-};
+const mapStateToProps = state => ({
+  Auth: state.Auth,
+});
 
 export default connect(mapStateToProps, null)(
   Header

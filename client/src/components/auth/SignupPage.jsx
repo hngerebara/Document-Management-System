@@ -1,14 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import SignupForm from './SignupForm';
+import { SignupForm } from './SignupForm';
 import { signupUser } from './SignupActions';
 
-  /**
-   * @desc renders Html
-   * @returns {*} html
-   * @memberof SignupPage
-   */
+
 export const SignupPage = props =>
    (
      <div className="row">

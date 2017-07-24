@@ -1,3 +1,4 @@
+/* global $ */
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import AllDocumentsList from './AllDocumentsList';
@@ -19,6 +20,11 @@ import {
  * @extends {Component}
  */
 export class AllDocumentsPage extends Component {
+   /**
+   * Creates an instance of AllDocumentsPage.
+   * @param {object} props property of element
+   * @memberof AllDocumentsPage
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +34,11 @@ export class AllDocumentsPage extends Component {
     this.viewDocument = this.viewDocument.bind(this);
   }
 
+ /**
+ * @desc calls fetchAllDocuments before component mounts
+ * @memberof AllDocumentsPage
+ * @returns {array} returns all documents
+ */
   componentDidMount() {
     this.props.fetchAllDocuments();
   }

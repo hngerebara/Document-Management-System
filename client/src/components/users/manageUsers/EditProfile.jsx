@@ -23,10 +23,19 @@ export class EditProfile extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+/**
+ * @desc calls EditProfile before component mounts
+ * @memberof EditProfile
+ * @returns {object} user details
+ */
   componentWillMount() {
     this.props.getOneUser(this.props.params.creatorId);
   }
-
+/**
+* componentWillReceiveProps
+* @param {Object} nextProps - next props that component will receive
+* @return {void}
+*/
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
       const {
@@ -193,7 +202,7 @@ export class EditProfile extends Component {
 EditProfile.propTypes = {
   updateUserProfile: PropTypes.func.isRequired,
   getOneUser: PropTypes.func.isRequired,
-  user: PropTypes.shape({}),
+  user: PropTypes.shape({}).isRequired,
   params: PropTypes.shape({
     creatorId: PropTypes.string.isRequired,
   }).isRequired,

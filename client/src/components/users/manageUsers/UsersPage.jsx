@@ -32,7 +32,7 @@ export class UsersPage extends Component {
   /**
    * @desc call fetchAllUsers before component mounts
    * @memberof UsersPage
-   * @returns [array] returns all users
+   * @returns {array} returns all users
    */
   componentDidMount() {
     this.props.fetchAllUsers();

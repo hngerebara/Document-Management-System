@@ -16,11 +16,11 @@ export const displayFailureMessage = errorMessage => ({
 /**
  *
  * @desc calls the users endpoint to retrieve all users
- * @param {object} offset, limit for pagination
+ * @param {number}  offset
+ * @param {number} limit
  * @returns {array} an array of users.
  */
-export const fetchAllUsers = (offset = 0, limit = 6) => (dispatch) => {
-  return axios
+export const fetchAllUsers = (offset = 0, limit = 6) => dispatch => axios
     .get(`/users?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(fetchUsersSuccess(response.data));
@@ -29,7 +29,6 @@ export const fetchAllUsers = (offset = 0, limit = 6) => (dispatch) => {
       dispatch(displayFailureMessage(error.response));
       throw error;
     });
-};
 
 export const deleteUserSuccess = userId => ({
   type: types.DELETE_USER_SUCCESS,
@@ -40,7 +39,7 @@ export const deleteUserSuccess = userId => ({
  *
  * @desc calls the delete user endpoint.
  * @param {integer} userId
- * @returns {null}
+ * @returns {null} void
  */
 export const deleteUser = userId => dispatch =>
   axios.delete(`/users/${userId}/`).then(() => {
@@ -69,7 +68,9 @@ export const clearSearch = () => ({
 /**
  *
  * @desc calls the search users endpoint.
- * @param {object} search query, limit and offset for pagination
+ * @param {string}  search
+ * @param {number}  offset
+ * @param {number} limit
  * @returns {object} user object
  */
 export const searchAllUsers = (search, offset = 0, limit = 6) => dispatch =>
@@ -96,7 +97,8 @@ export const updateFailureMessage = errorMessage => ({
   errorMessage,
 });
 
-export const updateUserProfile = updatedUser => (dispatch) => axios.put(`/users/${updatedUser.id}`, updatedUser)
+export const updateUserProfile = updatedUser => dispatch =>
+axios.put(`/users/${updatedUser.id}`, updatedUser)
     .then(() => {
       dispatch(updateUserSuccess(updatedUser));
       toastr.success('Profile updated successfully');

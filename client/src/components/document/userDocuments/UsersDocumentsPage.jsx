@@ -22,6 +22,11 @@ export class UsersDocumentsPage extends Component {
     };
   }
 
+ /**
+ * @desc calls UsersDocumentsPage before component mounts
+ * @memberof UsersDocumentsPage
+ * @returns {array} returns users documents
+ */
   componentDidMount() {
     this.props.fetchUserDocuments(this.props.params.creatorId);
   }

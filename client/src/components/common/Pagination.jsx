@@ -21,7 +21,9 @@ export class Pagination extends Component {
 
 /**
  * handle page change from pagination
- * @param {SytheticEvent} data
+ * @typedef {object} MouseEvent
+ * @param {MouseEvent} data
+ * @returns {null} no value
  */
   handlePageClick(data) {
     const selected = data.selected;
@@ -31,7 +33,9 @@ export class Pagination extends Component {
 
 /**
  * handle page change from pagination after search
- * @param {SytheticEvent} data
+ * @typedef {object} MouseEvent
+ * @param {MouseEvent} data
+ * @returns {null} no value
  */
   searchClick(data) {
     const selected = data.selected;
@@ -39,6 +43,7 @@ export class Pagination extends Component {
     const offset = Math.ceil(selected * 6);
     this.props.search(search, offset);
   }
+
 /**
  * @desc renders Html
  * @returns {*} html

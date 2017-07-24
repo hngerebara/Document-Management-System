@@ -1,3 +1,4 @@
+/* global API_URL */
 import jwtDecode from 'jwt-decode';
 import axios from '../../utils/api';
 import * as types from './AuthActionTypes';

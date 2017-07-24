@@ -59,6 +59,7 @@ export class SignupForm extends Component {
   /**
    * @desc checks the username if it exists
    * @returns {object} empty or not
+   * @param {MouseEvent} event
    * @memberof SignupForm
    */
   checkUserExists(event) {
@@ -86,7 +87,7 @@ export class SignupForm extends Component {
   }
   /**
    * @desc handles checkin
-   * @param {object} event html event
+   * @param {ClickEvent} event
    * @returns {null} returns no value
    * @memberof SignupForm
    */

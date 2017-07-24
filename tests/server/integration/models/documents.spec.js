@@ -173,7 +173,6 @@ describe('Route: Documents', () => {
         .end((err, res) => {
           const response = res.body.document;
           expect(res.status).to.equal(200);
-          expect(res.body).to.not.be.null;
           expect(res.body).to.be.an.instanceof(Object);
           expect(response).to.property('documentName').eql('TestDocument1');
           expect(response).to.have.property('description')

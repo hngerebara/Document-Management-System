@@ -74,7 +74,7 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  signOutUser: PropTypes.func.isRequired
+  signOutUser: PropTypes.func.isRequired,
 };
 
 export default HomePage;

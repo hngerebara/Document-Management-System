@@ -13,7 +13,7 @@ import axios from '../../utils/api';
  */
 const setCurrentUser = user => ({
   type: types.SET_CURRENT_USER,
-  user
+  user,
 });
 
 /**
@@ -37,7 +37,7 @@ const checkinUserAction = ({ email, password }) => dispatch =>
     .catch((error) => {
       dispatch({
         type: types.CHECKIN_ERROR,
-        error
+        error,
       });
       throw error;
     });

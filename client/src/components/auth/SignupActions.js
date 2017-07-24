@@ -14,7 +14,7 @@ export const signupUser = ({
   firstName,
   lastName,
   email,
-  password
+  password,
 }) => dispatch =>
   axios
     .post('/users', { username, firstName, lastName, email, password })
@@ -26,12 +26,12 @@ export const signupUser = ({
       }
       dispatch({
         type: types.SIGNUP_SUCCESS,
-        token
+        token,
       });
     })
     .catch((error) => {
       dispatch({
-        type: types.SIGNUP_ERROR
+        type: types.SIGNUP_ERROR,
       });
       throw error;
     });

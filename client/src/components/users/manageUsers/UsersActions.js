@@ -5,12 +5,12 @@ import * as types from './UsersActionTypes';
 
 export const fetchUsersSuccess = data => ({
   type: types.FETCH_USERS_SUCCESS,
-  data
+  data,
 });
 
 export const displayFailureMessage = errorMessage => ({
   type: types.DISPLAY_FAILURE_MESSAGE,
-  errorMessage
+  errorMessage,
 });
 
 /**
@@ -33,7 +33,7 @@ export const fetchAllUsers = (offset = 0, limit = 6) => (dispatch) => {
 
 export const deleteUserSuccess = userId => ({
   type: types.DELETE_USER_SUCCESS,
-  userId
+  userId,
 });
 
 /**
@@ -55,12 +55,12 @@ export const deleteUser = userId => dispatch =>
 export const searchUserSuccess = (data, searchQuery) => ({
   type: types.SEARCH_USERS_SUCCESS,
   data,
-  searchQuery
+  searchQuery,
 });
 
 export const searchFailureMessage = errorMessage => ({
   type: types.SEARCH_FAILURE_MESSAGE,
-  errorMessage
+  errorMessage,
 });
 
 export const clearSearch = () => ({
@@ -83,17 +83,17 @@ export const searchAllUsers = (search, offset = 0, limit = 6) => dispatch =>
 
 export const updateUserSuccess = data => ({
   type: types.UPDATE_USER_SUCCESS,
-  data
+  data,
 });
 
 export const getUserSuccess = data => ({
   type: types.GET_USER_SUCCESS,
-  data
+  data,
 });
 
 export const updateFailureMessage = errorMessage => ({
   type: types.UPDATE_FAILURE_MESSAGE,
-  errorMessage
+  errorMessage,
 });
 
 export const updateUserProfile = updatedUser => (dispatch) => axios.put(`/users/${updatedUser.id}`, updatedUser)

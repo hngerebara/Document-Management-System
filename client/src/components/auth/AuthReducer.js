@@ -3,7 +3,7 @@ import { SET_CURRENT_USER, CHECKIN_ERROR } from './AuthActionTypes';
 
 const initialState = {
   isAuthenticated: false,
-  user: {}
+  user: {},
 };
 
 export default (state = initialState, action = {}) => {
@@ -11,12 +11,12 @@ export default (state = initialState, action = {}) => {
     case SET_CURRENT_USER:
       return {
         isAuthenticated: !isEmpty(action.user),
-        user: action.user
+        user: action.user,
       };
     case CHECKIN_ERROR:
       return {
         isAuthenticated: false,
-        user: {}
+        user: {},
       };
     default:
       return state;

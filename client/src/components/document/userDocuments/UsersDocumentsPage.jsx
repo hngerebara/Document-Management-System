@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from "react";
-import { connect } from "react-redux";
-import UserDocumentList from "./UserDocumentList";
-import SideBar from "../../common/SideBar";
-import ViewDocument from "../ViewDocument";
-import Header from "../../common/Header";
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import UserDocumentList from './UserDocumentList';
+import SideBar from '../../common/SideBar';
+import ViewDocument from '../ViewDocument';
+import Header from '../../common/Header';
 import {
   deleteDocument,
-  fetchUserDocuments
-} from "../DocumentActions";
+  fetchUserDocuments,
+} from '../DocumentActions';
 
 /**
  * @desc UsersDocumentsPage Component
@@ -18,7 +18,7 @@ export class UsersDocumentsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDocument: {}
+      currentDocument: {},
     };
   }
 
@@ -26,23 +26,27 @@ export class UsersDocumentsPage extends Component {
     this.props.fetchUserDocuments(this.props.params.creatorId);
   }
 
-  viewDocument = documentId => {
+/** handles viewing of documnent
+ * @param {number} documentId
+ * @returns {null} returns no value
+ * @memberof UsersDocumentsPage
+ */
+  viewDocument(documentId) {
     const { manageDocuments: { userDocuments } } = this.props;
     const document = userDocuments.find(doc => doc.id === documentId);
     if (document) {
       this.setState({ currentDocument: document });
-      $(".doc-modal").modal("open");
+      $('.doc-modal').modal('open');
     }
-  };
+  }
 
   /**
  * @desc renders Html
  * @returns {*} html
  * @memberof UsersDocumentsPage
  */
-  render() {  
+  render() {
     const { manageDocuments, user } = this.props;
-    const creatorId = this.props.params.creatorId;
     return (
       <div>
         <Header />
@@ -56,7 +60,7 @@ export class UsersDocumentsPage extends Component {
               deleteDocument={this.props.deleteDocument}
               viewDocument={this.viewDocument}
             />
-              <ViewDocument document={this.state.currentDocument} edit />
+            <ViewDocument document={this.state.currentDocument} edit />
           </div>
         </main>
       </div>
@@ -65,14 +69,18 @@ export class UsersDocumentsPage extends Component {
 }
 
 UsersDocumentsPage.propTypes = {
-  manageDocuments: PropTypes.object.isRequired,
+  manageDocuments: PropTypes.shape({}).isRequired,
+  params: PropTypes.shape({
+    creatorId: PropTypes.string.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({}).isRequired,
   deleteDocument: PropTypes.func.isRequired,
-  fetchUserDocuments: PropTypes.func.isRequired
+  fetchUserDocuments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   manageDocuments: state.DocumentReducer,
-  user: state.Auth.user
+  user: state.Auth.user,
 });
 
 export default connect(mapStateToProps, {

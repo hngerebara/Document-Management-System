@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 
 /**
@@ -27,19 +26,19 @@ export class Pagination extends Component {
   handlePageClick(data) {
     const selected = data.selected;
     const offset = Math.ceil(selected * 6);
-    this.props.fetchFn(offset);
+    this.props.fetch(offset);
   }
 
 /**
  * handle page change from pagination after search
  * @param {SytheticEvent} data
  */
-  searchClick = data => {
+  searchClick(data) {
     const selected = data.selected;
     const search = this.props.searchQuery;
     const offset = Math.ceil(selected * 6);
-    this.props.searchFn(search, offset);
-  };
+    this.props.search(search, offset);
+  }
 /**
  * @desc renders Html
  * @returns {*} html
@@ -50,21 +49,29 @@ export class Pagination extends Component {
     return (
       <div className="pagination" id="pagination">
         <ReactPaginate
-          previousLabel={"<"}
-          nextLabel={">"}
+          previousLabel={'<'}
+          nextLabel={'>'}
           pageCount={
             isSearching ? searchPagination.pageCount : pagination.pageCount
           }
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={isSearching ? this.searchClick : this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
         />
       </div>
     );
   }
 }
+Pagination.propTypes = {
+  isSearching: PropTypes.shape({}).isRequired,
+  searchPagination: PropTypes.shape({}).isRequired,
+  pagination: PropTypes.shape({}).isRequired,
+  search: PropTypes.func.isRequired,
+  fetch: PropTypes.func.isRequired,
+  searchQuery: PropTypes.string.isRequired,
+};
 
 export default Pagination;

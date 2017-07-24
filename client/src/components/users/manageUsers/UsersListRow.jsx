@@ -7,7 +7,6 @@ import moment from 'moment';
  * @class UsersListRow
  */
 const UsersListRow = ({ user, deleteUser }) => {
-
   return (
     <ul className="collection" id="single-user">
       <li className="collection-item avatar" key={user.id}>
@@ -40,6 +39,6 @@ const UsersListRow = ({ user, deleteUser }) => {
 
 UsersListRow.propTypes = {
   deleteUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  user: PropTypes.shape({}).isRequired,
 };
 export default UsersListRow;

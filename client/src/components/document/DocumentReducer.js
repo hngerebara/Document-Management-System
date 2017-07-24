@@ -7,7 +7,7 @@ import {
   DISPLAY_DOCUMENT_FAILURE_MESSAGE,
   FETCH_SEARCH_SUCCESS,
   CLEAR_SEARCH,
-  FETCH_DOCUMENT_SUCCESS
+  FETCH_DOCUMENT_SUCCESS,
 } from './DocumentActionTypes';
 
 
@@ -19,7 +19,7 @@ const initialState = {
   isSearching: false,
   userDocuments: [],
   currentDocument: {},
-  searchQuery: ''
+  searchQuery: '',
 };
 
 export default function DocumentsReducer(state = initialState, action) {
@@ -32,17 +32,16 @@ export default function DocumentsReducer(state = initialState, action) {
       };
 
     case FETCH_DOCUMENTS_SUCCESS:
-      const { documents, pagination } = action.data;
       return {
         ...state,
-        documents,
-        pagination,
+        documents: action.data.documents,
+        pagination: action.data.pagination,
       };
 
     case FETCH_USER_DOCUMENTS_SUCCESS:
       return {
         ...state,
-        userDocuments: action.userDocuments
+        userDocuments: action.userDocuments,
       };
 
     case FETCH_DOCUMENT_SUCCESS:
@@ -51,8 +50,8 @@ export default function DocumentsReducer(state = initialState, action) {
         currentDocument: action.document,
         documents: [
           ...state.documents,
-          action.document
-        ]
+          action.document,
+        ],
       };
 
     case CREATE_DOCUMENT_SUCCESS:
@@ -64,13 +63,12 @@ export default function DocumentsReducer(state = initialState, action) {
           ...state.documents,
         ],
       };
-  
+
     case FETCH_SEARCH_SUCCESS:
-      const { searchDocuments, searchPagination } = action.data;
       return {
         ...state,
-        searchDocuments,
-        searchPagination,
+        searchDocuments: action.data.searchDocuments,
+        searchPagination: action.data.searchPagination,
         isSearching: true,
         searchQuery: action.searchQuery,
       };
@@ -80,7 +78,7 @@ export default function DocumentsReducer(state = initialState, action) {
         ...state,
         searchDocuments: [],
         searchPagination: {},
-        isSearching: false
+        isSearching: false,
       };
 
 
@@ -90,7 +88,7 @@ export default function DocumentsReducer(state = initialState, action) {
       if (indexOfDocument === -1) {
         return {
           ...state,
-          document: action.document
+          document: action.document,
         };
       }
       return {
@@ -110,7 +108,7 @@ export default function DocumentsReducer(state = initialState, action) {
       if (indexOfDocument === -1) {
         return {
           ...state,
-          document: undefined
+          document: undefined,
         };
       }
       return {
@@ -118,8 +116,8 @@ export default function DocumentsReducer(state = initialState, action) {
         document: undefined,
         userDocuments: [
           ...state.userDocuments.slice(0, indexOfDocument),
-          ...state.userDocuments.slice(indexOfDocument + 1)
-        ]
+          ...state.userDocuments.slice(indexOfDocument + 1),
+        ],
       };
 
     default:

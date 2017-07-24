@@ -16,7 +16,7 @@ export class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSearching: false
+      isSearching: false,
     };
   }
 
@@ -24,25 +24,25 @@ export class SearchBar extends Component {
  * handle searching
  * @param {SytheticEvent} event
  */
-  onSearch = event => {
+  onSearch(event) {
     const searchQuery = event.target.value;
     this.setState({
-      isSearching: true
+      isSearching: true,
     });
-    this.props.searchFn(searchQuery);
-  };
+    this.props.search(searchQuery);
+  }
 
 /**
  * handle close search when done searching
  * @param {SytheticEvent} event
  */
-  closeSearch = () => {
+  closeSearch() {
     this.setState({
-      isSearching: false
+      isSearching: false,
     });
     this.search.value = '';
     this.props.clearSearch();
-  };
+  }
 
 /**
  * @desc renders Html
@@ -50,7 +50,6 @@ export class SearchBar extends Component {
  * @memberof SearchBar
  */
   render() {
-    const { user } = this.props;
     const isSearching = this.state.isSearching;
     return (
       <div>
@@ -67,8 +66,12 @@ export class SearchBar extends Component {
     );
   }
 }
+SearchBar.propTypes = {
+  clearSearch: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired,
+};
 
 
 export default connect(null, {
-  clearSearch
+  clearSearch,
 })(SearchBar);

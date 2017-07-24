@@ -9,7 +9,7 @@ import {
   fetchAllUsers,
   deleteUser,
   searchAllUsers,
-  clearSearch
+  clearSearch,
 } from './UsersActions';
 
 /**
@@ -26,7 +26,7 @@ export class UsersPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {}
+      currentUser: {},
     };
   }
   /**
@@ -55,7 +55,7 @@ export class UsersPage extends Component {
           <div className="container">
             <h1>Users</h1>
             <SideBar />
-            <SearchBar searchFn={this.props.searchAllUsers} />
+            <SearchBar search={this.props.searchAllUsers} />
             <div>
               <ul>
                 <UsersList users={users} deleteUser={this.props.deleteUser} />
@@ -65,8 +65,8 @@ export class UsersPage extends Component {
             {users.length > 0 &&
             <Pagination
               searchQuery={manageUsers.searchQuery}
-              fetchFn={this.props.fetchAllUsers}
-              searchFn={this.props.searchAllUsers}
+              fetch={this.props.fetchAllUsers}
+              search={this.props.searchAllUsers}
               isSearching={manageUsers.isSearching}
               pagination={manageUsers.pagination}
               searchPagination={manageUsers.searchPagination}
@@ -83,17 +83,17 @@ export class UsersPage extends Component {
 UsersPage.propTypes = {
   fetchAllUsers: PropTypes.func.isRequired,
   searchAllUsers: PropTypes.func.isRequired,
-  manageUsers: PropTypes.object.isRequired,
-  deleteUser: PropTypes.func.isRequired
+  manageUsers: PropTypes.shape({}).isRequired,
+  deleteUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  manageUsers: state.UsersReducer
+  manageUsers: state.UsersReducer,
 });
 
 export default connect(mapStateToProps, {
   fetchAllUsers,
   deleteUser,
   searchAllUsers,
-  clearSearch
+  clearSearch,
 })(UsersPage);

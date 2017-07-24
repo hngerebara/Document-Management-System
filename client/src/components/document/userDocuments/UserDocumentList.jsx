@@ -5,8 +5,7 @@ const UserDocumentList = ({
   userDocuments,
   user,
   deleteDocument,
-  viewDocument }) => {
-  return (
+  viewDocument }) => (
     <div className="row" id="userdocument-list">
       {userDocuments.map(document =>
         <UserDocumentListRow
@@ -18,13 +17,12 @@ const UserDocumentList = ({
         />)}
     </div>
   );
-};
 
 UserDocumentList.propTypes = {
   userDocuments: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   deleteDocument: PropTypes.func.isRequired,
-  viewDocument: PropTypes.func.isRequired
+  viewDocument: PropTypes.func.isRequired,
 };
 
 export default UserDocumentList;

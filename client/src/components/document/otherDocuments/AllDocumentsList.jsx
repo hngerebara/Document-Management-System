@@ -3,7 +3,7 @@ import AllDocumentsListRow from './AllDocumentsListRow';
 
 const AllDocumentsList = ({
   documents,
-  viewDocument
+  viewDocument,
 }) => (
   <div className="row" id="document-list">
     {documents.map(document => (
@@ -18,7 +18,7 @@ const AllDocumentsList = ({
 
 AllDocumentsList.propTypes = {
   documents: PropTypes.array.isRequired,
-  viewDocument: PropTypes.func.isRequired
+  viewDocument: PropTypes.func.isRequired,
 };
 
 export default AllDocumentsList;

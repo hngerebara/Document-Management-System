@@ -22,7 +22,7 @@ const usersController = {
       lastName,
       email,
       password,
-      roleId: 2
+      roleId: 2,
     })
       .then((user) => {
         const payload = {
@@ -32,20 +32,20 @@ const usersController = {
           lastName: user.lastName,
           password: user.password,
           email: user.email,
-          roleId: user.id
+          roleId: user.id,
         };
         const token = jwt.sign(payload, cfg.jwtSecret, {
-          expiresIn: 60 * 60 * 24
+          expiresIn: 60 * 60 * 24,
         });
         return res.status(201).send({
           user: userSchema(user),
-          token
+          token,
         });
       })
       .catch(() =>
         res.status(409).send({
-          message: 'User email or password already exists'
-        })
+          message: 'User email or password already exists',
+        }),
       );
   },
 
@@ -59,21 +59,21 @@ const usersController = {
       include: [
         {
           model: Roles,
-          attributes: { exclude: ['createdAt', 'updatedAt'] }
-        }
-      ]
+          attributes: { exclude: ['createdAt', 'updatedAt'] },
+        },
+      ],
     })
       .then((users) => {
         const pagination = Helpers.paginate(limit, offset, users);
         res.status(200).send({
           pagination,
-          users: users.rows
+          users: users.rows,
         });
       })
       .catch(() =>
         res.status(400).send({
           message: 'Users could not be retrieved',
-        })
+        }),
       );
   },
 
@@ -81,8 +81,8 @@ const usersController = {
     Users.findOne({
       attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
       where: {
-        $or: [{ id: req.params.id }]
-      }
+        $or: [{ id: req.params.id }],
+      },
     }).then((user) => {
       if (!user) {
         return res
@@ -90,7 +90,7 @@ const usersController = {
           .send({ message: `User with id ${req.params.id} does not exist` });
       }
       res.status(200).send({
-        user
+        user,
       });
     });
   },
@@ -102,18 +102,18 @@ const usersController = {
         {
           model: Documents,
           as: 'allDocuments',
-          attributes: { exclude: ['updatedAt'] }
-        }
-      ]
+          attributes: { exclude: ['updatedAt'] },
+        },
+      ],
     })
       .then((user) => {
         if (!user) {
           return res.status(404).send({
-            message: 'User Not Found'
+            message: 'User Not Found',
           });
         }
         return res.status(200).send({
-          user
+          user,
         });
       })
       .catch(error => res.status(400).send(error));
@@ -129,7 +129,7 @@ const usersController = {
     }
     if (parseInt(userId, 10) === parseInt(queryId, 10)) {
       return Users.findById(queryId, {
-        attributes: { exclude: ['createdAt'] }
+        attributes: { exclude: ['createdAt'] },
       })
       .then((user) => {
         user.update({
@@ -141,18 +141,18 @@ const usersController = {
         })
           .then(() =>
             res.status(200).send({
-              user
-            })
+              user,
+            }),
         )
           .catch(() =>
             res.status(409).send({
-              message: 'You had some errors updating your profile. Please check details entered'
-            })
+              message: 'You had some errors updating your profile. Please check details entered',
+            }),
           );
       });
     }
     return res.status(401).send({
-      message: 'You have no rights to update this profile'
+      message: 'You have no rights to update this profile',
     });
   },
 
@@ -161,20 +161,20 @@ const usersController = {
       .then((users) => {
         if (!users) {
           return res.status(404).send({
-            message: 'The user cannot be found therefore cannot be deleted'
+            message: 'The user cannot be found therefore cannot be deleted',
           });
         }
         return users
           .destroy()
           .then(() =>
             res.status(200).send({
-              message: 'User deleted successfully.'
-            })
+              message: 'User deleted successfully.',
+            }),
           )
           .catch(() =>
             res.status(409).send({
-              message: 'An error occured while attempting to delete user'
-            })
+              message: 'An error occured while attempting to delete user',
+            }),
           );
       })
       .catch(error => res.status(400).send(error));
@@ -185,7 +185,7 @@ const usersController = {
       const email = req.body.email;
       const password = req.body.password;
       Users.findOne({
-        where: { email }
+        where: { email },
       })
         .then((user) => {
           if (Users.comparePassword(user.password, password)) {
@@ -196,28 +196,28 @@ const usersController = {
               lastName: user.lastName,
               password: user.password,
               email: user.email,
-              roleId: user.id
+              roleId: user.id,
             };
             const token = jwt.sign(payload, cfg.jwtSecret, {
-              expiresIn: 60 * 60 * 24
+              expiresIn: 60 * 60 * 24,
             });
             return res.status(200).send({
-              token
+              token,
             });
           }
           return res.status(401).send({
-            message: 'Incorrect Password'
+            message: 'Incorrect Password',
           });
         })
         .catch(() => {
           res.status(401).send({
-            message: 'Your details are incorrect..Try again'
+            message: 'Your details are incorrect..Try again',
           });
         });
       return;
     }
     return res.status(400).send({
-      message: 'Enter a valid email and password'
+      message: 'Enter a valid email and password',
     });
   },
 
@@ -226,18 +226,18 @@ const usersController = {
     Users.findOne({ where: { username } }).then((user) => {
       if (user) {
         return res.status(400).send({
-          message: 'username already exist'
+          message: 'username already exist',
         });
       }
       return res.status(200).send({
-        message: 'successful'
+        message: 'successful',
       });
     });
   },
 
   logout(req, res) {
     return res.status(200).send({ message: 'You have succesfully logged out' });
-  }
+  },
 };
 
 export default usersController;

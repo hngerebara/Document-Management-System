@@ -53,12 +53,12 @@ module.exports = {
     .resizeWindow(1280, 800)
       .waitForElementVisible('#search-input', 5000)
       .click('#search-input')
-      .setValue('input[id=search-input]', 'helloTest')
+      .setValue('input[id=search-input]', 'Test Document E2e')
       .waitForElementVisible('.card.small', 5000)
       .assert.elementPresent('.card.small')
       .waitForElementVisible('#document-list', 2000)
       .assert.containsText('#document-list :first-child .card-title',
-      'helloTest')
+      'Test Document E2e')
       .waitForElementVisible('#search-btn', 3000)
       .click('#search-btn')
       .waitForElementNotPresent('#search-btn', 1000);
@@ -96,7 +96,7 @@ module.exports = {
       .assert.urlEquals('http://localhost:8080/users/1/documents')
       .waitForElementVisible('#userdocument-list', 2000)
       .assert.containsText('#userdocument-list .card-title',
-      'Test Document E2e modified');
+      'Test Document E2e Modified');
   },
   'User should be able to delete documents': (browser) => {
     browser

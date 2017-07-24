@@ -1,7 +1,7 @@
+/* global API_URL */
 import axios from 'axios';
 
 let instance;
-
 
 if (API_URL !== '9999') {
   instance = axios.create({

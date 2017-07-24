@@ -1,4 +1,5 @@
 import { Users, Documents, Roles } from '../models';
+import Helpers from '../helpers';
 
 const searchController = {
   searchDocuments(req, res) {
@@ -25,9 +26,7 @@ const searchController = {
         offset
       })
         .then((documents) => {
-          const next = Math.ceil(documents.count / limit);
-          const currentPage = Math.floor((offset / limit) + 1);
-          const pageSize = limit > documents.count ? documents.count : limit;
+          const searchPagination = Helpers.paginate(limit, offset, documents);
           if (documents.length <= 0) {
             return res.status(404).send({
               documents: [],
@@ -35,12 +34,7 @@ const searchController = {
             });
           }
           return res.status(200).send({
-            searchPagination: {
-              pageCount: next,
-              page: currentPage,
-              pagesize: pageSize,
-              totalCount: documents.count
-            },
+            searchPagination,
             searchDocuments: documents.rows
           });
         })
@@ -79,17 +73,9 @@ const searchController = {
       offset
     })
       .then((documents) => {
-        const next = Math.ceil(documents.count / limit);
-        const currentPage = Math.floor((offset / limit) + 1);
-        const pageSize = limit > documents.count ? documents.count : limit;
-
+        const searchPagination = Helpers.paginate(limit, offset, documents);
         return res.status(200).send({
-          searchPagination: {
-            pageCount: next,
-            page: currentPage,
-            rowsPerPage: pageSize,
-            totalCount: documents.count
-          },
+          searchPagination,
           searchDocuments: documents.rows
         });
       })
@@ -123,16 +109,9 @@ const searchController = {
       offset
     })
       .then((users) => {
-        const next = Math.ceil(users.count / limit);
-        const currentPage = Math.floor((offset / limit) + 1);
-        const pagesize = limit > users.count ? users.count : limit;
+        const searchPagination = Helpers.paginate(limit, offset, users);
         return res.status(200).send({
-          searchPagination: {
-            pageCount: next,
-            pageNo: currentPage,
-            rowsPerPage: pagesize,
-            totalCount: users.count
-          },
+          searchPagination,
           searchUsers: users.rows
         });
       })

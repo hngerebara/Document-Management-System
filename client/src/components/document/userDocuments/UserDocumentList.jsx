@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
-import UserDocumentListRow from './UserDocumentListRow';
+import { UserDocumentListRow } from './UserDocumentListRow';
 
 const UserDocumentList = ({
   userDocuments,
   user,
   deleteDocument,
-  viewDocument }) => {
-  return (
+  viewDocument }) => (
     <div className="row" id="userdocument-list">
-      {userDocuments.map(document =>
+      {userDocuments.reverse().map(document =>
         <UserDocumentListRow
           key={document.id}
           document={document}
@@ -18,13 +17,12 @@ const UserDocumentList = ({
         />)}
     </div>
   );
-};
 
 UserDocumentList.propTypes = {
   userDocuments: PropTypes.array.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({}).isRequired,
   deleteDocument: PropTypes.func.isRequired,
-  viewDocument: PropTypes.func.isRequired
+  viewDocument: PropTypes.func.isRequired,
 };
 
 export default UserDocumentList;

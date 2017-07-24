@@ -35,7 +35,11 @@ class CreateDocumentPage extends Component {
     this.saveDocument = this.saveDocument.bind(this);
   }
 
-  
+  /**
+ * @desc calls CreateDocumentPage before component mounts
+ * @memberof CreateDocumentPage
+ * @returns {object} returns null if no id else returns the document
+ */
   componentDidMount() {
     const { params: { id } } = this.props;
     const documentId = this.props.document.id;
@@ -45,14 +49,14 @@ class CreateDocumentPage extends Component {
       });
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.document.id != nextProps.document.id) {
-      this.setState({
-        document: Object.assign({}, nextProps.document)
-      });
-    }
-  }
 
+
+  /**
+   * @desc handles document fields change
+   * @param {MouseEvent} event
+   * @returns {null} returns no value
+   * @memberof CreateDocumentPage
+   */
   updateDocumentState(event) {
     const field = event.target.name;
     const document = {
@@ -62,6 +66,12 @@ class CreateDocumentPage extends Component {
     return this.setState({ document });
   }
 
+  /**
+   * @desc handles saving a document
+   * @param {MouseEvent} event
+   * @returns {null} returns no value
+   * @memberof CreateDocumentPage
+   */
   saveDocument(event) {
     event.preventDefault();
     this.setState({ saving: true });
@@ -76,14 +86,25 @@ class CreateDocumentPage extends Component {
       });
   }
 
+/**
+   * @desc handles redirection after document has been created
+   * @returns {null} returns no value
+   * @memberof CreateDocumentPage
+   */
   redirect() {
     this.setState({ saving: false });
     toastr.success('Document saved');
     this.context.router.goBack();
   }
 
-  handleEditorChange = (e) => {
-    const content = e.target.getContent();
+  /**
+   * @desc handles TinyMCE editor input change
+   * @param {MouseEvent} event
+   * @returns {null} returns no value
+   * @memberof CreateDocumentPage
+   */
+  handleEditorChange = (event) => {
+    const content = event.target.getContent();
     const document = {
       ...this.state.document,
       content
@@ -144,7 +165,6 @@ function mapStateToProps({ DocumentReducer }, ownProps) {
     );
     document = foundDocument || document;
   }
-
   return {
     document
   };

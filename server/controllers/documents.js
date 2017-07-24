@@ -1,4 +1,5 @@
 import { Documents } from '../models/';
+import Helpers from '../helpers';
 
 const documentsController = {
   createDocument(req, res) {
@@ -39,18 +40,10 @@ const documentsController = {
       order: [['updatedAt', 'DESC']]
     });
     return queryDocs.then((documents) => {
-      const next = Math.ceil(documents.count / limit);
-      const currentPage = Math.floor((offset / limit) + 1);
-      const pagesize = limit > documents.count
-      ? documents.count : limit;
+      const pagination = Helpers.paginate(limit, offset, documents);
       res.status(200)
       .send({
-        pagination: {
-          pageCount: next,
-          page: currentPage,
-          rowsPerPage: Number(pagesize),
-          totalCount: documents.count
-        },
+        pagination,
         documents: documents.rows
       });
     })
@@ -88,7 +81,7 @@ const documentsController = {
           content,
           access
         })
-        .then(() => res.status(202)
+        .then(() => res.status(200)
         .send({
           document
         })

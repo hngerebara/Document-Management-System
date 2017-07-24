@@ -7,7 +7,7 @@ const DocumentForm = ({
   onChange,
   handleEditorChange,
   saving,
-  errors
+  errors,
 }) => (
   <form>
     <h1>Create document</h1>
@@ -54,7 +54,7 @@ const DocumentForm = ({
           content={document.content}
           config={{
             plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
           }}
           onChange={handleEditorChange}
         />
@@ -76,12 +76,12 @@ const DocumentForm = ({
 );
 
 DocumentForm.propTypes = {
-  document: PropTypes.object.isRequired,
+  document: PropTypes.shape({}).isRequired,
   saving: PropTypes.bool.isRequired,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  handleEditorChange: PropTypes.func.isRequired
+  errors: PropTypes.shape({}).isRequired,
+  handleEditorChange: PropTypes.func.isRequired,
 };
 
 export default DocumentForm;

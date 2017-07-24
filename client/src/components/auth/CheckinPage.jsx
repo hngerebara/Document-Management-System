@@ -23,7 +23,7 @@ export class CheckinPage extends Component {
       password: '',
       errors: {},
       success: '',
-      isLoading: false
+      isLoading: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -68,9 +68,8 @@ export class CheckinPage extends Component {
         .then(() => {
           browserHistory.push('/documents');
         })
-        .catch((error) => {
-          toastr.info(error.response.data.message);
-        }
+        .catch(error =>
+          toastr.info(error.response.data.message)
         );
     }
   }
@@ -148,7 +147,7 @@ export class CheckinPage extends Component {
 }
 
 CheckinPage.propTypes = {
-  checkinUserAction: PropTypes.func.isRequired
+  checkinUserAction: PropTypes.func.isRequired,
 };
 
 export default connect(null, { checkinUserAction })(CheckinPage);

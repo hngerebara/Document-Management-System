@@ -24,8 +24,8 @@ export const AllDocumentsListRow = ({ document, viewDocument }) => (
 );
 
 AllDocumentsListRow.propTypes = {
-  document: PropTypes.object.isRequired,
-  viewDocument: PropTypes.func.isRequired
+  document: PropTypes.shape({}).isRequired,
+  viewDocument: PropTypes.func.isRequired,
 };
 
 export default AllDocumentsListRow;

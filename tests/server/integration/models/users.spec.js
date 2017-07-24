@@ -190,7 +190,7 @@ describe('Route: Users', () => {
         })
         .end((err, res) => {
           const response = res.body.user;
-          expect(res).to.have.status(202);
+          expect(res).to.have.status(200);
           expect(response.id).to.eql(1);
           expect(response.roleId).to.eql(1);
           expect(response.email).to.equal('Hopeazmodified@gmail.com');

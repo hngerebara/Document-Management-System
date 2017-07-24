@@ -120,12 +120,16 @@ export class SideBar extends Component {
   }
 }
 SideBar.propTypes = {
-  Auth: PropTypes.object.isRequired,
-  signOutUser: PropTypes.func.isRequired
+  Auth: PropTypes.shape({
+    user: PropTypes.shape({
+      id: PropTypes.number,
+    }),
+  }).isRequired,
+  signOutUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  Auth: state.Auth
+  Auth: state.Auth,
 });
 
 export default connect(mapStateToProps, { signOutUser })(SideBar);

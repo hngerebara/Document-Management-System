@@ -26,7 +26,7 @@ export class SignupForm extends Component {
       passwordConfirmation: '',
       errors: {},
       isLoading: false,
-      invalid: false
+      invalid: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -59,6 +59,7 @@ export class SignupForm extends Component {
   /**
    * @desc checks the username if it exists
    * @returns {object} empty or not
+   * @param {MouseEvent} event
    * @memberof SignupForm
    */
   checkUserExists(event) {
@@ -70,23 +71,23 @@ export class SignupForm extends Component {
           this.setState({
             errors: {
               ...this.state.errors,
-              username: ''
-            }
+              username: '',
+            },
           });
         })
         .catch(() => {
           this.setState({
             errors: {
               ...this.state.errors,
-              username: 'Username already exist'
-            }
+              username: 'Username already exist',
+            },
           });
         });
     }
   }
   /**
    * @desc handles checkin
-   * @param {object} event html event
+   * @param {ClickEvent} event
    * @returns {null} returns no value
    * @memberof SignupForm
    */
@@ -103,7 +104,7 @@ export class SignupForm extends Component {
         .catch(() =>
           this.setState({
             errors: 'Please check signup details',
-            isLoading: false
+            isLoading: false,
           })
         );
     }
@@ -221,7 +222,7 @@ export class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  signupUser: PropTypes.func.isRequired
+  signupUser: PropTypes.func.isRequired,
 };
 
 export default SignupForm;

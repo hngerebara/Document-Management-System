@@ -4,18 +4,18 @@ import * as types from './DocumentActionTypes';
 
 export const searchFailureMessage = errorMessage => ({
   type: types.SEARCH_FAILURE_MESSAGE,
-  errorMessage
+  errorMessage,
 });
 
 export const fetchDocumentsSuccess = data => ({
   type: types.FETCH_DOCUMENTS_SUCCESS,
-  data
+  data,
 });
 
 
 export const fetchUserDocumentFailed = userDocumentsError => ({
   type: types.DISPLAY_USER_FAILURE_MESSAGE,
-  userDocumentsError
+  userDocumentsError,
 });
 
 export const clearSearch = () => ({
@@ -24,7 +24,7 @@ export const clearSearch = () => ({
 
 export const displayDocumentFailureMessage = errorMessage => ({
   type: types.DISPLAY_DOCUMENT_FAILURE_MESSAGE,
-  errorMessage
+  errorMessage,
 });
 
 /**
@@ -46,7 +46,7 @@ export const fetchAllDocuments = (offset = 0, limit = 6) => dispatch =>
 
 export const fetchDocumentSuccess = document => ({
   type: types.FETCH_DOCUMENT_SUCCESS,
-  document
+  document,
 });
 
 /**
@@ -68,7 +68,7 @@ export const fetchDocument = documentId => dispatch =>
 
 export const fetchUserDocumentSuccess = userDocuments => ({
   type: types.FETCH_USER_DOCUMENTS_SUCCESS,
-  userDocuments
+  userDocuments,
 });
 
 /**
@@ -110,7 +110,7 @@ export const createDocument = document => dispatch =>
 export const fetchSearchSuccess = (data, searchQuery) => ({
   type: types.FETCH_SEARCH_SUCCESS,
   data,
-  searchQuery
+  searchQuery,
 });
 
 /**

@@ -1,3 +1,4 @@
+/* global API_URL $ */
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
@@ -57,8 +58,8 @@ class ViewDocument extends Component {
   }
 }
 ViewDocument.propTypes = {
-  document: PropTypes.object.isRequired,
-  edit: PropTypes.bool.isRequired,
+  document: PropTypes.shape({}).isRequired,
+  edit: PropTypes.bool,
 };
 
 export default ViewDocument;

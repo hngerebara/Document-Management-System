@@ -26,9 +26,7 @@ const searchController = {
         offset
       })
         .then((documents) => {
-          const next = Math.ceil(documents.count / limit);
-          const currentPage = Math.floor((offset / limit) + 1);
-          const pageSize = limit > documents.count ? documents.count : limit;
+          const searchPagination = Helpers.paginate(limit, offset, documents);
           if (documents.length <= 0) {
             return res.status(404).send({
               documents: [],
@@ -36,12 +34,7 @@ const searchController = {
             });
           }
           return res.status(200).send({
-            searchPagination: {
-              pageCount: next,
-              page: currentPage,
-              pagesize: pageSize,
-              totalCount: documents.count
-            },
+            searchPagination,
             searchDocuments: documents.rows
           });
         })

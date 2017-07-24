@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-const Header = (props) => {
+export const Header = (props) => {
 /**
  * @return {ReactElement} markup
  */
@@ -31,7 +31,7 @@ const Header = (props) => {
 Header.propTypes = {
   Auth: PropTypes.shape({
     user: PropTypes.shape({
-      username: PropTypes.string.isRequired,
+      username: PropTypes.string,
     }),
   }).isRequired,
 };

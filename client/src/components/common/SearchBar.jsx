@@ -24,7 +24,7 @@ export class SearchBar extends Component {
  * handle searching
  * @param {SytheticEvent} event
  */
-  onSearch(event) {
+  onSearch = (event) => {
     const searchQuery = event.target.value;
     this.setState({
       isSearching: true,
@@ -36,7 +36,7 @@ export class SearchBar extends Component {
  * handle close search when done searching
  * @param {SytheticEvent} event
  */
-  closeSearch() {
+  closeSearch = () => {
     this.setState({
       isSearching: false,
     });

@@ -9,7 +9,7 @@ import { signupUser } from './SignupActions';
    * @returns {*} html
    * @memberof SignupPage
    */
-const SignupPage = props =>
+export const SignupPage = props =>
    (
      <div className="row">
        <div className="col s12 m6 l3 offset-l3 offset-s1">

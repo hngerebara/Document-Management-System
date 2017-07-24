@@ -66,7 +66,7 @@ export class Pagination extends Component {
   }
 }
 Pagination.propTypes = {
-  isSearching: PropTypes.shape({}).isRequired,
+  isSearching: PropTypes.bool.isRequired,
   searchPagination: PropTypes.shape({}).isRequired,
   pagination: PropTypes.shape({}).isRequired,
   search: PropTypes.func.isRequired,

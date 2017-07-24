@@ -7,7 +7,7 @@ const UserDocumentList = ({
   deleteDocument,
   viewDocument }) => (
     <div className="row" id="userdocument-list">
-      {userDocuments.map(document =>
+      {userDocuments.reverse().map(document =>
         <UserDocumentListRow
           key={document.id}
           document={document}

@@ -7,9 +7,7 @@ const signupUser = jest.fn();
 let wrapper;
 
 describe('SignupPage Component', () => {
-  wrapper = shallow(<SignupPage
-    signupUser={signupUser}
-  />);
+  wrapper = shallow(<SignupPage signupUser={signupUser} />);
   describe('SignupPage', () => {
     it('renders the SignupPage component', () => {
       expect(wrapper.find('div').length).toEqual(6);

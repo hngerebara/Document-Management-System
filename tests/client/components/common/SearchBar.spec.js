@@ -6,7 +6,7 @@ import { SearchBar } from '../../../../client/src/components/common/SearchBar';
 const setup = () => {
   const props = {
     clearSearch: jest.fn(),
-    searchFn: jest.fn(),
+    search: jest.fn(),
   };
 
   const wrapper = mount(<SearchBar {...props} />);
@@ -38,7 +38,7 @@ describe('SearchBar component', () => {
       isSearching: true
     });
     wrapper.find('#search-input').simulate('change', mockEvent);
-    expect(props.searchFn).toHaveBeenCalled();
+    expect(props.search).toHaveBeenCalled();
   });
 });
 

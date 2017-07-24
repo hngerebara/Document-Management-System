@@ -122,7 +122,7 @@ export class SideBar extends Component {
 SideBar.propTypes = {
   Auth: PropTypes.shape({
     user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.number,
     }),
   }).isRequired,
   signOutUser: PropTypes.func.isRequired,

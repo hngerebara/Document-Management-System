@@ -1,6 +1,6 @@
 import React from 'react';
 import { expect } from 'chai';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import { Header } from '../../../../client/src/components/common/Header';
 
@@ -22,7 +22,7 @@ const setup = () => {
 };
 
 describe('Header component', () => {
-  const { wrapper, props } = setup();
+  const { wrapper } = setup();
   describe('Html components', () => {
     it('renders the header', () => {
       expect(wrapper.find(Header)).to.have.length(1);

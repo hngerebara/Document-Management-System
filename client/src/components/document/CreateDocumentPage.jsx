@@ -45,13 +45,6 @@ class CreateDocumentPage extends Component {
       });
     }
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.document.id != nextProps.document.id) {
-      this.setState({
-        document: Object.assign({}, nextProps.document)
-      });
-    }
-  }
 
   updateDocumentState(event) {
     const field = event.target.name;
@@ -144,7 +137,6 @@ function mapStateToProps({ DocumentReducer }, ownProps) {
     );
     document = foundDocument || document;
   }
-
   return {
     document
   };

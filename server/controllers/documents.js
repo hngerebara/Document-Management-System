@@ -88,7 +88,7 @@ const documentsController = {
           content,
           access
         })
-        .then(() => res.status(202)
+        .then(() => res.status(200)
         .send({
           document
         })

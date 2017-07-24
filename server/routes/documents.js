@@ -30,7 +30,7 @@ const documentRoute = (router) => {
      *   post:
      *     tags:
      *       - Documents
-     *     description: Creates a new documents
+     *     description: Creates a new document
      *     summary: Creates a new document
      *     consumes:
      *       - application/x-www-form-urlencoded
@@ -60,10 +60,20 @@ const documentRoute = (router) => {
      *         schema:
      *           $ref: '#/definitions/Documents'
      *     responses:
-     *       200:
-     *         description: 'Document created'
-     *       403:
-     *         description: 'No field can be empty'
+     *       201:
+     *         description: 'Returns created document object'
+     *         examples:
+     *           application/json:
+     *              {
+     *                id: 34,
+     *                documentName: "hope",
+     *                description: "Hope",
+     *                content: "blessed document",
+     *                access: "private",
+     *                creatorId: 38,
+     *                updatedAt: "2017-07-23T19:03:14.904Z",
+     *                createdAt: "2017-07-23T19:03:14.904Z"
+     *              }
      */
     .post(authMiddleware.authenticate(), documentsController.createDocument)
     /**
@@ -83,18 +93,45 @@ const documentRoute = (router) => {
      *         required: true
      *     responses:
      *       200:
-     *         description: Documents retrieved succesfully
-     *       409:
-     *         description: Documents could not be retrieved
-     *         schema:
-     *           $ref: '#/definitions/Documents'
+     *         description: Returns an array of documents
      *         examples:
-     *           application/json: [
-     *              { documentName: "hope",
+     *           application/json: {
+     *              pagination: {
+     *                pageCount: 1,
+     *                page: 1,
+     *                rowsPerPage: 6,
+     *                totalCount: 2
+     *              },
+     *              documents: [
+     *              {
+     *                id: 33,
+     *                documentName: "hope",
      *                description: "Hope",
      *                access: "private",
-     *                content: "blessed document"
-     *              }]
+     *                content: "blessed document",
+     *                creatorId: 38,
+     *                createdAt: "2017-07-23T19:03:14.904Z"
+     *              },
+     *              {
+     *                id: 34,
+     *                documentName: "hope2",
+     *                description: "Hope2",
+     *                access: "PUBLIC",
+     *                content: "blessed document2",
+     *                creatorId: 38,
+     *                createdAt: "2017-07-23T19:03:14.904Z"
+     *              },
+     *              ]
+     *            }
+     *       409:
+     *         description: Documents could not be retrieved
+     *         examples:
+     *           application/json:
+     *              {
+     *                message: Documents could not be retrieved
+     *              }
+     *         schema:
+     *           $ref: '#/definitions/Documents'
      */
     .get(authMiddleware.authenticate(), documentsController.listDocuments);
 
@@ -122,11 +159,21 @@ const documentRoute = (router) => {
      *         type: integer
      *     responses:
      *       200:
-     *         description: Document successfully retrieved
-     *       409:
-     *         description: Document could not be retrieved
+     *         description: Retrieved document
      *         schema:
      *           $ref: '#/definitions/Documents'
+     *         examples:
+     *           application/json:
+     *              {
+     *                id: 33,
+     *                documentName: "hope",
+     *                description: "Hope",
+     *                content: "blessed document",
+     *                access: "private",
+     *                updatedAt: "2017-07-23T19:03:14.904Z",
+     *                createdAt: "2017-07-23T19:03:14.904Z",
+     *                creatorId: 38,
+     *              }
      */
     .get(authMiddleware.authenticate(), documentsController.retrieveDocument)
     /**
@@ -169,11 +216,40 @@ const documentRoute = (router) => {
      *           $ref: '#/definitions/Documents'
      *     responses:
      *       200:
-     *         description: Successfully updated
+     *         description: Return created document object
+     *         examples:
+     *           application/json:
+     *              {
+     *                id: 33,
+     *                documentName: "hope",
+     *                description: "Hope",
+     *                access: "private",
+     *                content: "blessed document",
+     *                creatorId: 38,
+     *                updatedAt: "2017-07-23T19:03:14.904Z",
+     *                createdAt: "2017-07-23T19:03:14.904Z"
+     *              }
      *       409:
-     *         description: Fields cannot be left empty
+     *         description: Return empty fields error
+     *         examples:
+     *           application/json:
+     *              {
+     *                message: Fields cannot be left empty
+     *              }
+     *       401:
+     *         description: Return no acces to document
+     *         examples:
+     *           application/json:
+     *              {
+     *                message: You don't have access to this document
+     *              }
      *       400:
-     *         description: Document does not exist
+     *         description: Return document does not exist
+     *         examples:
+     *           application/json:
+     *              {
+     *                message: Document does not exist
+     *              }
      */
     .put(authMiddleware.authenticate(), documentsController.updateDocument)
     /**
@@ -196,13 +272,28 @@ const documentRoute = (router) => {
      *         in: path
      *         required: true
      *         type: integer
+     *     schema:
+     *         $ref: '#/definitions/Documents'
      *     responses:
      *       200:
-     *         description: Successfully deleted
-     *       409:
-     *         description: Could not delete document
-     *       schema:
-     *           $ref: '#/definitions/Documents'
+     *         description: Return message document deleted successfully
+     *         examples:
+     *           application/json: {
+     *             message: Document deleted successfully.
+     *            }
+     *       401:
+     *         description: Return no access to document
+     *         examples:
+     *           application/json: {
+     *             message: You don't have access to this document
+     *            }
+     *       404:
+     *         description: Return document not found
+     *         examples:
+     *           application/json: {
+     *             message: The document cannot be found therefore cannot be deleted
+     *            }
+     *
      */
     .delete(authMiddleware.authenticate(), documentsController.destroyDocument);
 };

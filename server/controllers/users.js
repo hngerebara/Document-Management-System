@@ -146,7 +146,7 @@ const usersController = {
           password: encryptedPassword || user.password,
         })
           .then(() =>
-            res.status(202).send({
+            res.status(200).send({
               user
             })
         )
@@ -207,7 +207,7 @@ const usersController = {
             const token = jwt.sign(payload, cfg.jwtSecret, {
               expiresIn: 60 * 60 * 24
             });
-            return res.status(202).send({
+            return res.status(200).send({
               token
             });
           }

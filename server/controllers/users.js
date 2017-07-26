@@ -71,7 +71,7 @@ const usersController = {
         });
       })
       .catch(() =>
-        res.status(400).send({
+        res.status(404).send({
           message: 'Users could not be retrieved',
         }),
       );
@@ -216,7 +216,7 @@ const usersController = {
         });
       return;
     }
-    return res.status(400).send({
+    return res.status(404).send({
       message: 'Enter a valid email and password',
     });
   },
@@ -225,7 +225,7 @@ const usersController = {
     const username = req.params.username;
     Users.findOne({ where: { username } }).then((user) => {
       if (user) {
-        return res.status(400).send({
+        return res.status(404).send({
           message: 'username already exist',
         });
       }

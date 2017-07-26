@@ -90,7 +90,7 @@ const documentsController = {
           message: 'Fields cannot be left empty'
         }));
     })
-      .catch(() => res.status(400).send({
+      .catch(() => res.status(404).send({
         message: 'Document does not exist'
       }));
   },
@@ -117,7 +117,7 @@ const documentsController = {
             message: 'Could not delete document'
           }));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
   }
 };
 

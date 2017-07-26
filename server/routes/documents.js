@@ -243,7 +243,7 @@ const documentRoute = (router) => {
      *              {
      *                message: You don't have access to this document
      *              }
-     *       400:
+     *       404:
      *         description: Return document does not exist
      *         examples:
      *           application/json:

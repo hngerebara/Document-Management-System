@@ -142,7 +142,7 @@ const userRoute = (router) => {
      *              {
      *                 message: Only Admin can access this page
      *              }
-     *       400:
+     *       404:
      *         description: Users could not be retrieved
      *         schema:
      *           $ref: '#/definitions/Users'

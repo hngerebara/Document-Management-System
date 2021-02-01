@@ -1,0 +1,209 @@
+header,
+main,
+footer {
+  padding-left: 240px;
+}
+button a {
+  color: white;
+}
+
+@media only screen and (max-width: 992px) {
+  header,
+  main,
+  footer {
+    padding-left: 0;
+  }
+}
+
+.container {
+  padding: 0 1.5rem;
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%;
+}
+
+@media only screen and (min-width: 601px) {
+  .container {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 80%;
+  }
+}
+
+.card-title {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.card .card-image .card-title {
+  text-transform: capitalize;
+  font-weight: 500;
+  text-align: center;
+}
+
+.card-image {
+  height: 45%;
+  width: 250px;
+  background-color: #6E7587;
+  position: relative;
+}
+.center {
+    text-align: center;
+}
+
+//Homepage
+@import url(https://oss.maxcdn.com/libs/animate.css/2.0/animate.min.css);
+.welcome {
+  width: 100%;
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  color: #444;
+  -webkit-font-smoothing: antialiased;
+  background-size: cover;
+  font-family: sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url(https://res.cloudinary.com/dwrl3tf6j/image/upload/v1499789826/Colorful-books_q3p8qw.jpg);
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 4px #000;
+  margin-top: 20px;
+}
+
+#box {
+  position: fixed;
+  width: 500px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -250px;
+  text-align: center;
+  -webkit-animation-name: bounceInDown;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: bounceInDown;
+  -moz-animation-fill-mode: both;
+  -moz-animation-duration: 1.5s;
+  -moz-animation-iteration-count: 1;
+  -moz-animation-timing-function: linear;
+  animation-name: bounceInDown;
+  animation-fill-mode: both;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+.modal-body {
+  background: #222222 no-repeat top center fixed;
+  background-size: 100% 100%;
+  background-size: cover;
+}
+
+h1.title,
+.footer-copyright a {
+  font-family: 'Architects Daughter', cursive;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+a {
+  color: #634ea0;
+}
+
+.deep-purple .darken-3 {
+  background-color: #767B9E;
+}
+
+html,
+body {
+
+  height: 100%;
+  width: 100%;
+  display: table;
+  background: white;
+}
+
+.card-login {
+  width: 20%;
+  margin: 0 auto;
+}
+
+.card-header {
+  background-color: #767B9E;
+  text-align: center;
+  margin-top: 35px;
+}
+
+main,
+header {
+  padding-left: 240px;
+  width: 100%;
+}
+
+footer {
+  padding-left: 240px;
+  width: 100%;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+}
+
+@media only screen and (max-width: 992px) {
+  header,
+  main,
+  footer {
+    padding-left: 0;
+  }
+}
+
+.footer-copyright .container,
+.footer-copyright .container a {
+  color: #BCC2E2;
+}
+
+.auth-card {
+  width: 700px;
+}
+.form-padding {
+  padding: 20px;
+}
+.card-action {
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.access-dropdown {
+  display: block !important;
+  select {
+    display: block !important;
+  }
+}
+.tiny-mce {
+  padding-top: 15px;
+}
+
+.btn {
+  background-color:#710909;
+}
+

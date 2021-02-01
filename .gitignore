@@ -1,6 +1,12 @@
+DS_STORE
 node_modules
 coverage
 .env
 npm-debug.log
 .vscode
+.nyc_output
+reports
+selenium-debug.log
 dist
+public/bundle.js
+public/bundle.js.map
